@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "novamira-o360-com": {
+      "command": "npx",
+      "args": ["-y", "@automattic/mcp-wordpress-remote@latest"],
+      "env": {
+        "WP_API_URL": "https://o360.com/wp-json/mcp/novamira",
+        "WP_API_USERNAME": "afshinfahimi",
+        "WP_API_PASSWORD": "JX5eTRJfn8aH5gjEOXElIdQS"
+      }
+    }
+  }
+}
