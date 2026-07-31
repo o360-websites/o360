@@ -28,12 +28,23 @@ exact-match rules (ids 2044–2061 + older), left untouched. An earlier set of
 main+pagination regex rules (2066–2082) was created then DELETED to avoid
 duplicating those — replaced by the pagination-only rules above.
 
-**Not redirected (no /websites/ specialty page):** `project-category/pediatric`
-and `project-category/telemedicine` — both currently handled by pre-existing
-rules → `/websites/medical/`. `/websites/telemedicine/` exists as a DRAFT (86866).
-Awaiting user direction on final targets (incl. their pagination).
+**Pediatric & Telemedicine (resolved):**
+- Created & PUBLISHED `/websites/pediatric/` (86905), pediatrician-focused content
+  (portfolio term 246, hero image 83553).
+- PUBLISHED `/websites/telemedicine/` (86866) — previously a draft from the batch.
+- Redirect updates: `2056` (project-category/pediatric) → `/websites/pediatric/`;
+  `2059` (project-category/telemedicine) → `/websites/telemedicine/`.
+- New pagination redirects: `2101` `^project-category/pediatric/page/[0-9]+/?$`
+  → `/websites/pediatric/`; `2102` `^project-category/telemedicine/page/[0-9]+/?$`
+  → `/websites/telemedicine/`.
 
-**Rollback:** delete redirects 2065, 2083–2099; restore fallback per the settings backup.
+**Bare /project-category/ root → /portfolio/:** GSC analytics table was empty
+(can't measure live traffic), but the namespace has redirect-hit history, so the
+deprecated root goes to the portfolio archive. `2100` `^project-category/?$` →
+`/portfolio/`; `2083` (bare pagination) repointed `/websites/` → `/portfolio/`.
+
+**Rollback:** delete redirects 2065, 2083–2102 (2083 repointed); restore fallback
+per the settings backup; unpublish pages 86905 & 86866 if drafts are preferred.
 
 ---
 
