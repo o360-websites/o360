@@ -6,6 +6,31 @@ pre-change snapshots and rollback details.
 
 ---
 
+## 2026-07-31 — /web-design/ de-dynamicised (ACF fallbacks → static)
+
+**Page:** 86913. The PDF rebuild was fully reverted first (restored from backup),
+returning the page to its original design. Then, per request, every ACF
+dynamic-tag binding whose fallback was the visible content was made static
+(fallback copied into the widget's own control, dynamic binding removed) — so
+the front end is pixel-identical with zero dynamic content in the backend.
+
+**Backups (drafts, full copies of the original):** 86915 and 86917.
+
+**Converted (26 bindings):** 4 heading titles, 14 text-editors (preserving any
+appended "after" HTML link), 5 container background images, 3 image widgets.
+
+**Left dynamic on purpose (3 — not ACF text/title/image):**
+- 1 `acf-url` on the hero special-effect video (5cda2762). Making it static
+  caused the video widget to stop rendering (Elementor/AnywhereElementor quirk),
+  so it was restored to its dynamic form — still shows the same fallback video.
+- 2 `popup` action tags on the video icon-list items (open the Videos-Medical /
+  Videos-Dental popups) — functional links, no fallback content.
+
+**Verified:** live page 200; hero/intro/stat bar/video/popups all render;
+no `[elementor-tag]` literals; image + `<video>` counts match the backup.
+
+---
+
 ## 2026-07-31 — /web-design/ rebuilt to PDF pillar-page spec
 
 **Page:** 86913 (/web-design/). Rebuilt its Elementor content from the
