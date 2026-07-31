@@ -6,6 +6,47 @@ pre-change snapshots and rollback details.
 
 ---
 
+## 2026-07-31 — /web-design/ rebuilt to PDF pillar-page spec
+
+**Page:** 86913 (/web-design/). Rebuilt its Elementor content from the
+"O360 Web Design Page Content" PDF spec (31 Jul 2026).
+
+**Backup:** full pre-change copy of 86913's `_elementor_data` + settings +
+rank_math meta saved to draft page **86915** ("Web Design — BACKUP 2026-07-31").
+Rollback = copy 86915's `_elementor_data` back onto 86913.
+
+**What changed:**
+- Replaced the 201KB cloned template tree with a 20-section pillar page built to
+  the PDF: hero, corrected proof bar (41 / 434+ / 94% / 20+ — old 3,100 /
+  860k visits / 67k appts / 5-star removed), providers H2, 6-feature grid,
+  exclusive-by-design, visual effects, mobile-first, patient video, HIPAA,
+  accessibility, after-launch ($99 vs ~$250), logo, 7-step process, examples,
+  specialty router (auto-linked to all published /websites/ pages),
+  What's-Included tabs (PPC tab dropped), marketing band, named testimonials,
+  11-Q&A FAQ accordion, closing CTA. All type/colour wired to CUSTOM globals.
+- **Removed all ACF dynamic-tag bindings** (the ~29 broken elementor-tag refs
+  pulling from non-existent fields) — content is now static.
+- Images intentionally skipped (per request).
+- SEO: rank_math_title → "Healthcare Web Design for Medical & Dental Practices |
+  O360"; description + focus keyword "healthcare web design" set; stale
+  VideoObject schema meta removed.
+- Removed two broken "Learn more" links: /products/video/ (redirects back to
+  /web-design/) and /products/accessibility/ (missing page).
+
+**Redirect:** `2104` regex `^websites/healthcare(/page/[0-9]+)?/?$` →
+`/web-design/` (301). Page /websites/healthcare/ (86753) left published but
+now 301s.
+
+**Verified:** live /web-design/ returns 200; H1, proof bar, features, router,
+FAQ, closing all render; no leftover `[elementor-tag]`.
+
+**Open items from the PDF needing your input (not applied):** founding year of
+Optimized360 LLC + year Solution21 sold; real cumulative website count;
+Texas/NY office status; FAQPage schema config; images; and the
+/products/accessibility/ + /products/video/ page fixes.
+
+---
+
 ## 2026-07-31 — Rank Math 404 fallback + portfolio/project-category redirects
 
 **Settings (see 2026-07-31-rankmath-settings.md):**
