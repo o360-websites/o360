@@ -6,6 +6,36 @@ pre-change snapshots and rollback details.
 
 ---
 
+## 2026-07-31 — Rank Math 404 fallback + portfolio/project-category redirects
+
+**Settings (see 2026-07-31-rankmath-settings.md):**
+- `rank-math-options-general` → `redirections_fallback`: `homepage` → `default`.
+  Stops all 404s (incl. Elementor template URLs) from soft-redirecting to home.
+  404 Monitor already active (advanced) — left on to track missing pages.
+
+**Redirects created (Rank Math, 301, via `RankMath\Redirections\DB::add`):**
+- `2065` — regex `^portfolio(/[^/]+)?/page/[0-9]+/?$` → `/portfolio/`
+  (all paginated portfolio/portfolio-taxonomy URLs; numeric portfolio items unaffected).
+- `2066` — regex `^project-category(/page/[0-9]+)?/?$` → `/websites/`.
+- `2067`–`2082` — regex `^project-category/{slug}(/page/[0-9]+)?/?$` →
+  `/websites/{mapped}/` for 16 specialties (chiropractic, dental, dental-lab,
+  endodontic, optometry, medical, medical-spa, mental-health, obgyn, orthodontic,
+  orthopedic, pain-management, cosmetic-surgery, podiatry, urgent-care,
+  veterinarian→veterinary). Covers main + pagination.
+
+**Note:** A pre-existing comprehensive project-category→/websites/ exact-match
+set already existed (ids 2044–2061 + older). The new regex rules duplicate those
+main-page mappings (identical targets) while adding pagination. Harmless (no
+chains/loops verified); declutter pending user decision.
+
+**Not redirected (no /websites/ specialty page):** `project-category/pediatric`
+and `project-category/telemedicine` — both currently handled by pre-existing
+rules → `/websites/medical/`. `/websites/telemedicine/` exists as a DRAFT (86866).
+
+**Rollback:** delete redirects 2065–2082; restore fallback per the settings backup.
+
+---
+
 ## 2026-07-27 — Blog archive template for /blogs/
 
 **What:** Designed and published an Elementor Pro Theme Builder **archive**
