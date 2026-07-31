@@ -37,6 +37,16 @@ why-us/CTA fallbacks, hero images, carousel, marketing intro, Post Content slot.
 
 **Rollback:** restore 86918 from 86926; disable snippet 20.
 
+**Batch-2 fixes (same day):** (1) Educational Videos: acf-gallery binding
+dropped (no fallback support) — replaced with a static horizontal 2-slide
+slider (video-dental-responsive 83581, video-responsive-1 83577), settings
+cloned from the original mobile slider; `videos_gallery` field kept but
+unused. (2) FAQ: standalone heading widget removed — the H2 now lives inside
+the blob (fallback prepended with "<h2>Dental Web Design FAQ</h2>"; each
+page's faq_content must include its own h2, endodontic already does).
+(3) 429s traced to my domain-wide cache purges + cache-busting fetch loops —
+switched to targeted purges and single fetches.
+
 ---
 
 ## 2026-07-31 — Specialty template ACF wiring + endodontic test connection
