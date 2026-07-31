@@ -6,6 +6,33 @@ pre-change snapshots and rollback details.
 
 ---
 
+## 2026-07-31 — Specialty template batch 3 (AI section, gallery ACF w/ default, encoding fix)
+
+**Template:** 86918. **Backup:** pre-batch copy → draft **86953**. User's own
+editor changes (new "Vision and Values" section, founder headline fix, Packages
+retitle, Post Content moved after CTA) detected and preserved.
+
+1. **AI section drafted** — copy of the Educational Videos section (carousel
+   with 3 placeholder images, h3, intro, 3-item accordion, checklist), static
+   content, inserted after Result-Driven Marketing. Copy: "Optimized for AI
+   Search" + Structured Data / Readable by AI Crawlers / AI Visibility
+   Optimization.
+2. **Preview fix** — template preview pinned to endodontic
+   (page_settings preview_type=single/page, preview_id=86716); the "first blog
+   post" was preview-only sample data, live pages confirmed clean.
+3. **Video slider → ACF with default** — widget restored to image-carousel
+   bound to `videos_gallery` (max 3 images); snippet **#21** (acf/load_value)
+   returns default images [83581, 83577] when a page's field is empty —
+   solving the no-fallback problem. Endodontic's explicit value cleared →
+   uses default.
+4. **Encoding fix** — all 38 dynamic-tag settings re-encoded with rawurlencode
+   (%20); editor no longer shows "+" between words in fallback texts.
+5. 3D/watermark idea dropped by user for this page.
+
+**Rollback:** restore 86918 from 86953; disable snippet 21.
+
+---
+
 ## 2026-07-31 — Specialty template batch 2 (items 1–17)
 
 **Template:** 86918. **Backup:** pre-batch copy → draft **86926**.
