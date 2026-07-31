@@ -6,6 +6,43 @@ pre-change snapshots and rollback details.
 
 ---
 
+## 2026-07-31 — Specialty template ACF wiring + endodontic test connection
+
+**Template:** 86918 "Landing for Websites". **Backups:** full pre-change copy →
+draft template **86920**; ACF group definition snapshot → option
+`o360_acf_group_backup_20260731`.
+
+**New ACF fields added** to "Websites Landing Fields" (group 86673, DB):
+`problem_headline` (text), `problem_text` (textarea), `ppc_text` (textarea),
+`social_text` (textarea), `exclusive_image` (image). `faq_content` already
+existed (86741) and reads existing page data. No fields removed.
+
+**Template bindings added (15 ops):** hero H1←specialty_headline, hero
+H2←hero_subtitle, mobile paragraph←mobile_text, problem headline/text←new
+fields, videos paragraph←videos_text, marketing H2←marketing_headline,
+organic←seo_text, PPC←ppc_text (new), social←social_text (new), why-choose
+H2←specialty_name ("Why X Choose O360", fallback "Doctors"). Widget swaps per
+request: mobile slides(4)→single image bound to mobile_image (fallback =
+1st slide 81920); Custom-Exclusive image-carousel(8)→single image bound to
+exclusive_image (fallback = carousel img 86514). Process section UNBOUND
+(process_text/process_image now static). Text fallbacks copied verbatim from
+legacy template 79588; new-field fallbacks are generic healthcare guide copy.
+Examples loop already connected via snippet #17 (`o360_specialty_examples`
+reads `portfolio_terms`). Stat bar left static per decision. Hero background
+images left static per decision.
+
+**Endodontic test:** 86918 converted to Theme Builder single-page with
+condition `include/singular/post/86716` (only /websites/endodontic/).
+endodontic `exclusive_image` set to its former featured image (80163).
+Verified live: endodontic renders the new template with its own ACF values;
+/websites/dental/ unchanged on old template 79588.
+
+**Rollback:** restore 86918 data from 86920, set `_elementor_template_type`
+back to `page` (+ library term), delete `_elementor_conditions`, regenerate
+conditions cache.
+
+---
+
 ## 2026-07-31 — /web-design/ de-dynamicised (ACF fallbacks → static)
 
 **Page:** 86913. The PDF rebuild was fully reverted first (restored from backup),
