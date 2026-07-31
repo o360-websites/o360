@@ -6,6 +6,39 @@ pre-change snapshots and rollback details.
 
 ---
 
+## 2026-07-31 — Specialty template batch 2 (items 1–17)
+
+**Template:** 86918. **Backup:** pre-batch copy → draft **86926**.
+
+**20 new ACF fields:** hero_image_1–4, specialty_icon, mobile_headline,
+problem_image, videos_gallery (gallery — ACF Pro confirmed), multimedia_headline,
+examples_headline, process_headline, marketing_intro, whyus_headline,
+whyus_1–3_image, whyus_1–3_text, cta_headline. Group = 59 fields.
+
+**Template edits (22 ops):** 4 hero images bound (fallback = current images,
+links removed); mobile/multimedia/examples/process/CTA headlines bound; problem
+image bound; edu carousel bound to videos_gallery (acf-gallery); process
+text/image re-bound to existing fields; marketing intro bound; why-us headline
+switched to single field (fallback "Why Doctors Use O360"); 3 why-us boxes bound
+(image + text), box-1 title static → "Founded and Run by Doctors"; FAQ accordion
+→ rich-text blob bound to faq_content (fallback = the 9 dental Q&As as h3/p
+HTML); NEW full-width zero-pad Post Content slot (container pcslot01) inserted
+after FAQ for future per-page widgets; marketing box texts set to flex-grow so
+buttons align bottom.
+
+**Snippet #20** (Code Snippets, active): swaps targeted icon-list bullet icons
+with the page's `specialty_icon` ACF image (hero benefits list 211696d9;
+extendable). Static tooth icons remain the fallback.
+
+**Endodontic:** videos_gallery filled with the template's 3 images
+(gallery fields have NO fallback — every connected page needs values).
+Live-verified: box-1 "by Doctors", endodontic FAQ blob (dental accordion gone),
+why-us/CTA fallbacks, hero images, carousel, marketing intro, Post Content slot.
+
+**Rollback:** restore 86918 from 86926; disable snippet 20.
+
+---
+
 ## 2026-07-31 — Specialty template ACF wiring + endodontic test connection
 
 **Template:** 86918 "Landing for Websites". **Backups:** full pre-change copy →
