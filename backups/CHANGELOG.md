@@ -284,3 +284,10 @@ all-ages insight → problem_text. exclusive_image=80164 (old featured),
 problem_image=83999 (term ft image). Existing refreshed values (hero, mobile,
 videos, seo, FAQ) kept. Live-verified. Rollback: remove condition + fields are
 per-page data.
+
+## 2026-08-01 — Batch 5: Intro + Exclusive ACFs, carousel rebound
+Template 86918, backup → draft 86962. New fields: intro_headline/text/image,
+exclusive_title/subtitle/text (group now 67). Bound to the user's new Intro
+section and restructured Exclusive section (fallbacks = current content;
+exclusive_image binding intact). Re-added Edu Videos carousel (new widget
+f4af3f2) rebound to videos_gallery (default filter #21 still active).
