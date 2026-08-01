@@ -291,3 +291,45 @@ exclusive_title/subtitle/text (group now 67). Bound to the user's new Intro
 section and restructured Exclusive section (fallbacks = current content;
 exclusive_image binding intact). Re-added Edu Videos carousel (new widget
 f4af3f2) rebound to videos_gallery (default filter #21 still active).
+
+## 2026-08-01 — Batch 6: icon relabel, carousel restore, edu redesign, lists/overlays via ACF
+Template 86918, backup → draft 86969 (B6). ACF group 86673 now 76 fields.
+
+**ACF changes:**
+- specialty_icon relabeled "Specialty Icon", instructions "Used as a water mark
+  and decoration in the design." (field kept, no longer drives hero list icons)
+- New fields: pain_points (textarea, one item per line), videos_headline,
+  videos_subtitle, videos_video (url), videos_examples (radio dental/medical,
+  default dental), ai_subtitle, cta_text, exclusive_overlay_color,
+  video_overlay_color (color pickers w/ opacity)
+
+**Template edits (saved in one pass):**
+- Exclusive section: original 8-image carousel restored from backup 86920,
+  static (exclusive_image + videos_gallery ACFs now unbound/parked)
+- Edu Videos: image carousel → autoplay video widget f4af3f2 bound to
+  videos_video, default = special-effects section video
+  (video-dental-website-min.mp4); title bound to videos_headline; new subtitle
+  widget bound to videos_subtitle (fallback "Get More Treatment Plans Accepted
+  by Patients"); text → videos_text; toggles static
+- AI section: new subtitle widget bound to ai_subtitle (fallback "Ready for
+  ChatGPT, Gemini & AI Search")
+- CTA: text bound to cta_text; buttons static
+
+**Snippets:**
+- #20 (specialty icon override) DISABLED — icons now universal per user
+- #22 NEW+active "Websites landing: pain list, examples toggle, overlay colors
+  (ACF)": (1) pain icon-list 16f27e52 items from pain_points, empty = static
+  fallback (Affordable Solutions / 100% Transparency / First Page Results /
+  No Setup Fees / No Contracts); (2) examples icon-list b388dce keeps
+  "See Examples:" + only the Dental|Medical item chosen in videos_examples;
+  (3) wp_head CSS overrides overlay color of Exclusive (d6b7ac6) and video
+  (5d7022fd) sections from exclusive_overlay_color/video_overlay_color —
+  empty fields emit nothing (design defaults untouched)
+
+**Verification:** /websites/orthodontic/ HTTP 200 after targeted purge: pain
+fallback items render, examples shows Dental only, autoplay video present,
+subtitles present, carousel present, no PHP errors, no overlay CSS (correct —
+fields empty).
+
+**Rollback:** restore template from draft 86969; disable snippet #22;
+re-enable #20; delete the 9 new fields (per-page data unaffected).
