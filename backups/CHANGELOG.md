@@ -274,3 +274,13 @@ two fallbacks (problem_text, whyus_1_text) during the broken-encoding window;
 re-encoded properly. (2) New ACFs ai_headline + ai_text bound to the AI
 section's heading/intro (user's restyled "AI Optimization" copy preserved as
 fallbacks). Live-verified on endodontic. Rollback: restore from 86954.
+
+## 2026-08-01 — Orthodontic connected + content filled
+Template 86918 conditions now [endodontic 86716, orthodontic 86714]. Filled
+86714's empty ACF fields (problem, marketing intro, PPC/social, AI text, why-us
+headline, CTA, section headlines) — weaving project_category term 227 content:
+area_2_text → marketing_intro verbatim; term description's family-friendly/
+all-ages insight → problem_text. exclusive_image=80164 (old featured),
+problem_image=83999 (term ft image). Existing refreshed values (hero, mobile,
+videos, seo, FAQ) kept. Live-verified. Rollback: remove condition + fields are
+per-page data.
