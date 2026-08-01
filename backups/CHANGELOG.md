@@ -333,3 +333,80 @@ fields empty).
 
 **Rollback:** restore template from draft 86969; disable snippet #22;
 re-enable #20; delete the 9 new fields (per-page data unaffected).
+
+## 2026-08-01 — Batch 7: Rich-text ACF architecture (big restructure)
+Template 86918, backup → draft **86979 (B7)**. NOTE: user's 15:02 Elementor
+save (stale session) had reverted the batch-6 template edits (edu video,
+subtitles, carousel restore) and batch-5 intro/exclusive bindings — all
+re-applied here under the new architecture.
+
+**Concept (user-approved):** all title/subtitle and text ACFs are now WYSIWYG
+(rich text). Titles merged with their subtitles into ONE field (add H1/H2 +
+an H5 one-liner in the editor). Texts allow paragraphs, bullet lists and
+quotes. Lists in rich text are auto-styled like site icon lists via a central
+stylesheet. Hero benefits icon-list stays a separate static icon list.
+
+**ACF group 86673:**
+- 27 fields converted text/textarea → wysiwyg (all *_headline/_title +
+  hero_intro, *_text, marketing_intro, exclusive_headline, cta_text)
+- Trashed (reversible): hero_subtitle, exclusive_subtitle, videos_subtitle,
+  ai_subtitle, pain_points (merged into their main fields)
+- New: founder_quote (wysiwyg, field 86980)
+- faq_content (86741) re-parented into the group (was orphaned, parent 0)
+- 16 tab fields added; fields regrouped per section: Hero / Intro / Exclusive
+  / Mobile / Pain Points / Edu Videos / Multi-Media / Examples / AI / Process
+  / Marketing / Founder / Why Us / FAQ / CTA / Legacy (unused)
+- All rich fields got formatting instructions (H1=page title, H2=section
+  title, H3=paragraph title, H5=subtitle line)
+
+**Heading-level → Global Font convention (via ACF CSS):**
+H1=Page Title Bold, H2=Section Title Bold, H3=Paragraph Title,
+H4=Widget Title, H5=Pre-Titles, H6=Section Title Thin. Widget variants:
+acf-rich--h2-thin, acf-rich--h5-thin. Colors keep coming from each widget's
+Global Color (headings inherit).
+
+**Template 86918 (33 ops, one save):** every bound heading widget converted
+to a text-editor widget with class `acf-rich` (+`--light` on dark sections)
+bound to its merged wysiwyg field; fallbacks preserved and merged (e.g. hero
+= <h1>Healthcare Website Design</h1><h5>Be the #1 Doctor in Your Town</h5>).
+Deleted (merged away): hero subtitle 463df37b, exclusive subtitle e259a0c,
+pain icon-list 16f27e52 (list now lives inside problem_text fallback as <ul>).
+Re-done from batch 6: Exclusive original 8-img carousel restored from backup
+86920 (static); edu f4af3f2 image-carousel → autoplay video bound to
+videos_video (default = special-effects video). New: founder quote
+text-editor widget under Dr. Sean bio bound to founder_quote (fallback = the
+"I never forget the other side!" line, removed from the founder icon-list
+22cea9be, 5→4 items). AI headline typo fixed in fallback ("Optimizaed" →
+"Optimized"). d089247 (Intro text) re-bound intro_text (was wrongly on
+problem_text after user's stale save).
+
+**Per-page data migration (86716, 86714):** plain headline values wrapped in
+<h1>/<h2>/<h3>; subtitle values merged as <h5>; pain_points lines merged into
+problem_text as <ul> (86714 had none). Orphaned values of trashed fields left
+in place (harmless).
+
+**ACF CSS (central stylesheet):** Elementor Custom Code post **86997
+"ACF CSS"**, location head, condition entire site, prints
+<style id="o360-acf-css">. All rules reference CUSTOM Global Font/Color CSS
+variables (responsive sizes inherited from the kit). Repo copy:
+`assets/acf-css.css`. Gotchas fixed: conditions cache had to be added to
+`elementor_pro_theme_builder_conditions[elementor_head]`; WP Rocket
+Remove-Unused-CSS was stripping the inline style — snippet #22 part 4 adds
+`rocket_rucss_inline_atts_exclusions` for o360-acf-css +
+o360-specialty-overlay-colors, and stale RUCSS rows for the two test pages
+were deleted; `\2714` checkmark backslash restored (wp_slash).
+
+**Snippets:** #21 (videos_gallery default) DISABLED — obsolete. #22 rewritten:
+pain-list part removed (widget gone); keeps examples dental/medical toggle +
+overlay colors; adds ACF admin badge ("Customized" / "Using default" on every
+Websites Landing field) + the RUCSS exclusion.
+
+**Verification:** orthodontic + endodontic HTTP 200, no PHP errors, no tag
+leakage; 1× <h1>; founder quote renders once (blockquote) and is gone from
+the icon list; edu autoplay video present; exclusive carousel present;
+examples shows Dental only; ACF CSS rules present in head; 44 acf-rich zones.
+
+**Rollback:** restore template from draft 86979; untrash the 5 fields; delete
+tab fields + founder_quote; re-enable #21; restore snippet #22 from this log;
+delete Custom Code post 86997 (and its cache entry); per-page values: strip
+the added <h1>/<h2>/<h5>/<ul> wrappers.
