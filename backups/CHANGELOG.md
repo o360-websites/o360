@@ -267,3 +267,10 @@ real featured images, hero, and Read More links.
 2. If needed, restore `elementor_pro_theme_builder_conditions` from
    `2026-07-27-conditions-cache.json`.
 Pre-existing draft archive templates 83365 and 86465 were left untouched.
+
+## 2026-08-01 — Batch 4: + sign cleanup, AI section ACFs
+Template 86918, backup → draft 86954. (1) Cleaned literal "+" signs baked into
+two fallbacks (problem_text, whyus_1_text) during the broken-encoding window;
+re-encoded properly. (2) New ACFs ai_headline + ai_text bound to the AI
+section's heading/intro (user's restyled "AI Optimization" copy preserved as
+fallbacks). Live-verified on endodontic. Rollback: restore from 86954.
