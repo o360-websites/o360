@@ -507,3 +507,47 @@ from the special-effects video (video-dental-website-min.mp4) to
 https://o360-media.s3.us-west-1.amazonaws.com/videos/O360_Landing_Video_BG1080.mp4
 per user. Multi-Media section video (special_video) untouched. Verified on
 dermatology (new video renders; page 200). Rollback: restore from 86999.
+
+## 2026-08-02 — Batch 12: Rollback of all-rich-text; uniform Title/Subtitle/Rich/Media structure
+Template 86918, backup → draft **87001 (B9)**. User reversed the "everything
+in rich text" decision. New uniform per-section structure: Title (H2, Section
+Title Bold global; hero = H1, Page Title Bold), Subtitle (span, Section Title
+Thin global), Rich Text (wysiwyg, acf-rich styling kept for lists/quotes),
+Image(s)/Video, plus each section's static design items.
+
+**ACF group:**
+- 13 title fields converted wysiwyg → plain text
+- Untrashed: hero_subtitle, exclusive_subtitle, videos_subtitle, ai_subtitle
+- New: 13 *_subtitle fields, faq/founder/advanced/hipaa titles, examples/
+  whyus/founder/advanced texts (wysiwyg), examples/marketing/founder/faq/cta/
+  ai/advanced images; hipaa_text → wysiwyg; exclusive_headline relabeled
+  "Text (Ownership)"; new tabs HIPAA + Advanced Features (hipaa fields moved
+  out of Legacy). Every section tab now has ≥ title/subtitle/text/media.
+- Admin: snippet #22 part 5 = two-column tab layout (left 40% title/subtitle/
+  media/misc, right 58% rich-text editor)
+
+**Page data migration (45 pages, 584 ops):** h1/h2 wrappers stripped back to
+plain titles; embedded <h5> subtitles split into *_subtitle fields; FAQ blob's
+leading <h2> moved into faq_title.
+
+**Template (58 ops, one save):** all 16 section titles normalized to
+h2+Section Title Bold (hero h1+Page Title Bold) and bound; existing subtitle
+widgets rebound (hero, exclusive, ai, cta) as span+Thin; 12 new subtitle
+widgets inserted; rich-text widgets bound incl. intro_text fix (was
+problem_text), founder bio → founder_text, cta_text, hipaa_text; images bound:
+intro_image (db35885), hipaa_image (eec954f), marketing_image (5659f59f),
+founder_image (59cba201); NEW sections bound: HIPAA (hipaa_*), Advanced
+Features (advanced_*), updated AI (ai_headline/ai_subtitle/ai_text); edu
+image-carousel (restored by user's save) converted back to autoplay video
+bound to videos_video, fallback = O360_Landing_Video_BG1080.mp4; FAQ got
+title+subtitle widgets (blob fallback h2 stripped); empty-fallback rich
+widgets added to Examples/Advanced/Why-Us (invisible until filled).
+
+**Verification:** cardiology + dental: 200, plain H1, 20 H2 titles, span
+subtitles, new edu video, single FAQ title, HIPAA + Advanced Features render,
+no tag leakage, no wrapper leakage, no PHP errors. All 45 purged.
+
+**Rollback:** template from 87001; ACF: re-convert titles to wysiwyg +
+re-trash the 4 subtitle fields + delete the new fields/tabs; page values:
+re-wrap via batch-7/8 patterns (or restore from server snapshot
+2026-08-02-content-round1-snapshot.json for text fields).
