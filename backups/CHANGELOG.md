@@ -468,3 +468,34 @@ Targeted purge of all 45 pages.
 
 Rollback: delete intro_headline/intro_text metas (were empty); restore term
 2766 description to empty.
+
+## 2026-08-02 — Batch 10: Content round 1 — product-clarity layer, all 45 specialty pages
+Backup snapshot of all overwritten fields (16 fields × 45 pages, 236 KB):
+**server-side** at `wp-content/uploads/o360-backups/2026-08-02-content-round1-snapshot.json`
+(Cloudflare blocked pulling it into the repo; restore by reading that file and
+re-applying values via update_post_meta).
+
+**Keyword system used:** product (website/web/site) × craft (design,
+development, building, built from scratch, hand-coded, HTML, CSS, no page
+builders, no templates) × quality (custom, exclusive, high-end, beautiful,
+best, proven) × trust (ownership, area exclusivity, no setup fees/contracts,
+since 2003) × specialty (practitioner, 3 procedures, "near me" search phrase
+per specialty — data table in this batch's generator).
+
+**Written per page (15 fields):** hero_intro (3 rotating product-clear
+variants), exclusive_title/text, problem_headline (practitioner vs
+organization variant) + problem_text (with 5-item benefit list),
+ai_headline/ai_text (specialty procedures + search phrase), videos_headline,
+mobile_headline, process_headline, examples_headline, whyus_headline,
+cta_headline/cta_text, faq_content (4 Q&As: cost, page-builder/hand-coded,
+exclusivity, timeline). All H1s normalized to "[Specialty] Website Design".
+Orthodontic (9 fields) and endodontic (2 fields) kept their existing
+hand-written content — only empty fields were filled there.
+
+**Verification:** dermatology + funeral-home render: H1 pattern, product hero,
+benefit list, FAQ, AI section, exclusive section, no tag leakage, no errors.
+Targeted purge of all 45.
+
+**Known trade-off (flagged to user):** sections are template-generated with
+per-specialty tokens — intentionally formulaic v1 for coverage; user will
+review and individualize.
