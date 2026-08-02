@@ -499,3 +499,11 @@ Targeted purge of all 45.
 **Known trade-off (flagged to user):** sections are template-generated with
 per-specialty tokens — intentionally formulaic v1 for coverage; user will
 review and individualize.
+
+## 2026-08-02 — Batch 11: Edu Videos fallback video swapped
+Template 86918, backup → draft 86999 (B8). Educational Videos autoplay widget
+(f4af3f2, bound to videos_video): static URL + dynamic-tag fallback changed
+from the special-effects video (video-dental-website-min.mp4) to
+https://o360-media.s3.us-west-1.amazonaws.com/videos/O360_Landing_Video_BG1080.mp4
+per user. Multi-Media section video (special_video) untouched. Verified on
+dermatology (new video renders; page 200). Rollback: restore from 86999.
