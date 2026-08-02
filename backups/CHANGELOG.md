@@ -446,3 +446,25 @@ Targeted purge of all 43 pages.
 **Rollback:** restore conditions from snapshot (meta + cache option), then
 per-page: unwrap h1/h2 per recipe, move multimedia_headline back to
 exclusive_headline, delete exclusive_image metas.
+
+## 2026-08-02 — Batch 9: Intro section content from taxonomy descriptions
+First content round on all 45 specialty pages on template 86918.
+
+- intro_headline set to "<h2>[Specialty] Web Development</h2>" (specialty name
+  derived from each page's H1, e.g. "Hospital & Clinic Web Development")
+- intro_text = the page's project_category term Description (mapped via
+  portfolio_terms meta; both fields were empty on every page before — no data
+  overwritten)
+- Written from scratch (no/empty term description), in the style of the
+  existing descriptions: funeral-home 86728 (no term exists) and home-care
+  86869 (term 2766 description was empty — new text also saved to the term)
+- Notes: family-physician + internal-medicine share term 248, so both carry
+  the same intro text for now; radiology (318 chars), telemedicine (340) and
+  anti-aging (342) have unusually short term descriptions — copied as-is,
+  flagged for a later content pass
+
+Verified live on cardiology (title + text render in the Intro section).
+Targeted purge of all 45 pages.
+
+Rollback: delete intro_headline/intro_text metas (were empty); restore term
+2766 description to empty.
