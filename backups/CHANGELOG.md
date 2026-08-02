@@ -410,3 +410,39 @@ examples shows Dental only; ACF CSS rules present in head; 44 acf-rich zones.
 tab fields + founder_quote; re-enable #21; restore snippet #22 from this log;
 delete Custom Code post 86997 (and its cache entry); per-page values: strip
 the added <h1>/<h2>/<h5>/<ul> wrappers.
+
+## 2026-08-02 — Batch 8: All specialty pages connected to new template
+Snapshot: `backups/2026-08-02-specialty-connect-snapshot.json` (old values +
+conditions + rollback recipe).
+
+**Customization audit** (real differences vs bulk-stamped defaults): every
+page carries the same 7-image / 21-text default stamp, so raw counts don't
+discriminate. Measured against each field's most-common value: no page except
+orthodontic (4 custom images) and endodontic (3) exceeds the 4-image bar —
+both already live on the new template. Verdict: ALL remaining pages fall in
+the "less customized" group.
+
+**Connected 43 pages** to template 86918 (include/singular/post/N, conditions
+now 45 entries; cache option updated). Left OFF the new template:
+orthodontic + endodontic (already on), veterinary 82294 (bespoke page,
+excluded from old template too), healthcare 86753 (slated for /web-design/
+redirect).
+
+**Per-page migration** (all 43): specialty_headline wrapped <h1> +
+hero_subtitle merged as <h5>; legacy exclusive_headline title ("Stand Out
+with a Stunning, Exclusive X Website") moved to multimedia_headline as <h2>
+(its slot in the new design) and exclusive_headline blanked so the Multi-Media
+ownership paragraph falls back; marketing_headline wrapped <h2>. Images per
+user instruction: exclusive_image = old featured image (22 legacy pages;
+medical-spa + family-physician have no thumbnail); mobile_image and
+special_video already live in the same fields (carry over automatically);
+hero images 1–4, edu video, and all other images left on defaults.
+
+**Verification:** oral-surgery (legacy) + cardiology (new batch) render on
+86918: correct <h1> + <h5>, custom Multi-Media <h2>, ownership fallback,
+founder quote once, ACF CSS, edu video, no tag leakage, no PHP errors.
+Targeted purge of all 43 pages.
+
+**Rollback:** restore conditions from snapshot (meta + cache option), then
+per-page: unwrap h1/h2 per recipe, move multimedia_headline back to
+exclusive_headline, delete exclusive_image metas.
