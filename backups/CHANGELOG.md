@@ -702,3 +702,15 @@ all 200, correct H1s, new FAQ answer live, no tag leakage, no PHP errors.
   mentions, no SSL badge, no page CSS) → no cross-page contamination.
 - Still global (shared by all 45, unchanged): main-nav /products/hipaa/ link
   and the packages feature list ("HIPAA Email" etc.).
+
+## 2026-08-02 — Batch 19: Button fields removed from the ACF group
+`process_button_link` (field 86699, the only button/link field in the group)
+permanently deleted, and its value removed from all 45 specialty pages.
+It was already orphaned — zero bindings in template 86918 — so nothing changed
+on the front end. Old values (for the record): "/pricing/",
+"https://o360.com/pricing/", "https://o360.com/schedule/".
+Group now 147 fields; no button/link-type fields remain in any section tab.
+Verified dermatology + endodontic: 200, all 19 buttons render with their static
+links (Get Pricing → /pricing/, View Gallery → /portfolio/, etc.), no errors.
+Rollback: recreate a url field named process_button_link if per-page button
+links are ever wanted again.
