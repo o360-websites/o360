@@ -584,3 +584,29 @@ Compatible & Compliant tab was appended after Legacy; full tab/field order
 re-applied (148 slots): ... HIPAA → Compatible & Compliant → Advanced
 Features → AI ... Reviews confirmed intact (tab 87052 + 10 fields + avatar
 bindings + snippet part 6 active).
+
+## 2026-08-02 — Batch 15: Content rules applied — medical fallbacks, Orthodontic + Endodontic pages
+Template 86918, backup → draft **87058 (B11)**. Source: Specialty_Page_Content_Rules.md (user upload).
+
+- **Fallbacks (74 tags):** entire template fallback set rewritten to the
+  "medical" worked content per the rules — every section title/subtitle/rich
+  text, AI boxes, founder bio + quote, why-us boxes, marketing boxes, full
+  medical FAQ (9 Q&As). Statics: stat bar converted to craft metrics
+  (3,100+ CUSTOM WEBSITES / 40+ HEALTHCARE SPECIALTIES / 20+ YEARS /
+  434+ 5-STAR REVIEWS — patient-outcome numbers removed per rules; they
+  belong to a future marketing stat bar). Hero bullet list: user had already
+  rebuilt it (bfa5f29) with the 6 rule bullets — untouched. Pain section was
+  already positioned after Intro (user's own move).
+- **Accuracy guardrail:** "no setup fees" claim scrubbed from problem_text +
+  faq_content on all other 43 pages (86 values) → "no long-term contracts".
+- **Orthodontic 86714:** 68 fields written verbatim from Layer 3 (images,
+  videos, overlay colors, reviews untouched per instructions).
+- **Endodontic 86716:** 43 fields written fresh per the rules (referral-driven
+  + pain/anxiety angle; root canal, retreatment, apicoectomy, cracked tooth,
+  emergency searches, AAE conference reference, referring-dentist FAQ).
+  hipaa/compat/founder/why-us box texts intentionally left empty → neutral
+  medical fallbacks render (clarity layer is constant per rules).
+- Verified live: both pages 200, correct H1s, pain H2, specialty FAQs, craft
+  stat bar, no setup-fee claim, no tag leakage.
+Rollback: template from 87058; ortho/endo page values from server snapshot
+2026-08-02-content-round1-snapshot.json + this log.
