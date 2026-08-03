@@ -570,3 +570,11 @@ Template 86918, backup → draft **87032 (B10)**.
 Verified on cardiology (AI box titles + review fallbacks render, no leaks).
 Rollback: template from 87032; delete the 19 new fields + Reviews tab;
 remove snippet part 6; labels are cosmetic.
+
+## 2026-08-02 — Batch 14: Compatible & Compliant section ACFs
+New user-added section (root 8cda788) wired to the standard structure:
+compat_title / compat_subtitle / compat_image / compat_text created + new
+"Compatible & Compliant" tab (after HIPAA). Bound: title f0938dd (h2, Section
+Title Bold), subtitle 165fb90 (span, Thin), text f6e16b0 (acf-rich, fallback =
+current copy), image e80ddb3 (fallback = current, second image 825aefb left
+static). Rollback: remove the 4 fields + tab; unbind via backup 87032 lineage.
