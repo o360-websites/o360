@@ -740,3 +740,21 @@ Verified live on orthodontic with temporary values (#0B3A6F solid and
 rgba(11,58,111,0.4)); CSS emitted correctly with opacity:1 and no
 background-image kill, then values reverted to empty and the page confirmed
 back to the default design.
+
+## 2026-08-02 — Batch 20b: Overlay colour = pure colour swap (per user)
+Reverted the opacity override added in 20. Final, simple contract:
+- **Template (Elementor)** owns the base background (image/video) and the
+  overlay **opacity** — edit them normally.
+- **Template overlay colour** is the fallback, used whenever the ACF field is
+  empty (no CSS is emitted at all in that case).
+- **ACF field** swaps ONLY the overlay's colour. No extra layer, no opacity
+  interference, no background-image changes.
+Emitted CSS is now a single declaration per section:
+`background-color:<colour> !important;`
+Also disabled `enable_opacity` on both colour pickers, so opacity has exactly
+one home (the template) — re-enable by flipping that flag if per-page alpha is
+ever wanted.
+Verified: endodontic (values set) emits colour-only CSS, no opacity/no
+background-image; orthodontic (empty) emits nothing and renders the default.
+Pages currently carrying test colours: endodontic, pediatric-dentistry,
+dental-lab.
