@@ -758,3 +758,21 @@ Verified: endodontic (values set) emits colour-only CSS, no opacity/no
 background-image; orthodontic (empty) emits nothing and renders the default.
 Pages currently carrying test colours: endodontic, pediatric-dentistry,
 dental-lab.
+
+## 2026-08-02 — Batch 20c: Overlay colour control removed entirely (per user)
+User decided to control both section backgrounds from the template instead.
+Removed completely:
+- ACF fields `exclusive_overlay_color` and `video_overlay_color` (deleted
+  permanently; group now 145 fields, Exclusive and Multi-Media tabs no longer
+  show a colour control)
+- Their values on all pages (8 values cleared — endodontic,
+  pediatric-dentistry and dental-lab had test colours)
+- Snippet #22 part 2 (the wp_head overlay CSS block) deleted, plus its now-dead
+  `o360-specialty-overlay-colors` entry in the WP Rocket RUCSS exclusion list
+The Exclusive (d6b7ac6) and Multi-Media (5d7022fd) sections now take their
+background image/video, overlay colour and overlay opacity solely from
+Elementor — nothing overrides them.
+Verified: endodontic, pediatric-dentistry, dental-lab, orthodontic all 200,
+no overlay style tag emitted, ACF CSS still loading, no errors. Snippet #22
+remains active with its other parts intact (examples toggle, RUCSS exclusion,
+review cards, funeral-home SSL).
