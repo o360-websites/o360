@@ -714,3 +714,29 @@ Verified dermatology + endodontic: 200, all 19 buttons render with their static
 links (Get Pricing → /pricing/, View Gallery → /portfolio/, etc.), no errors.
 Rollback: recreate a url field named process_button_link if per-page button
 links are ever wanted again.
+
+## 2026-08-02 — Batch 20: Overlay colour fields now have full control
+**Problem:** the picked colour looked "mixed". Both sections stack three
+layers, and the ACF colour only replaced the middle one while Elementor's own
+overlay-opacity slider still diluted it:
+- Exclusive (d6b7ac6): base colour Black 0 → background image
+  hero-background-black.jpg → overlay Dark Blue 2 #002E5B **at opacity 0.69**
+- Multi-Media (5d7022fd): base Primary → background video
+  O360_Landing_Video_BG1080.mp4 (+ organic pattern poster) → overlay
+  #002E5B + organic-pattern texture **at opacity 0.51**
+So a chosen colour was rendered at 69% / 51% strength over a black photo or a
+moving video — hence the mixing.
+
+**Fix (snippet #22 part 2):** the emitted CSS now forces `opacity:1` on the
+overlay layer, so the Elementor sliders can no longer dilute it. Transparency
+now comes solely from the alpha of the colour picked in ACF (both fields are
+colour pickers with opacity enabled): a solid hex renders solid and fully
+hides the photo/video; an rgba value blends by exactly the amount chosen.
+Also stopped forcing `background-image:none` on the overlay, so the
+Multi-Media organic-pattern texture survives a colour change (design
+preserved).
+
+Verified live on orthodontic with temporary values (#0B3A6F solid and
+rgba(11,58,111,0.4)); CSS emitted correctly with opacity:1 and no
+background-image kill, then values reverted to empty and the page confirmed
+back to the default design.
