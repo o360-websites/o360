@@ -623,3 +623,10 @@ Rollback: template from 87058; ortho/endo page values from server snapshot
 - Numbered 1–4 steps removed from process_text on 86714 + 86716 and from the
   template fallback/static (the static step boxes under the image carry them)
 Verified endodontic live: 200, ol gone, no errors.
+
+## 2026-08-02 — Batch 16b: stray pain_points field removed
+The trashed pain_points field (86970) was still rendering ABOVE the tabs —
+ACF returns group fields regardless of trash status, and its menu_order 0 put
+it before the Hero tab. Permanently deleted (it was superseded in batch 7 by
+lists inside problem_text; page data unaffected). Group now renders 148
+fields starting cleanly at the Hero tab.
