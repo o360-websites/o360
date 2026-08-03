@@ -776,3 +776,38 @@ Verified: endodontic, pediatric-dentistry, dental-lab, orthodontic all 200,
 no overlay style tag emitted, ACF CSS still loading, no errors. Snippet #22
 remains active with its other parts intact (examples toggle, RUCSS exclusion,
 review cards, funeral-home SSL).
+
+## 2026-08-02 — Batch 21: Intro section images assigned + media SEO cleanup
+Source: Folders Pro folder "Laptop 3D (intro)" (media_folder term 2805).
+
+**24 pages given a specialty-matched `intro_image`** (matched on attachment
+title). Endodontic uses the blue/purple variant (86844) per user; periodontic
+was set earlier as the test.
+
+**Media SEO cleanup on those 24 attachments:**
+- Filenames renamed from meaningless numbers to
+  `[specialty]-website-design-laptop.[ext]` (e.g. `21.webp` →
+  `periodontic-website-design-laptop.webp`). Base file + every generated size
+  file renamed on disk; `_wp_attached_file` and `_wp_attachment_metadata`
+  updated; attachment slug updated.
+- Alt text rewritten (several were wrong before — e.g. the orthopedic image's
+  alt read "neurological surgery", pain management's read "dentistry"):
+  now "Custom [specialty] website design shown on a laptop and smartphone".
+- Titles standardised to "[Specialty] Website Design — Laptop Mockup".
+
+**Safe to rename:** verified first that every one of these files had zero URL
+references in posts, options, or other postmeta — they are referenced only by
+attachment ID (featured images, ACF fields), so no links broke. Old image URLs
+(e.g. /uploads/2020/07/21.webp) will now 404; no redirects were added since
+those numbered filenames carry no image-search value — say the word if you
+want Rank Math redirects for them.
+
+**Not assigned (20 pages, no image in the folder):** medical, allergy,
+anesthesiology, bariatrics, ENT, family physician, gastroenterology, general
+surgery, home care, hospital & clinic, internal medicine, oncology, pediatric,
+physical therapy, pulmonology, radiology, rheumatology, sports medicine,
+telemedicine, anti-aging, medical spa. These keep the default laptop fallback.
+
+Verified: dental, endodontic, funeral-home, cardiology, periodontic all 200,
+images 200 on disk and rendering with the new alt text; zero missing files
+across all 24.
