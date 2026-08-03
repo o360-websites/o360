@@ -630,3 +630,28 @@ ACF returns group fields regardless of trash status, and its menu_order 0 put
 it before the Hero tab. Permanently deleted (it was superseded in batch 7 by
 lists inside problem_text; page data unaffected). Group now renders 148
 fields starting cleanly at the Hero tab.
+
+## 2026-08-02 — Batch 17: Rules-based custom content for all 43 remaining specialties
+Endodontic pattern approved by user → applied to every other specialty page
+(48 fields each, three generator passes). Structure per the content rules:
+clarity layer constant, specialty layer custom per page — each specialty got
+its own hero opening, pain story + "explain your world" details, mobile
+search scenario, procedure set, 3 search queries + AI query, exclusivity
+audience, and referral-FAQ where the specialty is referral-driven (oral
+surgery, perio, prosth, urology, pain mgmt, ortho surg, neuro, PT, sports med,
+hospital, allergy, GI, ENT, radiology, cardio, onc, pulm, gen surg, rheum,
+anesthesiology, home care).
+
+Special handling: funeral home (no HIPAA claims — privacy/security/ADA
+framing, non-healthcare intro, warm goal line); dental lab (B2B, dentist-
+clients, accounts); med spa/anti-aging/mental health (clients); urgent care/
+hospital/telemedicine/pharmacy/home care (organization voice); pediatric +
+pediatric dentistry (parents).
+
+Pre-check: duplicate-sentence scan on ortho + endo found zero repeated
+sentences across sections. All 43 purged; verified urology, funeral-home,
+telemedicine (200, correct H1s, no leaks).
+
+Rollback: per-page values from server snapshot
+2026-08-02-content-round1-snapshot.json (older layer) + this log; batch-15/17
+content is regenerable from the rules doc.
