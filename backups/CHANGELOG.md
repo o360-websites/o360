@@ -551,3 +551,22 @@ no tag leakage, no wrapper leakage, no PHP errors. All 45 purged.
 re-trash the 4 subtitle fields + delete the new fields/tabs; page values:
 re-wrap via batch-7/8 patterns (or restore from server snapshot
 2026-08-02-content-round1-snapshot.json for text fields).
+
+## 2026-08-02 — Batch 13: Field renames, AI boxes ACF, first two reviews ACF
+Template 86918, backup → draft **87032 (B10)**.
+- **Labels:** 77 fields renamed to short uniform "[Section] [Role]" scheme
+  (Hero Title, Pain Text, Videos Video URL, Multi-Media Ownership Text, …);
+  fixed the bare "Subtitle"/"Title"/"Text"/"Image" labels
+- **AI boxes:** new fields ai_1..3_image/title/text (image, text, textarea) in
+  the AI tab; the three AI image-boxes (e1ab758, 2b26def, 92bd509) bound on
+  image/title/description with current content as fallbacks (Schema Data
+  Built-In / Readable by AI / AI Visibility Optimization)
+- **Reviews:** new "Reviews" tab with review_1/2 image+title+text+name+domain;
+  review avatars (5f2745e5, 4d30ca91) bound as acf-image with current photos
+  as fallback; snippet #22 part 6 rebuilds a review card's text block from the
+  ACF fields (title bold line, text, name bold, domain link — same markup as
+  the static cards) only when at least one field is set; empty = original
+  static reviews unchanged
+Verified on cardiology (AI box titles + review fallbacks render, no leaks).
+Rollback: template from 87032; delete the 19 new fields + Reviews tab;
+remove snippet part 6; labels are cosmetic.
