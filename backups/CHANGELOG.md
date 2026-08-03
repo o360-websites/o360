@@ -682,3 +682,23 @@ These are shared across all 45 specialties — flagged to user, not changed
 
 Verified: dental, pediatric, home-care, radiology, dental-lab, funeral-home
 all 200, correct H1s, new FAQ answer live, no tag leakage, no PHP errors.
+
+## 2026-08-02 — Batch 18: Funeral home HIPAA → SSL
+- hipaa_image → SSL security badge (attachment 41040); HIPAA-compliant logo no
+  longer renders on that page
+- Section rewritten to SSL framing: title "SSL Secured, and Built With Care",
+  subtitle, and text (encrypted forms, certificate issued/installed/renewed/
+  monitored by us, padlock visible to families)
+- Hero bullet "HIPAA-Compliant with SSL" now reads "SSL Secured & Encrypted"
+  on this page via page-scoped CSS in snippet #22 part 7.
+  **Why CSS and not a render filter:** Elementor's Element Cache experiment is
+  ACTIVE and caches the shared template's static widgets in
+  `_elementor_element_cache` on post 86918 — a per-page render filter there is
+  both unreliable (cached widgets bypass it) and unsafe (filtered output can be
+  cached and served to the other 44 specialties). The earlier filter version
+  was removed and the stale element cache on 86918 cleared.
+  Trade-off: the DOM text still reads HIPAA; only the rendered text is swapped.
+- Verified: funeral-home shows SSL badge + CSS; dental unchanged (17 HIPAA
+  mentions, no SSL badge, no page CSS) → no cross-page contamination.
+- Still global (shared by all 45, unchanged): main-nav /products/hipaa/ link
+  and the packages feature list ("HIPAA Email" etc.).
