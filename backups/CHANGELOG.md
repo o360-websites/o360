@@ -610,3 +610,16 @@ Template 86918, backup → draft **87058 (B11)**. Source: Specialty_Page_Content
   stat bar, no setup-fee claim, no tag leakage.
 Rollback: template from 87058; ortho/endo page values from server snapshot
 2026-08-02-content-round1-snapshot.json + this log.
+
+## 2026-08-02 — Batch 16: ACF backend cleanup + process list fix
+- Instructions wiped on all 71 group fields (backend shows only field boxes +
+  names, per user)
+- Badge feature removed from snippet #22 (ACF now escapes label HTML — badges
+  were printing as raw markup; part 3 deleted entirely)
+- Two-column layout fixed: wysiwyg fields now ordered FIRST inside each tab so
+  the float:right editor starts at the top beside the left stack (title/
+  subtitle/media at 40% left, editor 58% right)
+- process_button_link moved to Legacy tab (no button fields in the ACF area)
+- Numbered 1–4 steps removed from process_text on 86714 + 86716 and from the
+  template fallback/static (the static step boxes under the image carry them)
+Verified endodontic live: 200, ol gone, no errors.
