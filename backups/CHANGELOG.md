@@ -811,3 +811,29 @@ telemedicine, anti-aging, medical spa. These keep the default laptop fallback.
 Verified: dental, endodontic, funeral-home, cardiology, periodontic all 200,
 images 200 on disk and rendering with the new alt text; zero missing files
 across all 24.
+
+## 2026-08-03 — Batch 22: Image upscales, Allergy mockup, physical therapy, usage audit
+- **Holistic medicine + funeral home upscaled**: 1376×768 → AI-upscaled to
+  4096×2294, then resized to 2400×1344 and converted to WebP (2.9 MB / 3.0 MB
+  PNG → 0.11 MB / 0.12 MB WebP). Same attachment IDs, so every reference
+  (featured image, exclusive_image, intro_image) stayed intact.
+- **Allergy mockup created** (attachment 87134): generated as a 3D laptop +
+  phone mockup matching the existing set, 5504×3072 → 2400×1340 WebP (15.5 MB
+  → 0.11 MB). Filed into "Laptop 3D (intro)", alt/title set, assigned to
+  /websites/allergy/.
+- **Physical therapy** now uses the spare duplicate chiropractic mockup
+  (80147), renamed `physical-therapy-website-design-laptop.webp` with matching
+  alt/title.
+- **Rename audit:** confirmed **zero stale URL references** anywhere in
+  postmeta, posts or options for all 24 previously-renamed files — every image
+  is referenced by attachment ID (featured image, exclusive_image,
+  intro_image, Elementor JSON), so nothing broke and no old pages needed
+  relinking.
+- **Unused images in the folder** (18): 86260, 86262–86268, 86499–86503,
+  86505, 86506, 86556, 86557 — all `carousel-*` hero-collage variants and
+  duplicates, not laptop mockups. 80147 was the only unused laptop mockup and
+  is now in use.
+Also added `.claude/settings.json` with an allowlist so routine WP/image/git
+calls no longer prompt.
+Verified: allergy, holistic-medicine, funeral-home, physical-therapy all 200
+with images 200 and rendering.
