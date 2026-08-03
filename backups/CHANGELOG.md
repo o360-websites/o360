@@ -655,3 +655,30 @@ telemedicine (200, correct H1s, no leaks).
 Rollback: per-page values from server snapshot
 2026-08-02-content-round1-snapshot.json (older layer) + this log; batch-15/17
 content is regenerable from the rules doc.
+
+## 2026-08-02 — Batch 17b: Duplicate-sentence review + accuracy pass
+Fuzzy duplicate scan (sentence-level, ≥70% similarity, cross-section) over all
+45 pages found two real repeats:
+1. **Multi-Media ownership text vs FAQ ownership answer** (83% / 74%, all 45
+   pages + template fallback) — the FAQ answer echoed the ownership paragraph
+   almost verbatim. FAQ answer rewritten in a distinct, procurement voice
+   ("registered in your name from day one…"); fact set unchanged.
+2. **hero_intro vs mobile_text** on cosmetic-surgery and dermatology — my
+   generator's hero and mobile scenarios overlapped. Both mobile openings
+   rewritten with new imagery.
+Re-scan after fixes: **zero near-duplicates remaining** across all 45 pages.
+
+Funeral-home accuracy pass (not a covered entity): FAQ "what's included"
+de-HIPAA'd, page-specific compat_* and advanced_text written (obituary/tribute
+platforms, memorial donations, livestream embeds; no-outage-during-a-family's
+-worst-week framing), whyus_3_text switched to secure/encrypted/accessible,
+Rank Math meta description de-HIPAA'd.
+
+**Remaining HIPAA mentions on funeral-home are static/global design**: hero
+bullet "HIPAA-Compliant with SSL", the HIPAA-compliant logo image in that
+section, the packages feature list, and the main-nav /products/hipaa/ link.
+These are shared across all 45 specialties — flagged to user, not changed
+(design/images are off-limits without instruction).
+
+Verified: dental, pediatric, home-care, radiology, dental-lab, funeral-home
+all 200, correct H1s, new FAQ answer live, no tag leakage, no PHP errors.
