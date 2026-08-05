@@ -1,0 +1,422 @@
+{
+ "date": "2026-08-05",
+ "field": "compat_image",
+ "count": 46,
+ "note": "Populated the compat_image ACF field on all 46 specialty pages with new LV-brand \"compatible with X software\" hero mockups. Old attachments were NOT deleted; restore by setting compat_image back to previous_value.",
+ "changes": [
+  {
+   "index": 0,
+   "slug": "dental",
+   "page_id": 86672,
+   "pname": "LV Dental",
+   "field": "compat_image",
+   "previous_value": false,
+   "new_attachment_id": 87268
+  },
+  {
+   "index": 1,
+   "slug": "dental-lab",
+   "page_id": 86715,
+   "pname": "LV Dental Lab",
+   "field": "compat_image",
+   "previous_value": 41621,
+   "new_attachment_id": 87269
+  },
+  {
+   "index": 2,
+   "slug": "endodontic",
+   "page_id": 86716,
+   "pname": "LV Endodontics",
+   "field": "compat_image",
+   "previous_value": 41647,
+   "new_attachment_id": 87270
+  },
+  {
+   "index": 3,
+   "slug": "oral-surgery",
+   "page_id": 86717,
+   "pname": "LV Oral Surgery",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87271
+  },
+  {
+   "index": 4,
+   "slug": "orthodontic",
+   "page_id": 86714,
+   "pname": "LV Orthodontics",
+   "field": "compat_image",
+   "previous_value": false,
+   "new_attachment_id": 87272
+  },
+  {
+   "index": 5,
+   "slug": "pediatric-dentistry",
+   "page_id": 86704,
+   "pname": "LV Pediatric Dentistry",
+   "field": "compat_image",
+   "previous_value": 41616,
+   "new_attachment_id": 87273
+  },
+  {
+   "index": 6,
+   "slug": "periodontic",
+   "page_id": 86720,
+   "pname": "LV Periodontics",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87274
+  },
+  {
+   "index": 7,
+   "slug": "prosthodontic",
+   "page_id": 86721,
+   "pname": "LV Prosthodontics",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87275
+  },
+  {
+   "index": 8,
+   "slug": "chiropractic",
+   "page_id": 86708,
+   "pname": "LV Chiropractic",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87276
+  },
+  {
+   "index": 9,
+   "slug": "funeral-home",
+   "page_id": 86728,
+   "pname": "LV Funeral Home",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87277
+  },
+  {
+   "index": 10,
+   "slug": "holistic-medicine",
+   "page_id": 86725,
+   "pname": "LV Holistic Medicine",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87278
+  },
+  {
+   "index": 11,
+   "slug": "mental-health",
+   "page_id": 86709,
+   "pname": "LV Mental Health",
+   "field": "compat_image",
+   "previous_value": false,
+   "new_attachment_id": 87279
+  },
+  {
+   "index": 12,
+   "slug": "home-care",
+   "page_id": 86869,
+   "pname": "LV Home Care",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87280
+  },
+  {
+   "index": 13,
+   "slug": "hospital",
+   "page_id": 86861,
+   "pname": "LV Hospital",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87281
+  },
+  {
+   "index": 14,
+   "slug": "optometry",
+   "page_id": 86705,
+   "pname": "LV Optometry",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87282
+  },
+  {
+   "index": 15,
+   "slug": "pharmacy",
+   "page_id": 86722,
+   "pname": "LV Pharmacy",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87283
+  },
+  {
+   "index": 16,
+   "slug": "podiatry",
+   "page_id": 86707,
+   "pname": "LV Podiatry",
+   "field": "compat_image",
+   "previous_value": false,
+   "new_attachment_id": 87284
+  },
+  {
+   "index": 17,
+   "slug": "veterinary",
+   "page_id": 82294,
+   "pname": "LV Veterinary",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87285
+  },
+  {
+   "index": 18,
+   "slug": "physical-therapy",
+   "page_id": 86859,
+   "pname": "LV Physical Therapy",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87286
+  },
+  {
+   "index": 19,
+   "slug": "radiology",
+   "page_id": 86865,
+   "pname": "LV Radiology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87287
+  },
+  {
+   "index": 20,
+   "slug": "medical",
+   "page_id": 86703,
+   "pname": "LV Medical",
+   "field": "compat_image",
+   "previous_value": false,
+   "new_attachment_id": 87288
+  },
+  {
+   "index": 21,
+   "slug": "dermatology",
+   "page_id": 86712,
+   "pname": "LV Dermatology",
+   "field": "compat_image",
+   "previous_value": false,
+   "new_attachment_id": 87289
+  },
+  {
+   "index": 22,
+   "slug": "medical-spa",
+   "page_id": 86710,
+   "pname": "LV Medical Spa",
+   "field": "compat_image",
+   "previous_value": false,
+   "new_attachment_id": 87290
+  },
+  {
+   "index": 23,
+   "slug": "neurology-and-neurosurgery",
+   "page_id": 86726,
+   "pname": "LV Neurology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87291
+  },
+  {
+   "index": 24,
+   "slug": "obgyn",
+   "page_id": 86719,
+   "pname": "LV OBGYN",
+   "field": "compat_image",
+   "previous_value": false,
+   "new_attachment_id": 87292
+  },
+  {
+   "index": 25,
+   "slug": "allergy",
+   "page_id": 86862,
+   "pname": "LV Allergy",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87293
+  },
+  {
+   "index": 26,
+   "slug": "anesthesiology",
+   "page_id": 86852,
+   "pname": "LV Anesthesiology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87294
+  },
+  {
+   "index": 27,
+   "slug": "anti-aging",
+   "page_id": 86868,
+   "pname": "LV Anti-Aging",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87295
+  },
+  {
+   "index": 28,
+   "slug": "bariatrics",
+   "page_id": 86864,
+   "pname": "LV Bariatrics",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87296
+  },
+  {
+   "index": 29,
+   "slug": "cardiology",
+   "page_id": 86854,
+   "pname": "LV Cardiology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87297
+  },
+  {
+   "index": 30,
+   "slug": "ent",
+   "page_id": 86867,
+   "pname": "LV ENT",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87298
+  },
+  {
+   "index": 31,
+   "slug": "family-physician",
+   "page_id": 86727,
+   "pname": "LV Family Practice",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87299
+  },
+  {
+   "index": 32,
+   "slug": "gastroenterology",
+   "page_id": 86863,
+   "pname": "LV Gastroenterology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87300
+  },
+  {
+   "index": 33,
+   "slug": "orthopedic",
+   "page_id": 86718,
+   "pname": "LV Orthopedics",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87301
+  },
+  {
+   "index": 34,
+   "slug": "pain-management",
+   "page_id": 86711,
+   "pname": "LV Pain Management",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87302
+  },
+  {
+   "index": 35,
+   "slug": "cosmetic-surgery",
+   "page_id": 86713,
+   "pname": "LV Cosmetic Surgery",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87303
+  },
+  {
+   "index": 36,
+   "slug": "urgent-care",
+   "page_id": 86723,
+   "pname": "LV Urgent Care",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87304
+  },
+  {
+   "index": 37,
+   "slug": "urology",
+   "page_id": 86706,
+   "pname": "LV Urology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87305
+  },
+  {
+   "index": 38,
+   "slug": "general-surgery",
+   "page_id": 86857,
+   "pname": "LV Surgical",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87306
+  },
+  {
+   "index": 39,
+   "slug": "internal-medicine",
+   "page_id": 86858,
+   "pname": "LV Internal Medicine",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87307
+  },
+  {
+   "index": 40,
+   "slug": "oncology",
+   "page_id": 86855,
+   "pname": "LV Oncology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87308
+  },
+  {
+   "index": 41,
+   "slug": "pediatric",
+   "page_id": 86905,
+   "pname": "LV Pediatrics",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87309
+  },
+  {
+   "index": 42,
+   "slug": "pulmonology",
+   "page_id": 86856,
+   "pname": "LV Pulmonology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87310
+  },
+  {
+   "index": 43,
+   "slug": "rheumatology",
+   "page_id": 86853,
+   "pname": "LV Rheumatology",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87311
+  },
+  {
+   "index": 44,
+   "slug": "sports-medicine",
+   "page_id": 86860,
+   "pname": "LV Sports Medicine",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87312
+  },
+  {
+   "index": 45,
+   "slug": "telemedicine",
+   "page_id": 86866,
+   "pname": "LV Telemedicine",
+   "field": "compat_image",
+   "previous_value": null,
+   "new_attachment_id": 87313
+  }
+ ]
+}
