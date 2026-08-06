@@ -1,5 +1,35 @@
 # o360.com Change Log
 
+## 2026-08-05 — Library dedup, phase 3b (perceptual / same-image different-size)
+
+Found visually-identical images uploaded at different sizes/formats/names via
+perceptual hashing (dHash), each group visually reviewed + confirmed with a
+strict 32×32 comparison before acting. Kept the **largest** copy per group
+(preferring PNG/JPG over WebP), repointed references, deleted the rest.
+
+- **48 groups → 58 redundant copies deleted** (kept largest each).
+- 8 look-alike groups were **excluded** as NOT true duplicates:
+  - different-colored stripe backgrounds (specialty hero bg, 7 colors) — dHash
+    is near-colorblind and collided them;
+  - 3-tablet specialty mockups (dentistry/endo/oral-surgery/telemedicine) —
+    templated look-alikes;
+  - two-phone mockups showing different client sites;
+  - deliberately color-graded photo variants (blue / blue-orange);
+  - Asset-6 vs Asset-7 (sequential exports).
+- **Impact on the WebP replace list:** dropped 6 items (52 → 46):
+  - `Asset-24` was a duplicate of `Asset-23` (kept Asset-23).
+  - 5 `mobile-collage-optimized*.webp` had a PNG original in the library
+    (`mobile-collage.png`, kept) — no Canva re-upload needed for those.
+  - One redundant cloud background (`clouds_mobile.webp`) removed; the used
+    `clouds_mobile_O360.webp` kept.
+- Net broken references unchanged at **578** (no new breakage). Keepers'
+  thumbnails regenerated. Attachments: 2,857 → 2,799.
+- **Backups (server, restorable):** deleted rows+files in
+  `uploads/o360-alt-audit/phash_deleted_backup.json` +
+  `uploads/o360-deleted-dupes/`; repoint originals in
+  `phash_repoint_backup.json`; plan + hashes in `phash_dedup_plan.json`,
+  `phash2.json`, `phash_groups.json`.
+
 ## 2026-08-05 — Library dedup, phase 3a (exact / byte-identical)
 
 Removed byte-identical duplicate images (same file re-uploaded under different
