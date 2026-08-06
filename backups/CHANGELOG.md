@@ -874,3 +874,39 @@ exact phrase now appears 7× naturally, intro line present, FAQ rendering with
 **Note on the 429 incident:** caused by my own burst of `?cb=` cache-busted
 fetches plus two full-table LIKE scans. Cleared on its own. Verification from
 here on uses single normally-cached requests and scoped queries.
+
+## 2026-08-03 — Batch 24: Home page sharpened to answer "who are you"
+Page 10545, backup → draft page **87603** (verified byte-identical `_elementor_data`).
+
+**H1 deliberately left unchanged** at user's direction. His reasoning, which is
+now a content rule: "dental" and "medical" resonate with the actual buyer
+(a dentist/physician), whereas "healthcare" reads as industry/insurance
+language. So the keyword split is: **home = brand + dental/medical**,
+**/web-design/ = "healthcare website design"** (the aggregate search term),
+**/websites/[specialty]/ = "[specialty] website design"**. Minimal collision.
+
+**Changes:**
+- **Founder story rewritten** — the biggest gap. It said only "founded and
+  operated by healthcare professionals"; Dr. Sean Fahimi was not named anywhere
+  on the home page. Now: founded in 2003 by Dr. Sean Fahimi, a dentist; UPenn
+  School of Dental Medicine; 15 years in practice; several practices of his own;
+  marketing lead is a dentist; team came out of dental and medical offices;
+  3,100+ sites in 20+ years. About Us link preserved.
+- **Eyebrow above the H1** now reads "Website Design + SEO for Dental and
+  Medical Practices Since 2003" — tenure was previously absent from the entire
+  page ("since 2003" and "20 year" both appeared 0 times).
+- **"Specialized in Healthcare" → "Specialized in Dental & Medical Practices"**,
+  and its intro rewritten in buyer language ("an endodontist and a pediatric
+  dentist are not selling the same thing to the same patient").
+- **New FAQ: "Questions Doctors Ask Us"** — 9 company-level Q&As (who is O360,
+  do you only work with practices, how long in business, is your team in the US,
+  do you design for my specialty, cost, ownership, marketing too). Inserted
+  before the final CTA so the CTA stays the last thing on the page.
+- **Rank Math:** title → "O360® — Website Design & Marketing for Dental &
+  Medical Practices"; description rewritten to lead with "Founded in 2003 by a
+  dentist" plus proof points; focus keyword was literally "website", now
+  "dental and medical website design".
+
+**Verified live (single cached request):** HTTP 200, H1 unchanged, eyebrow
+tenure present, Dr. Sean named, UPenn present, new specialized heading, FAQ
+rendering with 9 questions, CTA still last, About Us link intact, no errors.
