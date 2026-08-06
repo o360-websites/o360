@@ -1,5 +1,32 @@
 # o360.com Change Log
 
+## 2026-08-05 — Library dedup, phase 3a (exact / byte-identical)
+
+Removed byte-identical duplicate images (same file re-uploaded under different
+names — WordPress never replaces on re-upload). Kept one copy per group
+(the most-referenced; all copies are byte-identical so resolution is equal).
+
+- **118 duplicate groups → 172 redundant copies deleted.**
+  - 99 were already referenced nowhere.
+  - 73 were referenced; references repointed to the kept copy first
+    (39 Elementor docs + 27 post_content + 16 featured images + 6 ACF image
+    fields), then verified unreferenced and deleted.
+- Kept copies' thumbnails regenerated; introduced-broken size refs repointed to
+  the kept full-size. Net broken references: **581 → 578** (no new breakage; 3
+  pre-existing dead refs incidentally repaired). The remaining 578 are
+  pre-existing dangling refs (old portfolio screenshots / deleted size variants),
+  unrelated to this work.
+- Attachments: 2,919 image attachments → 2,857 total after cleanup.
+- **Backups (all on server, restorable):**
+  - Deleted attachments (post row + all postmeta + full-size file copied aside):
+    `uploads/o360-alt-audit/dedup_deleted_backup.json` +
+    `uploads/o360-deleted-dupes/{id}__{filename}`.
+  - Repoint originals (changed Elementor/content rows, thumbnails, ACF):
+    `uploads/o360-alt-audit/dedup_repoint_backup.json`.
+  - Broken-fix originals: `uploads/o360-alt-audit/dedup_brokenfix_backup.json`.
+  - Full md5 inventory + dedup plan: `uploads/o360-alt-audit/md5_inventory.json`,
+    `dedup_md5_plan.json`, `dedup_ref_detail.json`.
+
 ## 2026-08-05 — WebP quality remediation (restore originals + classify remainder)
 
 Deleted Elementor Image Optimization plugin had destructively converted media to
