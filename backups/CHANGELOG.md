@@ -837,3 +837,40 @@ Also added `.claude/settings.json` with an allowlist so routine WP/image/git
 calls no longer prompt.
 Verified: allergy, holistic-medicine, funeral-home, physical-therapy all 200
 with images 200 and rendering.
+## 2026-08-03 — Batch 23: /web-design/ pillar page fixed
+Page 86913, backup → draft page **87576** (verified byte-identical `_elementor_data`,
+187,266 chars; meta copied at DB level because Link Whisper's serialized objects
+break `maybe_unserialize`).
+
+**Problem found in review:** the pillar was the weakest of the three page types.
+"Healthcare website design" appeared exactly once (H1 only), the meta title used a
+different phrase ("Healthcare Web Design"), no focus keyword was set, the opening
+paragraph never said what O360 does, there was no FAQ, and there were **zero**
+internal links to the 45 specialty pages — so the hub didn't feed its spokes.
+
+**Fixed (design untouched, edits in place):**
+- Intro rewritten to open with the clarity line: "O360 is a healthcare website
+  design company…" — states the product, the audience, and the differentiators
+  (from scratch, exclusive, owned, doctor-founded, 20 years)
+- Headings reworked to carry the phrase naturally: "Healthcare Website Design,
+  Built From Scratch" · "What's in Every Healthcare Website We Design" (replaced
+  the junk "FEATURES" heading) · "Healthcare Websites We've Designed and Built"
+  (authorship framing per the content rules) · "Stand Out With a Stunning,
+  Exclusive Healthcare Website" · "Our Healthcare Website Design Process"
+- New FAQ section added: H2 + 9 server-rendered Q&As (what healthcare web design
+  is, what's included, cost, custom-vs-template, ownership, HIPAA, specialties,
+  timeline, SEO) — the AI-visibility asset the page was missing
+- Specialty grid copied from the home page (sections b0267fb + e42ae4d, element
+  IDs regenerated) and appended at the bottom
+- Rank Math: title aligned to "Healthcare Website Design for Medical & Dental
+  Practices | O360", description rewritten with the exact phrase, focus keyword
+  set to "healthcare website design"
+
+**Verified live (single cached request, no cache-buster):** HTTP 200, one H1,
+exact phrase now appears 7× naturally, intro line present, FAQ rendering with
+13 H3s, specialty grid present with **46 links** to /websites/ pages, junk
+"FEATURES" heading gone, no errors.
+
+**Note on the 429 incident:** caused by my own burst of `?cb=` cache-busted
+fetches plus two full-table LIKE scans. Cleared on its own. Verification from
+here on uses single normally-cached requests and scoped queries.
