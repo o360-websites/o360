@@ -971,3 +971,42 @@ text in the HTML, 46 specialty links, grid heading present, the
 **Recurring risk:** this is the second time an Elementor editor session has
 overwritten scripted changes (Batch 12, Batch 23). Mitigation: close/refresh the
 Elementor tab for a page before it is edited via script, and re-verify after.
+
+## 2026-08-06 — Batch 27: Audit fixes — meta lengths, image alt, interlinking
+
+**Meta descriptions:** 26 specialty pages + home + /web-design/ were over 160
+chars (Google truncates ~155-160). All rewritten under 158 while keeping the
+CTA; still 45/45 unique. Zero remain over 160 anywhere.
+
+**Image alt text:**
+- 23 portfolio-item featured images had empty alt (of 549). Written from the
+  real client name + its most specific project_category, e.g. "Custom cardiology
+  website design for Essex Cardiology Group by O360". Portfolio coverage is now
+  549/549.
+- 10 SHARED template images given generic alt. Per the user's instruction these
+  must NOT be specialty-specific, because alt lives on the attachment and these
+  render as fallbacks across many specialty pages (most ACF image fields are
+  still empty: ai_image 0/45, founder_image 0/45, examples_image 0/45,
+  cta_image 0/45, whyus_*_image 0/45, hero_image_2 1/45). So the shared carousel
+  screenshots are described by the actual client shown (Good Medicine, Elite
+  Spine Specialists, Skin Solutions NY, Annapolis Counseling Center), not by the
+  page they appear on. Also: Dr. Sean Fahimi's photo, social/PPC icons.
+- Decorative assets (cloud backgrounds, spacers, Asset-23) deliberately left
+  with empty alt — correct accessibility practice.
+
+**Interlinking:**
+- Specialty template → /web-design/ — added in the Packages section, so all 45
+  pages now link back to their pillar (was zero).
+- /marketing/ hub → /web-design/, /websites/, /portfolio/ — added; the hub
+  previously linked only to pricing and contact-us.
+- /marketing/ focus keyword was "marketing, medical marketing" (two phrases in
+  one field, which Rank Math treats as a single string) → "healthcare marketing".
+
+**CORRECTION to the Batch-27 audit:** the earlier claim that /web-design/ had
+"zero links to /marketing/" was WRONG. My link-scanner only matched absolute
+o360.com URLs and the site uses relative hrefs; /web-design/ already linked to
+/marketing/. The two genuine gaps were the specialty template and the marketing
+hub, both now fixed.
+
+**Verified:** dental + marketing pages 200, meta descriptions 138/139 chars,
+5 links to /web-design/ and ~20 to /websites/ on each, no errors.
