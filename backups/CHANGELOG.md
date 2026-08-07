@@ -1010,3 +1010,53 @@ hub, both now fixed.
 
 **Verified:** dental + marketing pages 200, meta descriptions 138/139 chars,
 5 links to /web-design/ and ~20 to /websites/ on each, no errors.
+
+## Batch 28 — 2026-08-07 — intro_image assigned on 13 specialty pages
+
+**What changed.** 13 `/websites/` specialty pages that had no `intro_image` now have one,
+chosen from the "Laptop + 3D Item" media folder (2805) — the transparent-background
+1775x1100 mockups `87351`-`87373`. No page that already had an `intro_image` was touched.
+No design, template, or global style was changed.
+
+| Page | Attachment | Image |
+|---|---|---|
+| /websites/medical/ (86703) | 87352 | Bradley H. Bennett M.D. |
+| /websites/internal-medicine/ (86858) | 87361 | "Compassion & Trust" handshake |
+| /websites/family-physician/ (86727) | 87355 | Total Family Healthcare |
+| /websites/anesthesiology/ (86852) | 87366 | Advanced Dental Anesthesia |
+| /websites/home-care/ (86869) | 87359 | Dignified — "The Comfort Of Staying Home" |
+| /websites/hospital/ (86861) | 87372 | Columbus Urgent Care |
+| /websites/radiology/ (86865) | 87371 | SCINS — 3D anatomical imaging |
+| /websites/rheumatology/ (86853) | 87365 | Ferrera — body pain-point map |
+| /websites/sports-medicine/ (86860) | 87351 | Herceg — golfer |
+| /websites/bariatrics/ (86864) | 87373 | Urology Partners — active seniors |
+| /websites/anti-aging/ (86868) | 87370 | SKIN Dermatology |
+| /websites/pulmonology/ (86856) | 87369 | CMHS — outdoors / breathing |
+| /websites/telemedicine/ (86866) | 87367 | WIRX — "Delivering Medicine to You" |
+
+**Alt text.** Each of the 13 attachments was previously unused anywhere on the site
+(verified against `wp_postmeta` and `_elementor_data`), so each is used on exactly one
+page and its alt text is specialty-level, never sub-specialty:
+`Custom [specialty] website design shown on a laptop`.
+
+**Left on the fallback on purpose** — no honest visual match exists in the pool:
+ENT (86867), gastroenterology (86863), oncology (86855), general surgery (86857).
+
+**Mistake made and corrected in the same batch.** The first write set `_intro_image`
+to a guessed ACF field key (`field_67e0d1c9a1b01`). The correct key is
+`field_wl_intro_image`. All 13 rows were corrected and `get_field('intro_image', $page)`
+was re-verified to resolve on every one of the 13 pages before the batch closed.
+
+**Cache.** `rocket_clean_post()` on the 13 page IDs only. `rocket_clean_domain()` was
+not used.
+
+**Old value -> new value / how to restore.** All 13 pages had an empty `intro_image`
+and all 13 attachments had empty alt text. Full record and rollback recipe:
+`backups/2026-08-07-intro-image-backup.json`. To roll back: delete `intro_image` and
+`_intro_image` meta on the 13 page IDs and blank `_wp_attachment_image_alt` on the 13
+attachment IDs.
+
+**Not done — flagged for decision.** 21 pages still use the 800x450 version of a visual
+that now exists at 1775x1100 (e.g. dental `80145` -> `87356`, optometry `80155` -> `87363`,
+obgyn `80159` -> `87362`). Same image, higher resolution. Not applied; see
+`not_done_flagged_for_user` in the backup JSON.
