@@ -943,3 +943,31 @@ because "healthcare professionals" reads clumsily inside that list.
 noun) from `ucfirst($SING[0])`. All corrected to proper title case, e.g.
 "You Didn't Become a Dentist…", "You Didn't Become an Optometrist…",
 "You Didn't Become a Sports Medicine Physician…".
+
+## 2026-08-06 — Batch 26: /web-design/ pillar re-applied (FAQ now an accordion)
+User confirmed the Batch 23 loss was an accidental save-over while fixing images,
+and asked for the content to be re-applied with the FAQ in an accordion because
+the page is long.
+
+Re-applied to page 86913 (meta from Batch 23 had survived the revert — only
+`_elementor_data` was overwritten — so title/description/focus keyword were
+already correct and were left alone):
+- Intro rewritten to the clarity line ("O360 is a healthcare website design
+  company…")
+- 5 headings restored, including replacing the junk "FEATURES" heading
+- **FAQ rebuilt as a `nested-accordion`** (9 Q&As, `default_state: all_collapsed`)
+  matching the accordion pattern already used on the specialty template, so it
+  inherits the site's styling and keeps the page short. Answers are still
+  server-rendered in the HTML source — the accordion only toggles visibility with
+  CSS/JS, so the AI-readability requirement in the content rules still holds
+  (verified: answer text present in the raw response).
+- Specialty grid re-copied from the home page with regenerated element IDs
+
+**Verified live:** HTTP 200, H1 "Healthcare Website Design", exact phrase 7×,
+intro present, junk heading gone, FAQ heading + n-accordion present with answer
+text in the HTML, 46 specialty links, grid heading present, the
+"healthcare professionals" swap from Batch 25 intact, no errors.
+
+**Recurring risk:** this is the second time an Elementor editor session has
+overwritten scripted changes (Batch 12, Batch 23). Mitigation: close/refresh the
+Elementor tab for a page before it is edited via script, and re-verify after.
