@@ -910,3 +910,36 @@ language. So the keyword split is: **home = brand + dental/medical**,
 **Verified live (single cached request):** HTTP 200, H1 unchanged, eyebrow
 tenure present, Dr. Sean named, UPenn present, new specialized heading, FAQ
 rendering with 9 questions, CTA still last, About Us link intact, no errors.
+
+## 2026-08-06 — Batch 25: "physicians" on /websites/medical/, doctors→healthcare professionals, casing bug fix
+
+**⚠️ Batch 23 (/web-design/ pillar rewrite) WAS LOST.** Page 86913 `post_modified`
+is 2026-08-06 17:01, later than that edit, and the page now shows the old intro,
+the junk "FEATURES" heading, and **no FAQ section and no specialty grid**. An
+Elementor save from a stale editor session overwrote it — same failure mode as
+Batch 12. The pre-edit backup (draft page 87576) is unaffected. Re-application
+is pending the user's decision, since the revert may have been intentional.
+
+**Keyword decisions (user):** /web-design/ keeps "healthcare website design".
+"Doctors" applies to every specialty, so it is not a page target; it concentrates
+on /websites/medical/. Main term there stays "medical" because non-physicians
+search it too — "physicians" is added alongside, not instead.
+
+**/websites/medical/ (86703):** H1 unchanged ("Medical Website Design").
+Physicians added to three on-page titles + the meta title:
+- hero_subtitle → "Custom, HIPAA-Compliant Websites for Physicians and Medical Practices"
+- problem_headline → "You Didn't Become a Physician to Build Websites"
+- whyus_headline → "Why Physicians Choose O360"
+- Rank Math title → "Medical Website Design — Custom Websites for Physicians | O360";
+  description rewritten to include physicians.
+Previously the word "physician" appeared **zero times** on that page.
+
+**/web-design/ (86913):** two "doctors" → "healthcare professionals" (enterprise
+hosting + concierge support paragraphs). A third mid-sentence use was left alone
+because "healthcare professionals" reads clumsily inside that list.
+
+**Bug fixed — 34 pages:** the batch-17 generator produced
+"You Didn't Become **A dentist** to Build Websites" (capital article, lowercase
+noun) from `ucfirst($SING[0])`. All corrected to proper title case, e.g.
+"You Didn't Become a Dentist…", "You Didn't Become an Optometrist…",
+"You Didn't Become a Sports Medicine Physician…".
