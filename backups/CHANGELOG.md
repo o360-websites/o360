@@ -2315,3 +2315,43 @@ flagged in case the vendor validates the referrer.
 Whether the **dental** (Optio) library is included in the monthly was not confirmed, so the page
 does not claim it either way — it only states that integration is free and that the medical library
 is vendor-billed.
+
+---
+
+## 2026-08-10 — Batch 57: /pricing/ built out
+
+Backup: Elementor template **87845** "ARCHIVE — Pricing (pre content build)", verified
+byte-identical.
+
+### Why this page
+`/pricing/` was 8 KB — one heading, one line of text, one form. **23 pages link to it**, plus
+redirects `request-info` (407 hits), `complete-order` (130) and organic queries like "how much to
+pay for medical web design services". It is the conversion endpoint for most of the site.
+
+### The design decision
+**The form section stays first and untouched.** Most traffic here arrives warm, from a "Get
+Pricing" button, and pushing the form below a wall of content would cost conversions. Everything
+new was appended *below* it, for the cold traffic that arrives from search or an old URL.
+
+Now 43 KB, six sections: form (unchanged) → stats → how pricing works → what the monthly covers →
+what happens after you ask → pricing FAQs.
+
+### Content
+The four "how pricing works" boxes are the ones written for the retired `/products/` hub — one
+design fee and one monthly, marketing separate and optional, no long-term contract, you own
+everything. That content lost its home when the hub was retired; this is where it belongs.
+
+The FAQ names the two things that are **not** included, in the same place as everything else:
+ongoing marketing, and the medical patient education library (a subscription paid to its provider,
+integrated by us at no charge). Also answers "why is the price not listed on the site" directly
+rather than dodging it.
+
+The closing button was changed from "Get Pricing" to **"See Our Work" → /portfolio/** — a Get
+Pricing button at the bottom of the pricing page is circular.
+
+### /packages/ — corrected finding, left alone
+I previously called it orphaned with zero inbound links. Zero *internal* links is right, but it
+receives **1,192 hits via redirects**: `dental-website-packages` (678), `online-payment` (159), the
+"3 healthcare-grade packages" blog (130), `marketing-packages` (49), `packages-example` (42),
+`our-programs` (29) and eight more. It is not dead traffic. Needs a decision rather than a
+default — flagged, not touched.
