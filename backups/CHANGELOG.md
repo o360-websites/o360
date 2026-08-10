@@ -1865,3 +1865,47 @@ pass to check none read as leftovers.
 `/products/hosting/`; the `/products/` hub rewrite; `/packages/` orphan; `/pricing/` depth;
 the queued redirect repoints; publishing.
 
+## Batch 48 — 2026-08-10 — everything published, 11,497 redirect hits recovered
+
+### 16 pages published
+All nine channel/SEO marketing pages, the five remaining specialty marketing pages, and
+`/products/patient-education-videos/`. Every one verified to resolve to its own ID after
+publishing. (`/marketing/medical-spa/` was already live.)
+
+**Backup pages 87774 and 87834 confirmed still draft.** The publish routine also carried a guard
+refusing to publish anything with "BACKUP" in the title, so a stray ID in the list could not
+have exposed a backup.
+
+### 17 redirects repointed — 11,497 hits
+Now that the targets are live, the redirects that were queued in Batch 47 could be pointed at
+real pages instead of `/web-design/` or the marketing hub.
+
+**Video cluster -> `/products/patient-education-videos/` (10,384 hits)**
+`products/dental-education-videos` 6,286 · `products/medical-education-videos` 1,360 ·
+`products/video-dental` 1,165 · `patient-education-video` 821 (was pointing at the malformed
+`/products/products/video/`) · `products/video` 425 · plus seven smaller.
+
+**Reputation -> `/marketing/reputation/` (1,065 hits)**
+`products/reputation` 469 · `reputation-management` 513 + 3 · `reputation` 80.
+
+**`seo-ppc` -> `/marketing/seo/`** (48 hits).
+
+Skipped: **#1601**, which carries two patterns (`blogs/reputation-management` and
+`products/reputation-management`, 23 hits) under one target — repointing it would move the blog
+URL too.
+
+### Marketing hub interlinking
+The hub had been edited by the user between batches — a cleanup pass, not a revert: the H1
+"Healthcare Marketing", the rewritten intro and all section copy were intact, and there were
+zero "SEO Marketing" strings left. The link widget added in Batch 35 had been removed as part of
+that cleanup.
+
+Re-added with the full set now that the children are live: **19 links**, every target verified
+to resolve to a published page before insertion, and the document checked for duplicate element
+IDs after. Grouped by practice type and by channel.
+
+### Remaining
+`/products/hosting/`; `/products/` hub rewrite; `/packages/` orphan (still zero inbound links);
+`/pricing/` depth; the 11 residual HIPAA mentions on the video page; testimonials on the eight
+marketing landing pages.
+
