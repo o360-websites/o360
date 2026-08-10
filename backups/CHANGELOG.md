@@ -2059,3 +2059,57 @@ zero unresolved. Redirection cache cleared (1,847 rows).
 the old `/products/adapt/`. Restored as a bullet ("Small practices may qualify for the $5,000
 Disabled Access Credit") and a 10th FAQ that states the credit exists, names IRS Form 8826, and
 sends the qualification question to the client's CPA rather than answering it ourselves.
+
+---
+
+## 2026-08-10 — Batch 52: /products/mobile/ + the /products/ hub
+
+Record: `backups/2026-08-10-mobile-page-and-products-hub.json`
+
+Decisions applied: mobile at `/products/mobile/`, logo stays at `/products/logo/`, hub grid copied
+from `/web-design/`.
+
+### `/products/mobile/` (87841) — NEW, published
+Angle: responsive is the baseline and is included; we design a **separate phone layout and a
+separate tablet layout** rather than reflowing one design; the tablet breakpoint is the one nearly
+everyone skips; full native app development available as a scoped project.
+
+12 sections from `/marketing/dental/` plus 3 from `/web-design/` — the mobile slides showcase, the
+image carousel (repurposed from testimonials to 9 mobile examples), and the portfolio gallery.
+Zero element-ID collisions between the two sources, verified before assembly. 20 images, all from
+the Mobile / iPad folders. 53 fields written.
+
+### `/products/` hub (83110) — rewritten
+Was 6 KB: two headings, two images, and links to none of the product pages. Now 67 KB and owns one
+question — **what comes with the website, and what am I going to get billed for later.**
+
+The core is the 6-box grid from `/web-design/`, now a product grid linking to all six pages. Backed
+up first as template **87842** (byte-identical).
+
+It does not overclaim: logo is not listed as included, and the FAQ says plainly that marketing is a
+separate optional program.
+
+### Redirects — every doubled-path 404 on the site is now gone
+One catch worth naming: redirect **1904** (`products/mobile/` → `/web-design/`, 377 hits) could not
+be repointed — its source pattern is now the live page itself, so a repoint would have been a
+**self-redirect loop**. It was trashed instead, and those hits now resolve directly.
+
+Fixed 20 rows pointing at doubled paths: `mobile-website` (642 hits), the accessibility blog post
+(439), `products-logo` (95), and 17 zero-hit `features/products/adapt/*` rows.
+
+Full-table scan after the change: **zero** active redirects with a doubled path, and **zero** rows
+whose source pattern equals their own destination.
+
+### Two copy fixes on pages not otherwise touched
+`/products/` — my own "unable to guarantee they keep working" → "stand behind them the same way".
+`/products/hipaa/` — pre-existing "Fully compliant servers" → "HIPAA-compliant servers".
+
+### Flagged
+Image-box `3771678f` renders with **no image** on two live pages — `/web-design/` and
+`/products/hipaa/`. It is titled "Visual Effects" and the only unused icon in that set is a
+smartphone, which does not fit. Pre-existing; left alone rather than guessed at. It is filled on the
+hub, where it is now the Hosting card.
+
+### Remaining
+`/packages/` orphan; `/pricing/` depth; testimonials on the marketing landing pages; accessibility
+imagery; the empty image-box above.
