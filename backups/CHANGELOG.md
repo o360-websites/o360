@@ -1909,3 +1909,48 @@ IDs after. Grouped by practice type and by channel.
 `/pricing/` depth; the 11 residual HIPAA mentions on the video page; testimonials on the eight
 marketing landing pages.
 
+## Batch 49 — 2026-08-10 — /products/adapt/ rebuilt (website accessibility)
+
+Built at the **exact URL that ten redirects already point to**, so the ~849 hits that had been
+404ing since the old page was deleted now land on a real page. Published immediately.
+
+Page **87837**, cloned from the video product layout, 16 fields written. Focus keyword
+`website accessibility`.
+
+### Source
+The plugin vendor's site could not be fetched — `EGRESS_BLOCKED`, the same restriction that
+prevented screenshotting client sites. Rather than invent a vendor's feature list on a
+compliance page, the copy was written from the source content the user supplied directly.
+
+### Claims — deliberately constrained
+The user asked for no promise of legal protection and no scare tactics. Both held to:
+
+- **No legal-protection language.** The page never says compliant, protected, guaranteed or
+  lawsuit-related anything.
+- **No fear framing.** The vendor's own page leads on 5,000+ lawsuits filed in 2025; none of
+  that was carried over.
+- **The honest limit is stated plainly**, because it is both true and the reason hand review
+  exists: *"An automated engine handles the large majority of accessibility issues, but some
+  WCAG criteria need human judgement — whether alt text actually describes the image, whether a
+  form error message makes sense, whether a page reads sensibly in the order a screen reader
+  announces it. Software cannot decide those."* This matters — the vendor's own data says over a
+  quarter of sued businesses already had a widget installed.
+- Hand review is presented as **a separate engagement**, with "we will tell you honestly whether
+  we think you need it".
+- The **$39/month** vendor price is named, and the page states it is included at no extra cost.
+- The **$5,000 Disabled Access Credit** is mentioned with "ask your accountant" rather than as
+  advice.
+
+### One inherited claim found and fixed
+The cloned SSL feature list contained **"Compliance Guaranteed"** — precisely the kind of
+promise to avoid. Changed to "Certificate Renewal Managed" on this page.
+
+**It is still live on 6 other published items**, including `/web-design/`, `/products/hipaa/`,
+`/products/patient-education-videos/` and the specialty template 86918 (which renders all 46
+`/websites/` pages). Flagged for a decision — it is a compliance guarantee appearing across most
+of the site.
+
+### Remaining
+`/products/hosting/`; `/products/` hub rewrite; `/packages/` orphan; `/pricing/` depth; the
+"Compliance Guaranteed" sweep; testimonials.
+
