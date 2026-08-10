@@ -1415,3 +1415,53 @@ need a further pass.
 The 6 specialty marketing pages, `/marketing/medical-seo/`, the 6 support pages, and the HIPAA
 page body.
 
+## Batch 37 — 2026-08-10 — six specialty marketing pages created + med spa written
+
+### Six page shells created (drafts, children of 18386)
+Cloned from `/marketing/dental/` (86667) — the proven structure. `_elementor_data` verified
+byte-identical on all six. Rank Math meta was deliberately **not** copied, so no page inherits
+the dental title, description or focus keyword.
+
+| ID | URL |
+|---|---|
+| 87828 | `/marketing/medical-spa/` |
+| 87829 | `/marketing/orthodontic/` |
+| 87830 | `/marketing/mental-health/` |
+| 87831 | `/marketing/chiropractic/` |
+| 87832 | `/marketing/optometry/` |
+| 87833 | `/marketing/veterinary/` |
+
+### /marketing/medical-spa/ (87828) written — 56 fields
+Highest-demand specialty in the ad data (5,352 impressions, 32.8 conversions).
+
+- **31 headings and text blocks**: H1 "Med Spa Marketing That Fills the Calendar", "You Didn't
+  Open a Med Spa to Run Instagram Ads", "Why Our Cost Per Client Is the Lowest in Med Spa
+  Marketing". Copy is built around treatment demand, rebooking and revenue per chair hour
+  rather than generic beauty-retail language.
+- **25 further fields**: icon boxes rebuilt around negative keywords, treatment radius, bid
+  targeting and *creative compliance* — the last one matters specifically here, because
+  aesthetics ad accounts get restricted when creative is not reviewed against platform medical
+  claim rules. Hero icon list, founder list and three FAQ entries rewritten.
+- The four strategy boxes are Paid Search & Social, Local SEO, Treatment Pages, Social &
+  Reputation — a different framing again from dental, medical and dental-seo.
+- Meta: `Med Spa Marketing Company for Aesthetics Practices | O360®`, focus keyword
+  `med spa marketing`.
+
+### Founder section — agreed policy
+Full section on pages where the buyer chooses who to hire (hub, dental, medical, the six
+specialty pages). Compact byline on the channel and SEO pages, and on the six lean support
+pages. The founder copy is rewritten per page rather than pasted, so it is not a duplicated
+block.
+
+### Known remaining
+`/marketing/medical-spa/` still carries ~22 dental strings, and `/marketing/medical/` ~16 —
+almost all inside the **Success Stories testimonials**, which are real dental client quotes and
+screenshots. Replacing them needs real client stories for each specialty, which is a content
+decision, not a rewrite. The same will apply to the five remaining specialty pages.
+
+### Still to write
+`/marketing/orthodontic/`, `/marketing/mental-health/`, `/marketing/chiropractic/`,
+`/marketing/optometry/`, `/marketing/veterinary/`, `/marketing/medical-seo/`, the six support
+pages, and the HIPAA page body. Plus a cleanup pass on `/marketing/dental-seo/` for residual
+ad language.
+
