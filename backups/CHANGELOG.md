@@ -2259,3 +2259,59 @@ template 86918 from ACF fields, not per-page Elementor data.
 - Dental testimonials still on 11 marketing pages (deferred by user).
 - `/packages/` has **0** inbound links. `/pricing/` has 22.
 - Empty image-box `3771678f` still on `/web-design/`, `/products/hipaa/`, `/products/`.
+
+---
+
+## 2026-08-10 — Batch 56: video page corrected to the real vendor-library model
+
+Backup: Elementor template **87844** "ARCHIVE — Patient Education Videos (pre vendor-library
+correction)", verified byte-identical before any edit.
+
+### What I had wrong
+I built `/products/patient-education-videos/` on the assumption that O360 produces animated videos,
+brands them per practice, and matches a set to each specialty. None of that is right. There are
+**two third-party libraries** — Optio Publishing (dental) and ViewMedica (medical) — embedded as a
+player. Patients browse the interface and pick what they want to watch. There is no per-specialty
+set.
+
+**The commercial error was the serious one.** The live page stated the videos were included at no
+cost, with a FAQ answering "Are the videos included, or an add-on?" with "Included." The **medical
+library is a separate subscription paid to its provider**. That was a pricing misstatement on a
+live sales page.
+
+### Corrected
+Rewrote 22 fields plus all 9 FAQs. The framing now matches how the site has always explained it:
+*the integration is always at no charge; the medical library is a subscription paid to its
+provider.* Removed every "matched to your specialty", "branded to your practice", "No Extra Cost"
+and "Included with every O360 website" claim — verified zero remaining.
+
+### Libraries embedded
+Added the real embeds to section `48c68eb7` under a new "Browse the Libraries" heading:
+
+- `vidlibdent` — Optio: `<script src="https://www.optiopublishing.com/api/js" async defer></script>`
+  + `<div class="optio-library"></div>`. **Used a single script tag** — the source template 86251
+  has it duplicated.
+- `vidlibmed` — ViewMedica 8 iframe, `client=5945`, copied verbatim.
+
+The two new headings were cloned from the existing h3 on the page so they inherit
+`globals/typography?id=a8a7c637` and `globals/colors?id=280a08c5` — no per-element typography or
+colour was set, per the global-styles rule. Verified on read-back.
+
+Note: the ViewMedica `embedded=` parameter still points at
+`https://optimized360.com/patient-education-video/` — an old URL. Left as-is because it works;
+flagged in case the vendor validates the referrer.
+
+### Corrections to my earlier audit
+- The dental/medical example links appearing on every specialty page is **intentional** — a
+  checkbox was meant to hide one. Verified it was **never implemented**: widget `b388dce` on
+  template 86918 has no display conditions on any of its three items, and `_element_conditions` is
+  null. The `videos_examples` ACF field exists to drive it but nothing reads it, and its values are
+  wrong on most pages (`dental` on medical/optometry/obgyn/orthopedic/urgent-care/pain-management,
+  empty on 28).
+- The `special_video` / `videos_video` ACF fields are **visual-effect examples**, not patient
+  education. I had conflated them.
+
+### Open question
+Whether the **dental** (Optio) library is included in the monthly was not confirmed, so the page
+does not claim it either way — it only states that integration is free and that the medical library
+is vendor-billed.
