@@ -1376,3 +1376,42 @@ the page are almost all inside these testimonials.
 
 The page remains a **draft**.
 
+## Batch 36 — 2026-08-10 — medical hero image + /marketing/dental-seo/ written
+
+### /marketing/medical/ hero
+Widget `6a68b78d` was still showing `laptop-dental-website-purple.png`. Swapped to **83155**
+"marketing-laptop" (1920x1141, a doctor's website on a laptop), alt set to *"Custom medical
+practice website shown on a laptop"*.
+
+### Flat SEO URLs
+`86877` and `86878` re-slugged and re-parented to 18386:
+`/marketing/seo/dental/` -> **`/marketing/dental-seo/`**, `/marketing/seo/medical/` ->
+**`/marketing/medical-seo/`**. Both remain drafts, so no redirect is needed yet.
+
+### /marketing/dental-seo/ (86877) written — 58 fields
+Another byte-identical clone of the dental marketing page, so the whole thing was rewritten
+for organic search only.
+
+- **38 headings and text blocks**: H1 "Dental SEO That Puts You on Page One", "You Didn't
+  Become a Dentist to Learn Schema Markup", "Local SEO & the Map Pack", "Technical SEO & Site
+  Health", "Reviews & Reputation Signals", "Start With a Free Ranking Audit — Not a Contract".
+- **20 further fields**: the four icon boxes were ad-specific (negative keywords, geo-radius,
+  bid strategy) sitting under an SEO heading — rebuilt as Core Web Vitals, Local Schema &
+  Citations, Procedure-Level Pages, and Content Written by Dentists. The hero icon list and
+  three FAQ entries were rewritten for SEO.
+- The four strategy boxes are now a **budget sequence** — Google Business Profile, Procedure
+  Pages, Technical Health, Reviews — deliberately different from the channel rundown on
+  `/marketing/dental/` so the two pages do not compete.
+- Meta: `Dental SEO Company for Practices That Want the Map Pack | O360®`, focus keyword
+  `dental seo` (was empty). "Company" is in the title because `dental seo company` converts at
+  $54 per conversion in the ad account, the best rate of any SEO term.
+
+### Known remaining on /marketing/dental-seo/
+A handful of ad-specific strings survive in blocks I have not mapped yet (1 "negative keyword",
+1 "Google Ads", 3 "ad copy", 3 "PPC"). They are in the review cards and secondary widgets and
+need a further pass.
+
+### Still to write
+The 6 specialty marketing pages, `/marketing/medical-seo/`, the 6 support pages, and the HIPAA
+page body.
+
