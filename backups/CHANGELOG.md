@@ -1060,3 +1060,60 @@ attachment IDs.
 that now exists at 1775x1100 (e.g. dental `80145` -> `87356`, optometry `80155` -> `87363`,
 obgyn `80159` -> `87362`). Same image, higher resolution. Not applied; see
 `not_done_flagged_for_user` in the backup JSON.
+
+## Batch 29 — 2026-08-10 — page + redirect cleanup
+
+**Nothing was permanently deleted.** Pages went to WordPress trash; redirects went to
+Rank Math `trashed` status. **Do not empty the trash.** Full record and restore recipe:
+`backups/2026-08-10-cleanup-manifest.json`.
+
+### Designs preserved first
+Four Elementor page templates created before anything was trashed, each verified
+byte-identical to its source: **87703** ARCHIVE Web Design (pre pillar rewrite),
+**87704** ARCHIVE Web Design (pre-PDF), **87705** ARCHIVE Home (pre who-we-are rewrite),
+**87706** ARCHIVE Web2. Page 86917 needed no template — it was byte-identical to 86915.
+
+### Pages trashed — 34 (82 published -> 65, 26 drafts -> 9)
+- **10 marketing clone drafts** (`/marketing/seo/*`, `/marketing/ppc/*` third level).
+  Verified zero inbound links, zero revisions, never published, byte-identical to each
+  other. No unique design.
+- **4 page backups** (87576, 87603, 86915, 86917) — superseded by the templates above.
+  Two of them had EMPTY slugs, which was a live hazard.
+- **18 project-category children** — their parent (86292) is itself in the trash, so
+  these pages were live at `https://o360.com/project-category__trashed/<slug>/`:
+  indexable URLs with `__trashed` in them. Traffic is covered by the redirects below.
+- **2 orphans** — 86907 `/web2-2/` (saved as template 87706) and 86753
+  `/websites/healthcare/` (empty draft, already covered by redirects #1890/#2104).
+
+### Redirects repointed — 16, carrying ~19,600 historical hits
+These were built before the 45 specialty pages existed and were never updated, so they
+had been sending real traffic to the wrong specialty. Biggest: `project-category/pediatric-dentistry`
+(4,047 hits) went to `/websites/medical/`, now `/websites/pediatric-dentistry/`;
+`project-category/urology` (3,224 hits) went to `/websites/obgyn/`, now `/websites/urology/`.
+Every target was verified to exist and be published before the update. Full list in the manifest.
+
+### Redirects defused — 27
+Inactive 301s aimed at live `/websites/<specialty>/` URLs — and at `/websites/` itself —
+all pointing to `/web-design/`. Harmless while inactive, catastrophic if anything
+re-enabled them. Each was verified to have a live published page at that path, then set
+to `trashed`. Also trashed: #1706 (conflicted with #1890/#2104 on `websites/healthcare`)
+and #2037/#2038 (active redirects with empty destinations).
+
+### Elementor templates edited — 4
+Link targets repointed off dead URLs before their destinations were trashed: 84644, 86118
+(`/project-category/veterinarian/` -> `/websites/veterinary/`, `/project-category/healthcare/`
+-> `/websites/medical/`), 85673 and 85674 (`/websites/healthcare/` -> `/web-design/`).
+JSON validated after each edit; before/after MD5s in the manifest.
+
+### Verification
+46 specialty pages published, **0** failing to resolve, **0** active redirects shadowing a
+live `/websites/` page, 16 of 16 repointed targets resolving to published pages. Checked
+server-side through WordPress — direct HTTP checks are impossible from this environment
+(the proxy/Cloudflare returns 403 on every o360.com HTML URL, including pages known to work).
+Cache: `rocket_clean_post()` on all 46 specialty pages plus `/web-design/` and Home, then
+`wp_cache_flush()` and a rewrite flush. `rocket_clean_domain()` was NOT used.
+
+### Not done — needs your decision
+**84668 `/web-design-old/`** — 74 KB, still PUBLISHED, duplicates `/web-design/` and links
+to drafts that are now trashed. Left alone because it is published and may hold backlinks.
+
