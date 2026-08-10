@@ -1156,3 +1156,45 @@ Full detail: `backups/2026-08-10-cleanup-manifest.json` and the Search Console f
 Recovering the 152 dead URLs. `/best-designs/7-best-<specialty>-websites-of-year/` maps
 mechanically onto `/websites/<specialty>/`.
 
+## Batch 31 — 2026-08-10 — specialty website redirects consolidated onto /websites/
+
+**113 redirects now point at the correct `/websites/<specialty>/` landing page.**
+
+### 65 new redirects created — dead URLs recovered (149,175 impressions)
+All previously 404 with no rule. `/best-designs/7-best-<specialty>-websites-of-year/` and the
+equivalent `/blogs/` and `/lists/` showcase URLs now 301 to their specialty page. Largest:
+chiropractic 11,746 impr, optometry 11,259, `blogs/trusted-dental-web-design-company-top-10`
+10,051, orthopedic 8,338, medical spa 7,350.
+
+Three auto-mappings were corrected by hand before applying — "psychology of color" matched
+mental-health (belongs to dental/medical) and "dental-labs" plural missed dental-lab. Three
+patient/resource listicles were dropped rather than redirected (`top-5-cancer-research-websites`,
+`top-5-medical-students-websites`, `mental-health-websites-with-online-resources`): resource
+lists, not buyer intent.
+
+### 48 existing redirects repointed (18,680 hits)
+Service-intent URLs that were being dumped on the generic `/web-design/` page or on the wrong
+specialty: `dentist-websites` (6,455 hits) -> `/websites/dental/`, `physician-websites` (1,857)
+-> `/websites/medical/`, `optometrist-websites` (1,832) -> `/websites/optometry/`,
+`chiropractor-websites` (705) -> `/websites/chiropractic/`, and 44 more.
+
+Four were corrected by hand: paths like `designed-websites/dental/periodontists` matched
+"dental" from the path prefix rather than the specialty in the last segment. Two more were
+dropped because the automatic mapping would have *regressed* an already-correct target.
+
+### Deliberately NOT changed
+- **235 blog-source patterns** that 301 into the 4 pillar posts
+  (`/blogs/the-ultimate-guide-to-medical-website-design/` alone receives 59). That is an
+  intentional consolidation strategy, and 16 of the rows carry multiple patterns with a single
+  target, so individual patterns cannot be repointed without splitting the rows. Sending
+  informational blog traffic to a commercial service page is also an intent change, not a fix.
+- **18 single-pattern redirects** whose current target is a topically-relevant blog post,
+  `/packages/` or `/portfolio/` — e.g. `dental-website-packages` -> `/packages/` and
+  `articles/dental-website-colors` -> the colour-selection post. Arguably already correct.
+
+Both groups are listed in the session notes and can be revisited.
+
+### Verification
+48 of 48 repointed and 65 of 65 created were checked against a published target before writing;
+zero skipped, zero bad targets, zero duplicate patterns created.
+
