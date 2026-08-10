@@ -1821,3 +1821,47 @@ from backgrounds, not image widgets.
 Product pages (`/products/`, `/products/logo/`, `/packages/`, `/pricing/`). Then testimonials
 and publishing the marketing drafts.
 
+## Batch 47 — 2026-08-10 — product redirects fixed + Patient Education Videos page created
+
+### Redirects
+- **#182 `logo-design-services`** was pointing at `/products/products/logo/` — a malformed
+  double path that 404s. **253 hits.** Repointed to `/products/logo/`, verified resolvable.
+- **#1783 `products/` -> `/web-design/`** was **active with 517 hits** while `/products/` is a
+  live published hub with 17 inbound links. Same shadowing pattern as the `websites/*` landmines
+  in Batch 31. Trashed, so the hub is reachable.
+
+**Deliberately not touched yet:** `patient-education-video` (#179, 821 hits) still points at the
+malformed `/products/products/video/`. It should point at the new video page — but that page is
+a draft, and repointing to a draft would swap one 404 for another. Queued for publish.
+
+Same reasoning holds for the ~1,065 reputation hits and 48 `seo-ppc` hits: `/marketing/reputation/`,
+`/marketing/seo/` and `/marketing/ppc/` are all still drafts.
+
+### /products/patient-education-videos/ (87836) created
+Cloned from the trimmed HIPAA layout (which is itself the `/web-design/` layout), then written
+for video. 17 sections -> 16; the HIPAA Email/Forms/Servers section was dropped as it belongs to
+the HIPAA page.
+
+**Why this page exists:** the redirect table shows roughly **10,400 historical hits** across
+video and patient-education URLs — `products/dental-education-videos` alone has 6,286, and two
+of these URLs were last hit the same day this was written. All of them currently dump on
+`/web-design/`. There are also 68 `wpmudev_custom_video` items and a "Video Pt. Edu" media folder
+already in the library with no page owning them.
+
+Content leads on the actual mechanism rather than a claim: *"A patient who has watched a
+two-minute explanation of a root canal, an implant, or a first visit arrives with fewer
+objections and better questions. That is the whole mechanism — it is not persuasion, it is
+comprehension."* The page also argues the SEO case for self-hosting the library rather than
+embedding a third-party player.
+
+Focus keyword `patient education videos`.
+
+### Known remaining on this page
+11 residual HIPAA mentions in sections not yet rewritten (SSL, accessibility, packages list,
+FAQ). Several are legitimate — compliant hosting is a real feature — but the section needs a
+pass to check none read as leftovers.
+
+### Remaining overall
+`/products/hosting/`; the `/products/` hub rewrite; `/packages/` orphan; `/pricing/` depth;
+the queued redirect repoints; publishing.
+
