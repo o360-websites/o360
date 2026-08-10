@@ -1331,3 +1331,48 @@ specialty page. Marked as placeholders per the brief ("for now").
 The page now has **zero broken images**: all 11 image widgets resolve to `attachment/inherit`
 records with files present on disk.
 
+## Batch 35 — 2026-08-10 — hub edits restored after an overwrite + /marketing/medical/ written
+
+### The hub was overwritten — third occurrence
+Page 18386's `post_modified` was **2026-08-10 08:41:21**, later than the Batch 32/33 writes,
+and its Elementor data had reverted to the old headings ("SEO Marketing", "For Physicians,
+Dentists, and Healthcare Professionals"). This is an open **Elementor editor tab** saving its
+stale in-browser state back over the database — the same cause as Batch 12 and Batch 23.
+
+Not a cache: WP Rocket had no cached file for the URL and `cache_logged_user` is off.
+
+**Re-applied all 21 changes.** One casualty could not simply be rewritten: widget `8ac828b`,
+the interlinking paragraph, had been **deleted outright**, not just reverted. It was rebuilt as
+a new text-editor widget appended to container `5f1ac72d`. Meta title, description and focus
+keyword were re-set too, as they had also reverted.
+
+**Mitigation:** close or hard-refresh every Elementor tab on a page before it is edited by
+script. Scripted writes go straight to `postmeta`, so an open editor always wins the next save.
+
+### /marketing/medical/ (86876) written
+It was a byte-for-byte clone of `/marketing/dental/` with five titles find-replaced, so the
+whole body was dental copy under medical headings.
+
+- **26 headings and text blocks rewritten** for physicians: H1 "Medical Marketing That Fills
+  Your Schedule", "You Didn't Become a Physician to Fight Google Ads", "Why Physicians Choose
+  Our Team", plus all four strategy boxes rebuilt around condition/procedure search intent.
+- **16 further fields fixed** that the first pass missed — icon lists, icon boxes, image-box
+  titles and three FAQ entries still carried dental language ("Founded and Run by Dentists",
+  "#1 ranked on DentalCountry", "Dentistry is hyper-local", "Do you work with dental
+  specialists?").
+- Specialties named per the brief: urology, dermatology, ENT, podiatry, pain management,
+  orthopedics, OBGYN, urgent care, plastic surgery — a different set from the hub's.
+- Copy uses *company / team / doctors* rather than agency, and carries the 4.9 / most-five-star-
+  reviews claim.
+- Meta: `Medical Marketing Company for Physicians & Practices | O360®`, description rewritten,
+  focus keyword set to `medical marketing` (it was empty).
+
+### Left alone deliberately — needs your input
+**The Success Stories block still shows dental clients** — real testimonials from New Teeth
+Chicago, Chestnut Dental, Diana Dental and Pan Am Dental Lab, with their screenshots and alt
+text. Those are genuine client quotes; swapping them means supplying real *medical* client
+stories, which is a content decision, not a find-and-replace. 16 residual "dental" strings on
+the page are almost all inside these testimonials.
+
+The page remains a **draft**.
+
