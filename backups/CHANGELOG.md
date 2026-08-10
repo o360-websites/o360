@@ -1747,3 +1747,42 @@ Forms · Access Control & Audit Trails · Hosting & Servers · Email · Best-Loo
 Product pages (`/products/`, `/products/logo/`, `/packages/`, `/pricing/`). Then testimonials
 and publishing.
 
+## Batch 45 — 2026-08-10 — HIPAA page rebuilt from the /web-design/ layout
+
+Replaced the body of `/products/hipaa/` (83112) with a clone of `/web-design/` (86913), then
+customised it for HIPAA. Same job as the pillar page — take paid and organic search and sell
+web design — so it now uses the same layout, gallery, examples and visual weight.
+
+**Backup first:** page **87834** holds the previous HIPAA page in full, `_elementor_data`
+verified byte-identical before anything was overwritten.
+
+**Preserved on 83112:** the URL, the post title, and the Rank Math title, description and focus
+keyword (`hipaa compliant website builder`) set in Batch 43. Only the body was replaced.
+Page-level Elementor settings were carried across from the source so the layout renders the
+same.
+
+### Customisation — 20 fields, 24 sections -> 23
+- **Hero** — H1 `Healthcare Website Design` -> **`HIPAA-Compliant Website Design`**; eyebrow and
+  intro rewritten to settle compliance immediately ("That part is settled before we start. What
+  you are really buying is a website that makes you the obvious choice in your area").
+- **"HIPAA Emails" expanded into "HIPAA Email, Forms and Servers"** — now the deepest section on
+  the page, covering the five places practices actually get caught out: email, forms, servers,
+  images and copy, and **tracking pixels transmitting PHI from condition pages**.
+- **SSL section** widened to encryption in transit *and* at rest.
+- **Gallery, "What's in Every…", "Stand Out…", process and accessibility** headings all made
+  HIPAA-led; the packages list now leads on Security & Compliance.
+- **Accessibility** reframed — ADA and HIPAA are separate obligations practices tend to discover
+  at the same time, usually after a complaint.
+- **Logo Design section removed** — off-message on a compliance landing page.
+
+HIPAA is now mentioned 32 times across the page, spread through rather than concentrated in one
+block, which is what the brief asked for.
+
+### Note
+The previous HIPAA rewrite (Batches 43-44) is superseded. That work is not lost — it is in
+backup page 87834, and several of its arguments were carried into this version.
+
+### Remaining
+Product pages (`/products/`, `/products/logo/`, `/packages/`, `/pricing/`). Then testimonials
+and publishing.
+
