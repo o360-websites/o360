@@ -1954,3 +1954,44 @@ of the site.
 `/products/hosting/`; `/products/` hub rewrite; `/packages/` orphan; `/pricing/` depth; the
 "Compliance Guaranteed" sweep; testimonials.
 
+## Batch 50 — 2026-08-10 — accessibility page reframed + "Compliance Guaranteed" removed site-wide
+
+### /products/adapt/ — liability framing corrected
+Removed *"we will tell you honestly whether we think you need it"* — that positioned O360 as the
+judge of whether a practice is adequately covered, which is not a call we should be making.
+
+Replaced with a section that states what the plugin does and puts the determination where it
+belongs:
+
+- **H2** "What the Plugin Covers — and What Is Your Call"
+- **H3** "Whether this is enough for your practice is a decision for you and your attorney"
+- Body states plainly: *"Whether this is sufficient for your practice is not our call to make.
+  It depends on your state, the patients you serve, the size and type of your practice, and
+  obligations that may apply to you specifically. That is a question for you and your attorney."*
+- Keeps the honest limit ("no plugin on the market can" make judgement calls), the AI-driven
+  continuous operation, the $39/month value included free, and the $5,000 Disabled Access Credit
+  pointer.
+
+Verified: zero instances of guarantee, legal protection, fully compliant, or lawsuit language.
+
+### "Compliance Guaranteed" removed from every live page
+The phrase was inherited from an old SSL feature list and had spread across the site. Replaced
+with "Certificate Renewal Managed" on **10 items**, including:
+
+- **Template 86918 "Landing for Websites"** — renders all 46 `/websites/` specialty pages
+- `/web-design/`, `/products/hipaa/`, `/products/patient-education-videos/`
+- `Single: Websites Landing` (79588) and two older landing templates
+
+Caches cleared for every affected item plus all 46 specialty pages, Elementor file cache and
+WP Rocket.
+
+**Zero live pages now carry the phrase.** What remains is confined to material that never
+renders: one revision, three trashed pages, and four backup drafts. Three of those backups
+(87001, 87032, 87058 — Landing for Websites backups) were **skipped deliberately** because the
+replacement would have broken their JSON; they are drafts and not served, so they were left
+intact rather than risk corrupting a backup.
+
+### Remaining
+`/products/hosting/`; `/products/` hub rewrite; `/packages/` orphan; `/pricing/` depth;
+testimonials on the marketing landing pages.
+
