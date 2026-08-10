@@ -1995,3 +1995,62 @@ intact rather than risk corrupting a backup.
 `/products/hosting/`; `/products/` hub rewrite; `/packages/` orphan; `/pricing/` depth;
 testimonials on the marketing landing pages.
 
+
+---
+
+## 2026-08-10 — Batch 51: product pages rebuilt on the Marketing layout
+
+Record: `backups/2026-08-10-product-pages-marketing-layout.json`
+
+### The correction
+`/web-design/` was only ever meant to be the source layout for `/products/hipaa/`. I had used it
+for `/products/adapt/` and `/products/patient-education-videos/` as well, and had started
+`/products/hosting/` the same way. All three were rebuilt from **`/marketing/dental/` (86667)**,
+using existing sections from that page verbatim — no new or plain sections were authored.
+
+### Backups taken first (nothing deleted)
+| Template | Page | Bytes | Verified |
+|---|---|---|---|
+| 87839 ARCHIVE — Patient Education Videos | 87836 | 118,961 | byte-identical |
+| 87840 ARCHIVE — Website Accessibility (ADAPT) | 87837 | 120,418 | byte-identical |
+
+### Pages
+- **`/products/adapt/` (87837)** — 11 sections, 43 fields rewritten. The approved liability
+  framing is preserved: what the plugin covers is stated factually, and whether it is enough is
+  explicitly the client's and their attorney's call.
+- **`/products/patient-education-videos/` (87836)** — 12 sections, 51 fields rewritten. The 11
+  residual HIPAA mentions are gone; they existed only in the old web-design clone.
+- **`/products/hosting/` (87838)** — NEW, published. 13 sections, 51 fields. Covers enterprise
+  cloud servers, SSL, backups, monitoring, HIPAA servers/email/forms, concierge support and
+  migration.
+
+### Images
+Marketing imagery came across with the sections (Google SERP screenshots, social icons, a dental
+testimonial). Replaced with product-appropriate library images — 4 on the video page, 6 on
+hosting, 2 on accessibility. No new media uploaded, no attachment alt text changed.
+
+**Flagged:** the library has no accessibility-specific imagery. The two swaps on
+`/products/adapt/` are neutral device shots chosen only because a Google SERP screenshot on an
+accessibility page was worse. They need direction.
+
+### Copy fix
+`/products/hosting/`: "Fully compliant servers" → "HIPAA-compliant servers". An unqualified
+"fully compliant" is the same class of absolute claim as "Compliance Guaranteed".
+
+### Redirects — 12 rows changed, ~3,000 hits
+Three rows were pointing at **doubled-path 404s** (`/products/products/...`), losing 750 hits:
+183 (444 hits) → `/products/hipaa/`, 185 (146) → `/products/hosting/`, 186 (160) →
+`/products/adapt/`. Nine SSL/hosting rows were repointed off `/web-design/` onto
+`/products/hosting/` — the largest being 820 `articles/ssl-security` (1,015 hits) and 1905
+`products/ssl` (398). Two duplicate patterns were removed (row 1605's doubled
+`project-feature/ssl`, row 186's `blogs/products/ssl` which row 150 already carries).
+
+Rows **1151** (375 hits) and **1091** (141) were left alone — announcement posts covering SSL
+*and* accessibility together, so splitting them is a judgement call worth asking about.
+
+Every changed row re-read and resolved with `url_to_postid()`: all 12 map to published pages,
+zero unresolved. Redirection cache cleared (1,847 rows).
+
+### Remaining
+`/products/` hub rewrite (6 KB stub, 17 inbound links, no link to hosting); `/packages/` orphan;
+`/pricing/` depth; testimonials on the marketing landing pages; accessibility imagery.
