@@ -2113,3 +2113,55 @@ hub, where it is now the Hosting card.
 ### Remaining
 `/packages/` orphan; `/pricing/` depth; testimonials on the marketing landing pages; accessibility
 imagery; the empty image-box above.
+
+---
+
+## 2026-08-10 — Batch 53: /products/ hub retired, features linked from /web-design/
+
+Record: `backups/2026-08-10-products-hub-retired.json`
+
+### Was there ever a /features/ URL?
+Yes — but for **design features, not product pages**. 42 redirect rows involve `features/` or
+`project-feature/`: `features/parallax` (304 hits), `features/special-effects` (116),
+`features/scheduler` (101), `features/drop-down-menu` (69), `features/hamburger-menu` (15). Those
+now live at `/project-feature/*`, a live taxonomy with 13 terms.
+
+**No `/features/mobile/`, `/features/hipaa/`, `/features/logo/` or `/features/ssl/` has ever
+existed**, and there was never a `/features/` page — only a nav item titled FEATURES from 2023.
+
+### A correction
+I said the "Top" menu is the live navigation because it is assigned to theme location `menu-1`.
+That was wrong. The live header is Elementor template 86551, and it renders **"Main Header"
+(#2491)**, which overrides the theme location. Main Header already carries only **one** feature
+link — HIPAA. The change requested (drop the other feature links from the menu) was already the
+live state; nothing needed removing.
+
+### Hub retired
+`/products/` (83110) set to **draft**, not trashed. Trashing renames the slug to
+`products__trashed`, which would have rewritten all six child URLs — the exact defect found
+earlier on the trashed `project-category` parent. Draft preserves the slug. The script compared
+every child permalink before and after and would have auto-republished on any change. None moved.
+
+301 handled by reactivating redirect **1783** (`products/` → `/web-design/`), which already
+existed with **517 hits of history**, rather than creating a duplicate row. Verified: zero active
+redirects shadow any live `/products/<child>` URL.
+
+### /web-design/ now links out to all six
+One anchor paragraph appended to the closing text of each matching section — Mobile, HIPAA,
+Enterprise Hosting, Educational Videos, Website Accessibility, Logo Design. No new widgets, no new
+sections, no per-element color or font. Backed up first as template **87843** (223 KB,
+byte-identical).
+
+### Three dead nav links repaired
+`SSL & HTTPS Security` → `/products/ssl/` (dead) → `/products/hosting/`; `Patient Education Videos`
+→ `/products/video/` (dead) → the real page; `Funeral Homes` → `/websites/funeral-homes/` (dead,
+the page is singular) → `/websites/funeral-home/`. Repaired, not removed — removal is a navigation
+decision, and the live menu never carried them.
+
+### Flagged
+`Temp Mobile Header` (48864) has a nav-menu widget pointing at menu slug `main-o360`, which
+resolves to nothing. Not live today, but its navigation would render empty if activated.
+
+### Remaining
+HIPAA in the main menu (deferred); `/packages/` orphan; `/pricing/` depth; testimonials;
+accessibility imagery; the empty image-box on `/web-design/` and `/products/hipaa/`.
