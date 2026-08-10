@@ -2165,3 +2165,45 @@ resolves to nothing. Not live today, but its navigation would render empty if ac
 ### Remaining
 HIPAA in the main menu (deferred); `/packages/` orphan; `/pricing/` depth; testimonials;
 accessibility imagery; the empty image-box on `/web-design/` and `/products/hipaa/`.
+
+---
+
+## 2026-08-10 — Batch 54: /products/ published + redirecting, dead Optio config removed
+
+### /products/ (83110) back to PUBLISHED, still 301s
+Your reasoning was right — a draft can get swept up in a bulk delete. Verified in the Rank Math
+source before changing it: the redirector's flow is `pre_filter → from_cache → everything →
+fallback`, and only `fallback` is 404-gated. `everything` matches any request URI, so redirect
+**1783** (`products/` → `/web-design/`, 301, 517 hits) fires even though the page is published.
+
+Also set `rank_math_robots = noindex` on the page so it cannot compete in search while it
+redirects. Child permalinks re-verified unchanged.
+
+### Dead "Optio Videos" config removed
+Elementor theme-builder template **84455** was conditioned on pages **83116 and 83297** — both
+deleted. The template itself had **zero `_elementor_data`**, so it was rendering nothing at all.
+Removed the condition; the old value is backed up in the option
+`o360_backup_optio_condition_20260810` and the template is untouched.
+
+### Where the patient education videos actually live
+Not lost, and not on any page — they are two third-party library embeds held in Elementor
+templates:
+
+- **86251 "Videos – Dental"** — Optio Publishing: `<script src="https://www.optiopublishing.com/api/js">`
+  plus `<div class="optio-library"></div>`. The script tag is **duplicated** in the template.
+- **86252 "Videos – Medical"** — ViewMedica 8 iframe, `client=5945`.
+
+Deleted pages 83116/83297 were almost certainly the old dental and medical video library pages —
+which is why 84455 existed to load the Optio script for them.
+
+Separately, **86571 "Support Videos Popup"** and **85753 "Video Education"** hold 8 YouTube
+tutorials — those are *client* tutorials ("How To Edit A Page Or Post", "How To Change Password"),
+not patient education.
+
+### Per-specialty video fields already exist
+The specialty landing template already has ACF fields populated on all 46 pages:
+`videos_headline`, `videos_subtitle`, `videos_text`, `videos_video`, `videos_gallery`,
+`videos_background`, and **`videos_examples` ("Videos Examples (Dental/Medical)")** — which looks
+like the switch between the Optio and ViewMedica libraries. Plus `special_video`.
+
+No new video pages were built — awaiting direction.
