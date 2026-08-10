@@ -1240,3 +1240,47 @@ redirects were trashed to keep those URLs free.
 and the HIPAA product page (to be optimised for *HIPAA-compliant website builder / design*,
 which no page currently targets).
 
+## Batch 33 — 2026-08-10 — hub fixes + HIPAA page retitled
+
+### 1. "SEO Marketing" title — two separate causes, both fixed
+The page's own H1 was already correct from Batch 32 (0 occurrences left in its Elementor data).
+What was still showing it:
+- **Menu Popup template 85927**, widget `612edd7` — a nav label reading "SEO Marketing" and
+  linking to `/marketing/`. Changed to **"Marketing"**.
+- **Elementor Element Cache experiment is active** and the hub carried a stored
+  `_elementor_element_cache`, so the old markup was being served. Cache meta deleted,
+  `_elementor_css` dropped, Elementor file cache cleared, WP Rocket cleared per-post.
+
+### 2. Package row — extra empty column
+Container `bb17906` still carried `structure: "30"`, a leftover *section* property from the
+section-to-container migration, combined with `flex_justify_content: space-around` and a zero
+gap. Removed the dead `structure` key, set justify to `center`, gap to 20px, align `stretch`.
+
+### 3. The 4 strategy boxes
+The hub and `/marketing/dental/` share the same container ID (`6f9dbd28`) with **identical**
+grid settings — the layout was never different. What differed was the copy format: dental uses
+a punchy uppercase eyebrow and specific, concrete benefit text. Rewrote the hub's four boxes to
+that pattern, kept at healthcare level so they do not duplicate the dental page.
+
+### 4. "Highest rated in the industry"
+Added to the hub intro: a 4.9 rating and more five-star reviews than any other healthcare
+website and marketing company.
+
+### 5. HIPAA page (83112)
+- **Titles no longer mention email.** Post title `HIPAA-Compliant Websites & Emails` ->
+  `HIPAA-Compliant Websites`. H1 -> `HIPAA-Compliant Website Builder for Dental & Medical
+  Practices`. Meta title -> `HIPAA-Compliant Website Builder & Design for Practices | O360®`.
+  Focus keyword was **empty**; set to `hipaa compliant website builder` — the #2 spend term in
+  the whole ad account ($13,321) with no page targeting it.
+- **Missing images diagnosed.** Attachments **86430, 86431, 86432, 86433, 86434 no longer
+  exist**, and their files are **gone from disk** — not recoverable. Three further image
+  widgets (`6f0511d`, `9938fc1`, `3863689`) are empty with no image ever set.
+- **Two relinked from exact library matches**: `1a782cd` -> 36100 (HIPAA compliant logo),
+  `37496d1` -> 41040 (SSL security badge). Alt text set on both.
+
+### Still open on the HIPAA page — needs images
+Three broken slots have no good match in the library: `1c32c98` (Detailed Auditing),
+`07431bb` (Safe Storage / server room), `955fc5e` (Seamless Integration / email). Plus the
+three empty widgets above. Searches for audit/server/data-centre imagery returned nothing
+suitable — the only cloud images are sky backgrounds.
+
