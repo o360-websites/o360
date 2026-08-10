@@ -1713,3 +1713,37 @@ artefact as Batch 34. Confirmed valid with a direct query.)*
 Product pages. Then: testimonials on the eight marketing landing pages, and publishing —
 everything except the marketing hub and `/marketing/dental/` is still a draft.
 
+## Batch 44 — 2026-08-10 — gallery + features sections added to the HIPAA page
+
+Copied two sections from the specialty template **86918** into `/products/hipaa/` (83112), so it
+carries the same visual weight as a `/websites/` landing page. 11 sections -> 13.
+
+- **Gallery** (`32a42fd8`) — portfolio loop grid, inserted directly after the "And It Still Has
+  to Be the Best-Looking Practice in Town" pivot, where the page turns from compliance to design.
+- **Features** (`ac59f10`) — the six feature boxes: Advanced Technology, Enterprise Hosting, SSL
+  Encryption, Concierge Support, Advanced Tools, Accessibility Plugin.
+
+### Three things that had to be handled in the copy
+1. **ACF dynamic tags.** Both sections pull their headings and body from the specialty page's
+   ACF fields, which do not exist on the HIPAA page — they would have rendered blank. All six
+   affected widgets were given static copy written for this page ("HIPAA-Compliant Websites
+   We've Designed and Built", "Real practices. Real custom design. Every one of them
+   compliant."). Verified: **0 dynamic tags remain** on the page.
+2. **Element ID collisions.** Elementor requires unique IDs within a page. Every copied element
+   was given a fresh ID and the whole document was scanned for duplicates before saving —
+   **0 duplicates**.
+3. **The loop grid query.** It carried `post_query_query_id = o360_specialty_examples`, a custom
+   query filter keyed to the current specialty page's taxonomy. On a non-specialty page that
+   would have returned an empty gallery. Cleared the custom query ID and set an explicit
+   date-ordered query instead. Verified the loop template (86911) is published and **549
+   portfolio items** are available to fill it.
+
+### Final HIPAA page flow (13 sections)
+Hero · Who We Build For · Yes — Fully HIPAA-Compliant · HIPAA Shapes Every Decision ·
+Forms · Access Control & Audit Trails · Hosting & Servers · Email · Best-Looking Practice ·
+**Gallery** · **Features** · We Know HIPAA · CTA
+
+### Remaining
+Product pages (`/products/`, `/products/logo/`, `/packages/`, `/pricing/`). Then testimonials
+and publishing.
+
