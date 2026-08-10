@@ -1284,3 +1284,50 @@ Three broken slots have no good match in the library: `1c32c98` (Detailed Auditi
 three empty widgets above. Searches for audit/server/data-centre imagery returned nothing
 suitable — the only cloud images are sky backgrounds.
 
+## Batch 34 — 2026-08-10 — Hummingbird fully removed + HIPAA images restored
+
+### 1. Hummingbird — confirmed gone, leftovers cleared
+**Audited before deleting anything.** Hummingbird is **not installed and not active** — it does
+not appear in `get_plugins()` at all. The 18 active plugins are Adminify, ACF Pro, Akismet,
+Code Snippets, Disable Comments, Elementor + Pro, Folders Pro, Microsoft Clarity, Novamira,
+Rank Math + Pro, Unlimited Elements, WP Mail SMTP Pro, WP Rocket and WPMU DEV Dashboard.
+
+Removed:
+- **8 `wphb_minify_group` posts** (84373-84380) plus **168 postmeta rows**. Machine-generated
+  minify-cache records from the removed plugin — deleted outright rather than trashed, as they
+  are cache artefacts with no content value.
+- **`wp-content/wphb-cache/`** (2 files) and **`wp-content/wphb-logs/`** — both directories gone.
+- Options, usermeta and cron were already clean (0 rows each); re-checked after.
+
+**Deliberately left alone — these are WP Rocket's, not Hummingbird's:**
+- `wp-content/cache/min/` — WP Rocket's minify cache
+- `wp-content/advanced-cache.php` — verified by reading the file: it declares
+  `WP_ROCKET_ADVANCED_CACHE` and loads from `plugins/wp-rocket/`
+
+*Correction to Batch 33:* the `rmdir` warnings logged there were attributed to Hummingbird's
+minify folder. They were **WP Rocket's** `cache/min/`. Nothing was harmed either way.
+
+**Verified after:** 0 wphb options, 0 wphb posts, 0 wphb tables, and WP Rocket still healthy
+(`advanced-cache.php` present, `WP_CACHE` true, `rocket_clean_post()` available, `cache/min`
+intact).
+
+### 2. HIPAA page images
+All six remaining broken/empty image slots filled from the **iPad View** folder, using only
+images with zero usage anywhere else (verified against `wp_postmeta` and `_elementor_data`):
+
+| Widget | Section | Image |
+|---|---|---|
+| `6f0511d` | Exclusive to Dental & Medical | 87708 Clinic |
+| `1c32c98` | Granular Access Control | 87717 Surgeon |
+| `9938fc1` | Granular Access Control | 87712 Neurology |
+| `07431bb` | Safe Storage / Cloud Redundancy | 87710 Heart |
+| `3863689` | Safe Storage / Cloud Redundancy | 87718 Urgent care |
+| `955fc5e` | Designed for Healthcare Teams | 87715 Pharmacy |
+
+Alt text on all six is deliberately generic — *"HIPAA-compliant healthcare website shown on a
+tablet"* — rather than naming the specialty in the file name, since the HIPAA page is not a
+specialty page. Marked as placeholders per the brief ("for now").
+
+The page now has **zero broken images**: all 11 image widgets resolve to `attachment/inherit`
+records with files present on disk.
+
