@@ -1786,3 +1786,38 @@ backup page 87834, and several of its arguments were carried into this version.
 Product pages (`/products/`, `/products/logo/`, `/packages/`, `/pricing/`). Then testimonials
 and publishing.
 
+## Batch 46 — 2026-08-10 — HIPAA page: three sections merged into Advanced Technology
+
+Following the user's own cleanup pass, **Enterprise Hosting** (`23c628b6`) and **Advanced
+Tools** (`49d2fec3`) were merged into **Advanced Technology** (`2e112431`). 19 sections -> 17,
+207 KB -> 122 KB.
+
+### Feature list — 15 bullets consolidated to 12
+Kept all distinct items across the three lists; folded "Add/Edit Pages" and "Image Editor" into
+"24/7 Online Editor & Page Builder", and upgraded "Managed Daily Backups" to "Encrypted Daily
+Backups" to match what the hosting actually provides on a compliant stack.
+
+### Three paragraphs merged into one
+Covers technology and performance, hosting and uptime, the BAA, and self-service plus concierge
+editing:
+
+> Your website should perform like the practice behind it. We build on current HTML5 and CSS3
+> with optimized code that loads fast, works alongside your practice software, and holds up on a
+> phone in a waiting room. It runs on cloud-based enterprise servers with no bandwidth limits,
+> encrypted daily backups and 24/7 uptime monitoring — all covered by the same signed BAA as
+> your email and forms — because a site that is slow or offline costs you patients who simply
+> call someone else. And it stays yours to control: log in any time to edit pages, swap images
+> and publish changes through WordPress and Elementor, or send them to our team and we will make
+> them for you at no extra cost.
+
+H3 is now "Built Fast, Hosted Securely, and Yours to Control". The two retired H3s — "Don't Lose
+a Single Patient" and "Make Changes to Your Site, When You Want" — survive as clauses.
+
+**Correction to the proposal:** the two retired sections were expected to free up two images.
+They contained no image widgets, so nothing was orphaned — the visuals in those sections came
+from backgrounds, not image widgets.
+
+### Remaining
+Product pages (`/products/`, `/products/logo/`, `/packages/`, `/pricing/`). Then testimonials
+and publishing the marketing drafts.
+
