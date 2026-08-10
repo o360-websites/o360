@@ -1672,3 +1672,44 @@ heavily-used image would have forced its alt text to serve two contexts.
 - Publishing: everything except the hub and `/marketing/dental/` is still a draft, and the hub's
   channel links are still withheld until the children go live.
 
+## Batch 43 — 2026-08-10 — HIPAA page rewritten as a web design landing page
+
+`/products/hipaa/` (83112) was structured as a HIPAA explainer — eight feature sections
+teaching encryption, auditing and storage from scratch. Visitors to this page are not trying to
+learn HIPAA; they want a web designer who already is compliant. Rewritten so compliance is
+confirmed fast and repeatedly, the HIPAA depth is used as proof of expertise, and the thing
+being sold is the website.
+
+**42 fields rewritten.** Also removed leftover placeholder text ("Section 2: Cutting-Edge
+Encryption Techn...") that had been sitting in the live copy.
+
+### New section flow
+1. **Hero** — "Yes, fully compliant, and we sign a BAA. That is the easy part." Then straight
+   into the point: HIPAA touches far more of a website than the server it sits on.
+2. **Who We Build For** — startups, existing practices, groups and hospitals.
+3. **Yes — Fully HIPAA-Compliant** — the unambiguous confirmation, one signed BAA covering
+   websites, forms, email and hosting.
+4. **HIPAA Shapes Every Decision — Down to the Photos** — the section that carries the page.
+   Images and consent, contact forms and chat capturing symptoms, **advertising pixels
+   transmitting PHI from condition pages**, and testimonials needing consent behind them. This
+   is where the expertise shows without becoming a lecture.
+5. **HIPAA-Compliant Forms** — intake, contact, appointment requests, encrypted end to end.
+6. **Access Control & Audit Trails** — per person, per role, timestamped.
+7. **HIPAA-Compliant Hosting & Servers** — encrypted, redundant, BAA-covered, and the site is
+   still yours to take anywhere.
+8. **HIPAA-Compliant Email** — Outlook and practice management, no portal to remember.
+9. **And It Still Has to Be the Best-Looking Practice in Town** — the pivot back to the
+   product: *"Compliance keeps you safe. The design is what fills the schedule."*
+10. **We Know HIPAA Because It Is All We Do** — 2003, dentist-founded, one industry.
+
+Icon lists and the three audience boxes were rewritten to match. Verified against the database:
+all 11 image widgets resolve to valid attachments.
+
+*(Note: the in-request image check reported 11 broken images — a false positive caused by
+calling `clean_post_cache()` immediately before `get_post_status()` in the same request. Same
+artefact as Batch 34. Confirmed valid with a direct query.)*
+
+### Remaining
+Product pages. Then: testimonials on the eight marketing landing pages, and publishing —
+everything except the marketing hub and `/marketing/dental/` is still a draft.
+
