@@ -1117,3 +1117,42 @@ Cache: `rocket_clean_post()` on all 46 specialty pages plus `/web-design/` and H
 **84668 `/web-design-old/`** — 74 KB, still PUBLISHED, duplicates `/web-design/` and links
 to drafts that are now trashed. Left alone because it is published and may hold backlinks.
 
+## Batch 30 — 2026-08-10 — inactive redirects removed, /web-design-old/ retired
+
+- **All 3 remaining inactive redirects removed** (set to `trashed`, recoverable):
+  #100 `features/video-based` (target was malformed: `o360https://o360.com/products/video/`),
+  #1613 and #2062 `project-category` -> `/portfolio/`. **Zero inactive redirects remain.**
+- **`/web-design-old/` (84668) retired.** Design archived first as Elementor template
+  **87707** (verified byte-identical, 74 KB), then a 301 to `/web-design/` was created
+  (redirect #2105) *before* the page was trashed. It had zero inbound links.
+
+Full detail: `backups/2026-08-10-cleanup-manifest.json` and the Search Console findings below.
+
+### Search Console findings (16 months, Apr 2025 - Aug 2026)
+- **1,935 clicks / 543,753 impressions across 902 pages — 0.36% CTR.**
+- **96.3% of query clicks are brand.** o360 / optimized360 variants = 964 of 1,001 clicks.
+  All 982 non-brand queries together produced **37 clicks** from 299,585 impressions.
+- **Demand exists; rankings do not.** Non-brand queries match our plan almost exactly, but
+  sit on page 5-10: `dental marketing ideas` 6,316 impr @ pos 94, `dental seo company`
+  5,566 @ pos 90, `orthodontic website design` 4,513 @ pos 60, `dental website design`
+  3,660 @ pos 98, `chiropractic website design` 3,631 @ pos 89. The best-ranked non-brand
+  terms are `medical website design company` @ pos 9, `website design for anesthesiology`
+  @ pos 10, `website design for rheumatology` @ pos 13.
+- **`healthcare seo` does not appear in the top 1,000 organic queries** — third independent
+  signal (with 0 ad conversions and its Added/Excluded status) that it should not be a
+  landing page.
+- **152 dead URLs hold 234,733 impressions — 43% of all site impressions — and return 404
+  with no redirect.** Verified against all 2,384 exact and 34 regex/contains rules.
+  Worst-hit section is `/best-designs/` (37 pages, 88,676 impressions, entirely dead):
+  `7-best-chiropractic-websites-of-year` 11,746 impr, `7-best-optometry-websites-of-year`
+  11,259, `7-best-orthopedic-websites-of-year` 8,338, `7-best-medical-spa-websites-of-year`
+  7,350. Plus dead `/blogs/` listicles (`trusted-dental-web-design-company-top-10` 10,051,
+  `best-dental-practice-management-software-companies` 9,948, `top-5-medical-spa-software`
+  9,876) and all 12 `/lists/` pages.
+- The blog was consolidated to **4 pillar posts**; hundreds of old posts 301 into them.
+  53 GSC URLs (97,211 impressions) redirect correctly. The 152 above were dropped without one.
+
+### Not done — awaiting decision
+Recovering the 152 dead URLs. `/best-designs/7-best-<specialty>-websites-of-year/` maps
+mechanically onto `/websites/<specialty>/`.
+
