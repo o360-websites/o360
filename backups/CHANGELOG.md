@@ -2207,3 +2207,55 @@ The specialty landing template already has ACF fields populated on all 46 pages:
 like the switch between the Optio and ViewMedica libraries. Plus `special_video`.
 
 No new video pages were built — awaiting direction.
+
+---
+
+## 2026-08-10 — Batch 55: full audit (no changes made)
+
+### The big finding: ~98,000 redirect hits land on articles that were never written
+The redirect table has **251 active rows** pointing at **50 distinct blog URLs that do not exist
+in any status** — not draft, not trash, never created. Only **4 blog posts are published** on the
+whole site.
+
+| Missing target | Hits | Redirect rows | Old URLs feeding it |
+|---|---|---|---|
+| `/blogs/25-dental-marketing-ideas-and-strategies/` | **30,934** | 100 | 127 |
+| `/blogs/custom-dental-website-design-guide/` | 12,643 | 37 | 54 |
+| `/blogs/how-to-use-social-media-to-drive-patient-growth/` | 7,736 | 8 | 25 |
+| `/blogs/ultimate-guide-to-medical-reputation-review-management/` | 5,681 | 8 | 29 |
+| `/blogs/selecting-colors-for-your-medical-or-dental-website/` | 5,584 | 10 | 10 |
+| `/blogs/7-ways-to-grow-your-chiropractic-practice/` | 5,482 | 6 | 16 |
+| …44 more | ~30,000 | — | — |
+
+These are live 301s into 404s. For scale: everything recovered earlier in this session came to
+roughly 3,000 hits. This is 30x that.
+
+The four posts that DO exist: `the-ultimate-guide-to-medical-website-design`,
+`how-to-get-new-patients-medical-marketing-strategies`, `2026-top-seo-trends-for-dental-websites`,
+`ada-website-accessibility-tax-credit`.
+
+Method note: a first pass flagged 259 unresolved targets; a second pass resolving slugs across all
+post types, seven taxonomies and archive paths cleared **98 false positives**. 251 is the verified
+number.
+
+### Second finding: the specialty video links are not specialty-aware
+Template 86918 widget `b388dce` hardcodes **both** "Dental" (popup 86251, Optio) and "Medical"
+(popup 86252, ViewMedica) example links on **every** specialty page. A cardiologist sees a link to
+the dental video library.
+
+The ACF field `videos_examples` ("Videos Examples (Dental/Medical)") exists and is populated —
+`dental` on 17 pages, `medical` on exactly 1 (dermatology), **empty on 28** — but the template
+never reads it. It is dead data, and the values are wrong anyway: `medical`, `optometry`, `obgyn`,
+`orthopedic`, `urgent-care` and `pain-management` are all set to `dental`.
+
+### Not a defect
+The 46 specialty pages show 0 KB of `_elementor_data`. That is expected — they render through
+template 86918 from ACF fields, not per-page Elementor data.
+
+### Confirmed state
+- `/products/` published, `noindex`, 301 → `/web-design/` via row 1783. Children unaffected.
+- Six "Learn more" links on `/web-design/` — user confirmed these stay.
+- Zero redirect loops. Zero doubled-path targets.
+- Dental testimonials still on 11 marketing pages (deferred by user).
+- `/packages/` has **0** inbound links. `/pricing/` has 22.
+- Empty image-box `3771678f` still on `/web-design/`, `/products/hipaa/`, `/products/`.
