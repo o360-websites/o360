@@ -1557,3 +1557,41 @@ laptop and SmileTheory.
 - Testimonials are still dental on all six specialty pages (~22-26 residual strings each).
 - Template + ACF conversion deferred by agreement — pages for now.
 
+## Batch 40 — 2026-08-10 — /marketing/medical-seo/ and /marketing/ai-optimization/ written
+
+### /marketing/medical-seo/ (86878) — 63 fields
+Mirrors the dental-seo structure but for physicians: condition pages rather than procedure
+pages, physician schema rather than dental schema, and specialist keyword economics (fewer
+searches, higher value, referral-source visibility alongside patient search). Budget sequence
+is Google Business Profile -> Condition Pages -> Technical Health -> Reviews.
+Focus keyword `medical seo`.
+
+### /marketing/ai-optimization/ (86875) — 63 fields
+The support page with genuine upside, and the only one written at full weight.
+
+H1 "AI Search Optimization for Practices". The argument: patients increasingly ask ChatGPT,
+Gemini and Perplexity for a recommendation, those tools answer by citing a handful of sources,
+and most practices have no idea whether they are one of them. The four pillars are entity
+consistency, answer-shaped content, named clinician attribution, and third-party corroboration
+— because these systems weight what others say about a practice above what the practice says
+about itself.
+
+Two things the page is deliberately honest about, since overclaiming here would be easy:
+- Volume is still small next to Google. The argument made is that it is **cheap to win now**
+  and compounds, not that it is already big.
+- Measurement is **less precise than rank tracking**, and the FAQ says so outright.
+
+Focus keyword `ai search optimization`. No ad data exists for this term — it is a new category,
+which is the point.
+
+### Note on the support pages
+These were meant to be lean, per the agreed tiering. They are currently full-length because
+they inherit the dental page structure, and trimming sections is a structural change better
+done once the content exists and it is clear what is redundant. `ai-optimization` earns full
+length on its own merits; `ppc`, `social`, `reputation` and `content` probably do not.
+
+### Remaining
+`/marketing/seo/` (healthcare SEO, 86870), `/ppc/` (86871), `/social/` (86872),
+`/reputation/` (86873), `/content/` (86874); the ten specialty image swaps; the HIPAA page body;
+then the product pages. Testimonials deferred by agreement until the account search is done.
+
