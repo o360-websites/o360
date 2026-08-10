@@ -1198,3 +1198,45 @@ Both groups are listed in the session notes and can be revisited.
 48 of 48 repointed and 65 of 65 created were checked against a published target before writing;
 zero skipped, zero bad targets, zero duplicate patterns created.
 
+## Batch 32 — 2026-08-10 — /marketing/ hub rewritten
+
+**Backup:** page **87774** `marketing-backup-20260810-062636` (draft), `_elementor_data`
+verified byte-identical to the original (`73404f8def`).
+
+### Content — 16 widgets rewritten, no design or style touched
+Only `settings.title` and `settings.editor` strings were changed. No typography, colour,
+spacing or global-style value was modified, and no widget was added or removed.
+
+- **H1 `SEO Marketing` -> `Healthcare Marketing`.** It had been contradicting both the title
+  tag and the focus keyword, and would have cannibalised `/marketing/seo/` on launch.
+- **H2 -> "A Dental & Medical Marketing Company — Not a General Agency."** Per the brief,
+  copy now leans on *company / team / experts* rather than *agency / firm*, which reads as
+  expensive and consultant-ish to a practice owner.
+- **The duplicated paragraph is gone.** `d55ce1d` and `5ebfdc11` had been printing identical
+  text under two different H2s ("Intuitive Website for Conversion" / "Dominate the First
+  Page"). They are now "A Website Built to Convert" and "Own the First Page — and the Map",
+  with distinct copy.
+- **Channel cards rewritten** (SEO, Google Ads, Social, Custom Content) naming a rotating set
+  of specialties — dental, medical spa, chiropractic, optometry, dermatology, mental health —
+  so the channel pages can name a different set without the pages reading as copies.
+- **Interlinking added**: `/web-design/`, `/websites/`, `/portfolio/`, `/marketing/dental/`,
+  `/pricing/`. Channel links are deliberately omitted until those pages are published — they
+  are still drafts and linking now would create 404s.
+
+### Meta
+- Title: `Online Marketing For Dental & Medical Practices | O360®`
+  -> `Healthcare Marketing Company for Dental & Medical Practices | O360®` (68 chars)
+- Description rewritten (148 chars), leading with *company* and the 2003 dentist-founder fact.
+- Focus keyword unchanged: `healthcare marketing`.
+
+### Redirects reverted — 2
+`blogs/color-psychology-in-medical-and-dental-websites` and
+`blogs/psychology-of-color-in-healthcare-website-design` were 301'd to specialty pages in
+Batch 31. Both are informational posts with different intent and may be restored, so the
+redirects were trashed to keep those URLs free.
+
+### Still to build
+`/marketing/medical/`, the 6 specialty marketing pages, the 2 SEO pages, the 6 support pages,
+and the HIPAA product page (to be optimised for *HIPAA-compliant website builder / design*,
+which no page currently targets).
+
