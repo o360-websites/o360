@@ -1595,3 +1595,47 @@ length on its own merits; `ppc`, `social`, `reputation` and `content` probably d
 `/reputation/` (86873), `/content/` (86874); the ten specialty image swaps; the HIPAA page body;
 then the product pages. Testimonials deferred by agreement until the account search is done.
 
+## Batch 41 — 2026-08-10 — five support pages written at reduced weight
+
+All marketing page content is now written.
+
+### Trimmed 18 sections -> 10, 123 KB -> 57 KB
+Removed from `/marketing/seo/`, `/ppc/`, `/social/`, `/reputation/` and `/content/`:
+why-choose-us, cost-per-patient, two inherited channel-detail sections, the custom-website
+section, **Success Stories**, which-strategy, and the price tables.
+
+Dropping Success Stories also removes the dental testimonials from these five pages, so they
+are the only marketing pages with no borrowed proof on them.
+
+Kept: hero, stats, problem, what-you-get, one channel section, founder, free-review, FAQ, CTA.
+The founder section is now a one-line byline — "Reviewed by Dr. Sean Fahimi, DDS" — per the
+agreed tiering, rather than the full section the landing pages carry.
+
+### Content — 27 fields each
+- **`/marketing/seo/`** — healthcare SEO. Argues against activity-based reporting and links
+  down to dental SEO and medical SEO for specialty detail.
+- **`/marketing/ppc/`** — the honest version: *exclusion beats bidding*. Two campaigns with
+  identical budgets can differ by half on cost per patient purely on what they exclude.
+- **`/marketing/social/`** — positioned as a closing signal, not a first-touch channel, and
+  says so plainly. Leads on the **consent problem**: a patient photo without documented consent
+  is a HIPAA issue, not a marketing win.
+- **`/marketing/reputation/`** — states outright that we cannot remove bad reviews, and that
+  review gating breaches Google and Yelp policy and can cost the profile. Both are things
+  practices ask for and most vendors fudge.
+- **`/marketing/content/`** — argues against weekly blogging in favour of fewer pages tied to
+  real demand, and links to AI search optimization for the citation angle.
+
+FAQs cut from nine entries to three focused ones per page. Hero lists rewritten. Meta title,
+description and focus keyword set on all five.
+
+### Marketing section status
+Written: hub, dental, medical, dental-seo, medical-seo, six specialty pages, ai-optimization,
+and these five support pages. **14 pages.**
+
+### Remaining
+- Ten specialty image swaps to Clients Best designs.
+- HIPAA page body.
+- Product pages.
+- Testimonials on the eight landing pages — deferred until the account search is done.
+- Publishing: everything except the hub and `/marketing/dental/` is still a draft.
+
