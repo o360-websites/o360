@@ -1511,3 +1511,49 @@ product pages.
 Testimonials remain dental on every specialty page — real client quotes that need real
 per-specialty replacements.
 
+## Batch 39 — 2026-08-10 — final three specialty marketing pages written
+
+All six specialty marketing pages now have full, distinct content.
+
+### /marketing/mental-health/ (87830) — 48 fields
+Built around the one thing that makes this specialty different: **mental health is a restricted
+advertising category** and campaigns get suspended without warning. The page argues for
+condition and modality pages (anxiety, trauma, couples, EMDR, ADHD) and for clinician profiles
+as the primary conversion element — clients choose a person, not a practice. Also handles the
+directory-site problem: private practices compete against Psychology Today et al, not each
+other. Focus keyword `mental health marketing`.
+
+### /marketing/optometry/ (87832) — 48 fields
+Written around the fact that optometry has **two revenue halves** — the chair and the optical —
+and most agencies ignore the second. Argues for specialty service pages (dry eye, myopia
+control, medical optometry) as the escape from routine-exam price competition with chains and
+online retailers. Focus keyword `optometry marketing`.
+
+### /marketing/veterinary/ (87833) — 48 fields
+Built on urgency split: an owner searching "emergency vet" at midnight and one comparing
+wellness plans are different buyers, and owners will drive an hour for emergency but not for
+routine. Names corporate consolidators as the competitor. Focus keyword `veterinary marketing`.
+
+Each page also had its icon boxes, founder list, hero list and three FAQ entries rewritten off
+dental language, and meta title, description and focus keyword set.
+
+### Image pattern identified (from the user's own work on med spa)
+Comparing `/marketing/medical-spa/` against the dental source shows exactly two image widgets
+get swapped per page, both from the **Clients Best** folder (559 images):
+
+| Widget | Dental | Med spa (user's) |
+|---|---|---|
+| `6a68b78d` hero | 85882 laptop-dental-website-purple (Laptop) | **80183 Golden Glow MediSpa** (Clients Best) |
+| second design | 86580 SmileTheory (Clients Best) | **83283 1004-lipsbysivan** (Clients Best) |
+
+Two images stay shared on every page: `6a12e63d` google-review (Reviews folder) and `5cf14672`
+communication-graphics (Icons folder). The remaining five specialty pages still show the dental
+laptop and SmileTheory.
+
+### Still to do
+- Swap the two design images on orthodontic, mental-health, chiropractic, optometry and
+  veterinary to specialty-matched Clients Best designs.
+- `/marketing/medical-seo/` (86878), the six support pages, the HIPAA page body.
+- Testimonials are still dental on all six specialty pages (~22-26 residual strings each).
+- Template + ACF conversion deferred by agreement — pages for now.
+
