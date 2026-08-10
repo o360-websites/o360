@@ -2054,3 +2054,8 @@ zero unresolved. Redirection cache cleared (1,847 rows).
 ### Remaining
 `/products/` hub rewrite (6 KB stub, 17 inbound links, no link to hosting); `/packages/` orphan;
 `/pricing/` depth; testimonials on the marketing landing pages; accessibility imagery.
+
+**Follow-up (same batch):** the rebuild had dropped the Disabled Access Credit point that was on
+the old `/products/adapt/`. Restored as a bullet ("Small practices may qualify for the $5,000
+Disabled Access Credit") and a 10th FAQ that states the credit exists, names IRS Form 8826, and
+sends the qualification question to the client's CPA rather than answering it ourselves.
