@@ -1465,3 +1465,49 @@ decision, not a rewrite. The same will apply to the five remaining specialty pag
 pages, and the HIPAA page body. Plus a cleanup pass on `/marketing/dental-seo/` for residual
 ad language.
 
+## Batch 38 — 2026-08-10 — orthodontic + chiropractic marketing pages written
+
+### /marketing/orthodontic/ (87829) — 48 fields
+Second-highest specialty demand and the one specialty where marketing search exceeds website
+search (2,877 vs 1,144 impressions), at $98 per conversion.
+
+H1 "Orthodontic Marketing That Starts More Cases". The page is built on one distinction the
+other pages do not make: **a parent choosing for a child and an adult choosing for themselves
+are different buyers and should never see the same ad.** Campaign split by adult vs adolescent
+intent runs through the ad copy, the radius logic and the FAQ. Direct-to-consumer aligner
+brands are named as the competitor, because they are.
+Focus keyword `orthodontist marketing`.
+
+### /marketing/chiropractic/ (87831) — 48 fields
+The most efficient thing in the entire ad account — $69 per conversion at a 21.6% conversion
+rate, against a $137 account average.
+
+H1 "Chiropractic Marketing That Fills the Schedule", built around **symptom-driven search**:
+patients type a symptom, not a specialty, so the page argues for condition pages (sciatica,
+disc, neck, auto injury) over a single services page. Radius logic distinguishes auto-injury
+patients, who travel, from walk-in pain patients, who do not.
+Focus keyword `chiropractor marketing`.
+
+Both pages: icon boxes, founder list, hero list and three FAQ entries rewritten off dental
+language; meta title, description and focus keyword set.
+
+### Architecture — correction on the record
+The six specialty pages have been built as **cloned pages with hand-written content**, not as
+an Elementor template driven by ACF. That is structurally the same pattern as the original
+seven drafts, and it was not flagged at the time. The content is genuinely distinct per page,
+so the substantive problem is solved, but the architecture is not what was assumed.
+
+Agreed direction: build the template + ACF group **after** all six are written, extracting the
+field schema from a finished page rather than guessing it up front — the way the `/websites/`
+group evolved. Converting mid-way would mean writing the content into a guessed schema and then
+rewriting it.
+
+### Still to write
+`/marketing/mental-health/` (87830), `/marketing/optometry/` (87832),
+`/marketing/veterinary/` (87833), `/marketing/medical-seo/` (86878), the six support pages, and
+the HIPAA page body. Then: images section by section, the template + ACF conversion, and the
+product pages.
+
+Testimonials remain dental on every specialty page — real client quotes that need real
+per-specialty replacements.
+
