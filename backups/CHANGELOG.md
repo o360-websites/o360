@@ -1639,3 +1639,36 @@ and these five support pages. **14 pages.**
 - Testimonials on the eight landing pages — deferred until the account search is done.
 - Publishing: everything except the hub and `/marketing/dental/` is still a draft.
 
+## Batch 42 — 2026-08-10 — specialty design images swapped
+
+Eleven image swaps on the marketing pages, following the pattern set on `/marketing/medical-spa/`:
+widget `6a68b78d` (hero) and `18993109` (second design) both take a specialty-matched client
+design, while `google-review` and `communication-graphics` stay shared across every page.
+
+### How the images were chosen
+Rather than guessing from filenames, candidates were pulled from **portfolio items in the
+matching `project_category`**, then filtered to attachments in the **Clients Best** folder with
+**zero existing Elementor usage**, sorted by resolution. That guarantees a real client in the
+right specialty and avoids reusing an image already carrying alt text elsewhere.
+
+| Page | Hero | Second design |
+|---|---|---|
+| orthodontic | 74760 Bethesda Orthodontics | 81640 Bay State Orthodontics |
+| mental-health | 81516 Insyte Psychiatric | 80917 Prestige Mental Health |
+| chiropractic | 80775 Goodyear Chiropractic | 80176 Integrity Interventional Pain Management |
+| optometry | 80411 Ravenswood Eyecare | 81933 West 5 Optometry |
+| veterinary | 85045 Michigan Pet Surgeon | 85047 Animal Hospital |
+| medical | (83155, done in Batch 36) | 80937 Clear Passage |
+
+Alt text set on all eleven in the form *"<Client> website design by O360"*.
+
+Deliberately skipped despite matching the specialty: **81867 Chestnut Dental** (30 existing
+Elementor uses), **85513 Sweet View Optical** (9) and **85052 Happy Tails** (4) — reusing a
+heavily-used image would have forced its alt text to serve two contexts.
+
+### Remaining
+- HIPAA page body; product pages.
+- Testimonials on the eight landing pages (deferred pending the account search).
+- Publishing: everything except the hub and `/marketing/dental/` is still a draft, and the hub's
+  channel links are still withheld until the children go live.
+
