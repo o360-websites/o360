@@ -2355,3 +2355,66 @@ receives **1,192 hits via redirects**: `dental-website-packages` (678), `online-
 "3 healthcare-grade packages" blog (130), `marketing-packages` (49), `packages-example` (42),
 `our-programs` (29) and eight more. It is not dead traffic. Needs a decision rather than a
 default — flagged, not touched.
+
+---
+
+## 2026-08-11 — Batch 58: /pricing/ reverted; page + redirect audits (no other changes)
+
+### /pricing/ reverted
+Restored page 26681 from template **87845** — byte-identical, back to 8,371 bytes, one section, form
+widget `61477be` intact.
+
+Two things worth recording honestly:
+
+1. **The page had already been reverted by hand before my revert ran.** `post_modified` was
+   2026-08-11 13:34, about 20 minutes before. My Batch 57 build did persist (verified at 43 KB on
+   read-back), so someone restored it in between. My revert then rewrote the identical bytes.
+2. **I lost the original Rank Math meta on /pricing/.** Batch 57 overwrote `rank_math_title`,
+   `rank_math_description` and `rank_math_focus_keyword` and I only backed up `_elementor_data`.
+   No revisions carry postmeta, so the previous values are unrecoverable. This is a gap in my own
+   backup routine — SEO meta now gets captured alongside Elementor data.
+
+### Task 1 — audit of the pages I built (structural pass)
+Six pages checked: the four product pages, the retired hub, and `/web-design/`.
+
+**Clean:** all decode, **zero duplicate element IDs**, zero broken or missing image references on
+the product pages, every internal link resolves to a published post.
+
+**One real defect:** image-box `3771678f` ("Visual Effects") renders with **no image** on
+`/web-design/` and `/products/hipaa/`. Already known and still open.
+
+**Global-style violations (CLAUDE.md rule 4)** — all *inherited* from the source designs I copied
+sections from, not introduced by the new copy:
+
+| Widget | Page | Hardcoded value |
+|---|---|---|
+| `16d2f99` and the other stat numbers | all 5 marketing-layout pages | `font-size: 4rem`, `font-weight: bold` set per element |
+| `a7b5be3`, `873c282` dividers | all 5 | `color: #FFFFFF12` |
+| `410c583d` + 7 sibling stat headings | /web-design/ | `title_color: #ffffff` |
+| `6d58fc26`, `2e941419`, `4b6bcc6c` icon-lists | /web-design/ | `text_color: #ffffff` |
+
+A first pass flagged ~10 more per page, but checking the actual settings showed
+`typography_typography: "custom"` is only a flag — those widgets carry no concrete overrides and
+their colour still resolves from `__globals__`. Not violations. Reported here only after verifying.
+
+**Not yet done:** the spelling and copy read. Structural audit only so far.
+
+### Task 2 — redirect report
+Published as an artifact. Headline numbers: 1,841 active rules, 2.23M lifetime hits, **zero loops**.
+
+Five classes of breakage:
+- **64 rules with an empty destination** — 12,282 hits, all portfolio URLs, none of the 64 source
+  slugs still exist as portfolio items. Also the only 64 rules not set to 301.
+- **41 targets that genuinely 404** — 46,273 hits.
+- **154 two-hop chains** — 52,145 hits through 9 intermediate targets.
+- **11 contradictory rules** — same source, two destinations, unpredictable winner.
+- **75 redundant duplicates + 1 `http://` target** (rule 955).
+
+**Correction to Batch 55:** I reported ~98,000 hits landing on 404s. Overstated by roughly half —
+9 of the 50 missing targets are caught by a second rule and land somewhere real. The genuine 404
+figure is **46,273**.
+
+Largest single finding: **30,956 hits** reach `/marketing/` after two hops from people searching
+for a list of dental marketing ideas.
+
+No redirect rules were changed.
