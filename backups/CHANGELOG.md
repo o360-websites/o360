@@ -2418,3 +2418,49 @@ Largest single finding: **30,956 hits** reach `/marketing/` after two hops from 
 for a list of dental marketing ideas.
 
 No redirect rules were changed.
+
+---
+
+## 2026-08-11 — Batch 59: 64 empty-destination redirects repointed to specialty pages
+
+Record: `backups/2026-08-11-empty-destination-redirects.json`
+
+### Correction — these rules were not broken
+My redirect audit called these 64 rules **broken**: *"rules pointing at nothing at all"*, and cited
+the fact that they were the only rules not set to 301 as further evidence.
+
+Reading the before-state showed their `header_code` was **410 (Gone)**. In Rank Math, 410 is a
+deliberate redirect *type* — "Content Deleted" — and an empty destination is **required** for it.
+Somebody had intentionally marked these old portfolio URLs as permanently removed so search engines
+would drop them.
+
+The user approved the change on the basis of my incorrect framing. The change is defensible —
+12,282 hits of real visitor traffic were hitting a dead end and now land on a relevant specialty
+page — but it reverses a deliberate SEO decision, and that is the user's call to keep or undo.
+
+**To revert:** set `url_to=''` and `header_code='410'` on the 64 row IDs listed in the record file.
+Sources, status and hit counts were not touched.
+
+### What was applied
+All 64 rows repointed to `/websites/<specialty>/`, or `/portfolio/` where the slug names no
+specialty. Every target was resolved with `url_to_postid()` **before** writing — zero skipped.
+
+Mapping was keyword-matched most-specific-first, then hand-reviewed. **The review caught 16
+errors**, including:
+
+- `aesthetic-dental-group` → auto-mapped to medical-spa because "aesthetic" matched before
+  "dental". It is a dental practice.
+- `allergy-asthma-sinus-associates` → auto-mapped to ENT because "sinus" matched before "allerg".
+- `just-wisdom-teeth` → dental, corrected to oral-surgery.
+- Two rows are **blog** URLs, not portfolio items: `summary-of-archived-articles-on-seo` →
+  `/marketing/seo/`, and `our-powerful-dental-practice-management-guide` → `/marketing/dental/`.
+- `mimi-k-sato-re-md` → "RE MD" is reproductive endocrinology → `/websites/obgyn/`.
+
+**Seven rows were deliberately left on `/portfolio/`** where the slug names no specialty — guessing
+would be worse than a relevant index. Two of those (1999, 1992) are O360's own internal feature
+pages, not clients.
+
+### After
+- Rows with an empty destination: **0**
+- Active rules with a non-301 code: **0**
+- Redirection cache cleared.
