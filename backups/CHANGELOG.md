@@ -2464,3 +2464,59 @@ pages, not clients.
 - Rows with an empty destination: **0**
 - Active rules with a non-301 code: **0**
 - Redirection cache cleared.
+
+---
+
+## 2026-08-11 — Batch 60: HIPAA page expanded (HIPAA depth + hosting keywords)
+
+Backups: Elementor template **87847** "ARCHIVE — HIPAA page (pre HIPAA/hosting expansion)",
+byte-identical. SEO meta also captured this time in option `o360_backup_hipaa_seo_20260811` —
+closing the gap that lost the /pricing/ meta in Batch 57.
+
+### Sections rewritten (18 fields)
+Worked "hosting", "patient information", "patient privacy", "patient communication", "encryption",
+"secure" and "private" into the sections where they belong rather than sprinkling them:
+
+- **Hero** — now opens "HIPAA-compliant website design **and hosting** company".
+- **Advanced Technology** → "Advanced Technology **& HIPAA-Compliant Hosting**". Body now states
+  plainly that HIPAA-compliant hosting is a different product from ordinary web hosting, and why:
+  a budget shared plan has no audit trail and no agreement behind it.
+- **Mobile** → "Mobile Websites That Keep **Patient Information Private**". Covers the point that a
+  patient filling in an appointment form on a phone is entering the same PHI as at a desk, so
+  encryption, secure form handling and the BAA apply on mobile identically — plus HIPAA email on
+  staff phones.
+- **SSL** → "SSL Encryption **& Secure Patient Communication**", now referencing the Security Rule's
+  transmission-safeguard expectation.
+- **Concierge Support** → "Concierge Support **& HIPAA Email Management**".
+- **HIPAA Email/Forms/Servers** → "HIPAA Email, Patient Forms **and Compliant Hosting**".
+
+### FAQ: 9 → 17, HIPAA first
+Eight new questions explaining HIPAA itself, placed ahead of the commercial ones:
+
+1. What is HIPAA, in plain terms? (Privacy / Security / Breach Notification Rules, OCR enforcement)
+2. Is HIPAA-compliant hosting different from regular web hosting?
+3. What is a Business Associate Agreement, and why does my web company need one?
+4. Does HIPAA actually apply to my website?
+5. What counts as patient information under HIPAA?
+6. Is my regular practice email HIPAA-compliant?
+7. Do my team's phones and tablets matter for HIPAA?
+8. What happens if patient information is exposed? (60-day rule, HHS, 500+ media threshold)
+
+The last one carries the hedge the user approved on the accessibility page: *"None of this is legal
+advice, and how these rules apply to your practice specifically is a question for your compliance
+officer or your attorney."*
+
+The nested-accordion needed both arrays rebuilt in matching order — `settings.items` and the child
+containers holding the answers. Verified aligned: **17 items, 17 children**.
+
+### Verification
+130 KB, decodes, zero duplicate element IDs. **Zero instances** of guarantee, legal protection,
+fully compliant, protect you from, lawsuit, 100% compliant or risk-free.
+
+Keyword counts: hosting **21**, encryption **24**, patient information **16**, secure **15**,
+patient communication **7**, Business Associate **7**, Security Rule **4**, patient privacy **3**.
+
+### Not changed
+The Rank Math title and focus keyword ("hipaa compliant website builder") were left alone —
+deliberate targeting decisions, not mine to change. Flagged for the user.
+The empty image-box `3771678f` is still the one broken image on this page.
