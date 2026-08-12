@@ -3224,3 +3224,49 @@ post_title and `[1]` back to post_content per attachment ID.
 UPDATE wp_posts SET post_title = TRIM(REGEXP_REPLACE(post_title,'^__(USED|UNUSED)__[[:space:]]*',''))
 WHERE post_type='attachment' AND post_title REGEXP '^__(USED|UNUSED)__';
 ```
+
+## Batch 74 — 2026-08-12 — Markers removed + broken-image audit
+
+**Markers removed.** All 2,612 attachment titles stripped of
+`__USED__` / `__UNUSED__` / `__TPL__` / `__KEEP__` prefixes. 0 marked rows
+remain. 5 attachments now show an empty title (29430, 50735, 50736, 50748,
+87725) — verified against `o360_backup_marks_20260812c`: those 5 were
+already untitled before the marking pass, so nothing was lost.
+Descriptions still carry the USED/UNUSED text; say the word to clear them.
+
+**Broken-image audit (read-only — nothing changed).**
+Scope: 123 live containers (83 published pages, 4 posts, 15 theme-builder
+templates, 19 elementor_snippets, embedded templates resolved two levels).
+1,083 distinct image references checked against disk.
+
+| | |
+|---|---|
+| Broken references | 131 |
+| Live pages/templates affected | 35 |
+| Distinct missing files | 70 |
+| Missing files that still have an attachment row | **0** |
+
+Every missing file is gone from BOTH the media library and disk. Verified
+not a false positive: `file_exists` confirmed working (control files
+resolve), and live `wp_remote_head` returns **404** for the missing ones and
+**200** for controls.
+
+**Worst hit:**
+- `2025/01/FuneralHomeMain2.jpg` — 21 live pages (every marketing specialty page). The whole `2025/01` upload folder is empty.
+- `2020/02/Get-Ranked-On-Google-1024x731-1.jpg` — 14 live pages
+- **Home (10545) — 29 distinct missing files**, including 22 client showcase screenshots in `2026/03/*`
+- **About Us (12599) — 13 missing**, incl. 8 staff photos
+- **Landing for Websites (86918) — 10 missing**; renders on all 46 specialty pages
+- Web Design (86913) — 8; Contact Us (893) — 5; Thank You (21731) — 5
+
+**Attributable to an earlier batch of mine:** `2020/01/custom-websites-laptop.png`
+(att 49055, deleted in Batch 71) on template 86918. Nearest replacement still
+in the library: 49072 `2020/01/custom-websites-laptop-mobile.png`.
+Everything else predates this session's work or came from the user's own
+bulk deletion of pages/templates/images.
+
+**Clean:** all 552 published portfolio-items have intact featured images
+(0 dead attachments, 0 missing files). 14 have no featured image at all.
+Zero externally-hosted images anywhere.
+
+Detail stored in option `o360_broken_20260812` (per-page file lists).
