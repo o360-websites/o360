@@ -2743,3 +2743,40 @@ home care, hospital, internal medicine, oncology, pulmonology, radiology, rheuma
 All show the template's dental fallback. Note **telemedicine** is empty despite a
 Telemedicine project-category page existing in trash with `17381bb7.mp4` — that file went to
 urgent-care and family-physician instead.
+
+---
+
+## 2026-08-11 — Batch 65: last 16 specialty pages given a Multi-Media video
+
+Backup: option `o360_backup_special_video_20260811c` (all 16 were empty before).
+
+**All 46 specialty pages now have a `special_video`.** None falls back to the dental video any more.
+
+### Basis for the matching — stated plainly
+I cannot see what is in these videos. Every file except three is an opaque hash
+(`videos/273db1eb.mp4`) and external fetches are blocked from this environment. The matching below
+is by each file's **original project-category label**, not by its content. Any of these may be
+visually wrong and should be spot-checked.
+
+### Distinct matches
+| Page | Video | Reason |
+|---|---|---|
+| telemedicine | `17381bb7.mp4` | its own project-category source |
+| home-care | `17381bb7.mp4` | care delivered outside a facility |
+| anti-aging | `0d90d74e.mp4` | aesthetic medicine — Medical Spa source |
+| anesthesiology | `273db1eb.mp4` | anesthesiologists commonly run pain clinics |
+| rheumatology | `4d5fcf4f.mp4` | musculoskeletal — Orthopedic source |
+| hospital | `o360+-+Hospital.mp4` | exact match |
+
+### The rest — one video across ten pages
+allergy, bariatrics, cardiology, ENT, gastroenterology, general surgery, internal medicine,
+oncology, pulmonology and radiology all now use **`o360+-+Hospital.mp4`** (Medical source).
+
+That is heavy reuse and worth flagging rather than glossing: the pool holds no cardiology,
+pulmonology, oncology or radiology footage, and the Medical/Hospital video is the only honest
+generic option. It is a defensible placeholder, not a good per-specialty answer. These ten are the
+first candidates if new footage is ever produced.
+
+### Note
+Each write also created the `_special_video` ACF key row where it was missing — the fix for the
+silent blanking found in Batch 64.
