@@ -2945,3 +2945,59 @@ end, and will be refreshed when the marking pass is re-run after the template cl
 
 Backups retained for the next pass: `o360_backup_attachment_titles_20260811` and
 `o360_backup_attachment_descriptions_20260811`.
+
+---
+
+## 2026-08-12 — Batch 69: dedup reference bug found and repaired
+
+### My bug
+The Batch 66 re-point pass swapped attachment **IDs** correctly but **failed to swap URLs**. The URL
+regex was:
+
+```
+#https?://[^"\\\s]*?/STEM(-\d+x\d+)?\.EXT#i
+```
+
+The character class `[^"\\\s]` **excludes backslashes**, and Elementor stores URLs JSON-escaped as
+`https:\/\/o360.com\/wp-content\/...`. So the pattern never matched a single Elementor URL. Every
+widget kept a URL pointing at a file I then deleted, and **Elementor renders from the URL, not the
+ID** — so the images vanished.
+
+The Batch 66 verification missed it too: it checked only for surviving `"id":N` references, which
+had been correctly swapped. It never checked URLs.
+
+### Live pages affected
+- **86551 Header** (published) — `O360-Logo-2020-light-version-small-2.svg`
+- **12599 About Us** (published) — `belinda-min.jpg`
+
+Plus 16 backup/archive/trash items.
+
+### Repair
+1. **All 91 backed-up files copied back to their original paths first** — restores every broken URL
+   instantly, before any further edits.
+2. **18 rows repaired** with a corrected matcher: matches the **full path**, not just the filename,
+   and handles both `/` and `\/` escaping, rewriting in whichever style it found. Full-path matching
+   matters because several keepers share a basename with their drop in a different month folder
+   (`2022/09/Med-Rect-B-300x250-1.png` vs `2022/10/`, `2026/03/carousel-kids-dentistry.png` vs
+   `2025/09/`) — a basename match would have corrupted those.
+3. Pre-repair values saved to `/uploads/dedupe-backup-2026-08-11/url-repair-before.json`.
+
+### Verification
+- **Header: 0 files missing on disk.** Decodes.
+- **Zero live pages** reference a dropped path.
+- Only two references to dropped paths remain, both in non-rendering material: a
+  `_elementor_data_backup_20260724` meta row on trashed template 79588, and the already-corrupt
+  draft 86999.
+
+### Unrelated pre-existing breakage found on About Us
+Nine images referenced by **12599 About Us** have no file on disk, and **none were mine** — all
+pre-date this work:
+
+`sanderscoley.png` · `aliciamacgowan.png` · `jessewelsh.png` · `nelsonleach.png` ·
+`kameronjackson.png` · `maryphilp.png` · `Elizabeth-Ciesielski.png` · `fivers.jpg` · `o360-team.jpg`
+
+These look like staff photos. Flagged, not touched.
+
+### Files left in place
+The 91 restored files stay on disk as orphans (~8.4 MB). The attachment records are still deleted,
+so the library is clean; removing the files again would risk repeating this. Not worth 8 MB.
