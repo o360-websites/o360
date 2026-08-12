@@ -3270,3 +3270,51 @@ bulk deletion of pages/templates/images.
 Zero externally-hosted images anywhere.
 
 Detail stored in option `o360_broken_20260812` (per-page file lists).
+
+## Batch 75 — 2026-08-12 — Broken-image audit CORRECTED
+
+**Batch 74's audit was wrong.** It scanned URLs *stored* in postmeta and
+reported 131 broken references across 35 pages. That method is invalid:
+Elementor image widgets store `{"url":…,"id":…}` and re-resolve the URL from
+the attachment ID at render time, so a stale URL in the JSON does not mean a
+broken image. The user was right that Home and About Us look fine.
+
+**Redone against rendered output** — `Elementor\Plugin::$instance->frontend->
+get_builder_content_for_display()` on all 123 live containers, plus every
+generated CSS file in `uploads/elementor/css` (catches background images,
+which never appear in the HTML).
+
+| | |
+|---|---|
+| Rendered image URLs checked (HTML) | 1,171 |
+| Image URLs in generated CSS | 98 |
+| **Broken references** | **16** |
+| **Distinct missing files** | **8** |
+| Containers affected | 2 |
+
+All 8 are Google-review avatar photos, rendering on page 12599 "About Us" and
+template 86918 "Landing for Websites" (live on all 46 specialty pages).
+Everything else on the site is clean, including all 552 published
+portfolio-item featured images and all background images.
+
+**The failure is invisible to status-code monitoring.** The origin returns
+**HTTP 200 with a 146-byte `text/html` body** for these paths — a soft 404.
+Cloudflare additionally still holds real cached copies of some (Age up to
+~220,000s / ~2.5 days), so they render today and break as the edge cache ages
+out. `fivers.jpg` was already serving the empty body during the audit. This is
+why the page looks partly fine: it is a mixed cache state, not a healthy page.
+
+**Recovered 3 of 8** from the edge cache before expiry, committed to
+`backups/recovered-images-2026-08-12/`:
+`sanderscoley.png`, `nelsonleach.png`, `kameronjackson.png`.
+
+**Unrecoverable (origin gone, edge gone, not in the Wayback Machine):**
+`aliciamacgowan.png`, `jessewelsh.png`, `maryphilp.png`,
+`Elizabeth-Ciesielski.png`, `fivers.jpg`. These are photos of real named
+people linked to their Google reviews — stock substitutes are not appropriate.
+
+**Also corrected from Batch 74:** `custom-websites-laptop.png` (att 49055) is
+NOT broken — it renders fine on 86918. The Batch 74 claim that it was still
+broken came from the same stale-URL error.
+
+Nothing on the site was changed in this batch.
