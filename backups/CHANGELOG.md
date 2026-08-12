@@ -2584,3 +2584,47 @@ references inside popup templates. Reported here only so it is not mistaken for 
 later.
 
 No images were deleted, altered or re-linked.
+
+---
+
+## 2026-08-11 — Batch 62: /websites/veterinary/ gallery filter fixed
+
+Backup: option `o360_backup_vet_portfolio_terms_20260811` holds the previous `portfolio_terms` and
+`special_video` values for page 82294.
+
+### Gallery filter — root cause found and fixed
+`portfolio_terms` on the veterinary page held the **string** `"veterinarian"`. Every one of the
+other 44 specialty pages stores a **numeric project_category term ID** (223 = dental, 224 = medical,
+225 = chiropractic, 226 = optometry, 237 = dermatology — all verified against the taxonomy).
+
+Veterinary was the only page in the set with a non-numeric value, so the filter matched nothing and
+the gallery fell through to unfiltered results.
+
+Changed to **`2757`**, the Veterinarian term ID.
+
+**Caveat worth knowing:** that category contains only **3 portfolio items** — Animal Hospital,
+Michigan Pet Surgeon, Happy Tails Animal Hospital. The filter is now correct, but the gallery will
+be short until more veterinary work is categorised.
+
+### Video — not a wrong link, an unset field
+`special_video` on the veterinary page is **empty**, so the section falls back to the template
+default, which is a dental video. There is no wrong URL to correct.
+
+This is not isolated: **19 of the 46 specialty pages have no `special_video`** — allergy,
+anesthesiology, anti-aging, bariatrics, cardiology, ENT, gastroenterology, general surgery, home
+care, hospital, internal medicine, oncology, physical therapy, pulmonology, radiology,
+rheumatology, sports medicine, telemedicine and veterinary. All of them show the dental fallback.
+
+I did **not** guess a replacement. The 23 videos in use are opaque hashed S3 filenames
+(`.../videos/be647f16.mp4`) with no way to tell what any of them contains from here, and external
+fetches are blocked from this environment. Picking one at random risks putting a dermatology video
+on the veterinary page.
+
+Three of the URLs do follow a readable pattern — `videos/portfolio-categories/o360+-+Dental+Website.mp4`,
+`o360+-+Hospital.mp4`, `o360+-+Dentistry.mp4` — so a matching veterinary file may exist in that S3
+folder. Not assumed; flagged for the user.
+
+### Also spotted, not changed
+`videos_examples` on the veterinary page reads `"dental"`. That is the field behind the
+dental/medical example links, which is populated but not read by the template — logged in Batch 55
+and still outstanding.
