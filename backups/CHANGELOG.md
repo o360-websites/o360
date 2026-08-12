@@ -3638,3 +3638,83 @@ The 403 on HTML requests is Cloudflare-side, not origin. A request from the
 origin server itself with a full Chrome User-Agent returns 200; the same
 full-UA request from outside still returns 403. So origin allows it and the
 edge blocks it — any whitelist has to be a Cloudflare rule.
+
+## Batch 80 — 2026-08-12 — Channel-page redirects + new section designs rolled out
+
+### 1. Five hijacking redirects deactivated
+Rows 1898 (`marketing/ppc/`), 1899 (`marketing/reputation`), 1900
+(`marketing/seo`), 1901 (`marketing/social`), 1903 (`marketing/content`) set
+to **inactive** — not deleted, so all 3,234 accumulated hits are preserved and
+any row can be switched back on. Redirection cache table truncated.
+
+**Verified live** (server-side fetch with a full Chrome UA, redirection=0):
+all five now return HTTP 200 with their own titles — "Healthcare SEO For
+Dental & Medical Practices", "Healthcare PPC & Google Ads Management",
+"Healthcare Social Media Marketing", "Healthcare Reputation Management",
+"Healthcare Content Marketing". Previously `/marketing/seo/` served the
+`/marketing/` hub.
+
+Three other active rules still match those slugs (164, 177, 1397) but they
+target different URLs (`ppc-vs-seo`, `social-marketing-for-the-medical-profession`)
+and do not shadow a live page — left alone.
+Backup: `o360_backup_redirects_20260812b` (full rows).
+
+### 2. The two new section designs applied, old sections removed
+
+User built two design templates on `/marketing/seo/` (86870) with placeholder
+headings naming which old section's content to move in:
+
+- **Design A** `e686509` — dark navy, image left / content right
+  (image, small heading, big heading, paragraph, icon-list, button).
+  Replaces `48c68eb7`.
+- **Design B** `50dc6ed` — dark navy, three bordered cards
+  (heading, sub-heading, intro, 3 image-box cards, button).
+  Replaces `2dc6190`.
+
+Applied to all 8 channel pages. Each page's OWN content was moved into the new
+design — nothing was copied between pages:
+
+| Page | Design A heading taken from its own old section |
+|---|---|
+| SEO 86870 | The Map Pack Comes First |
+| PPC 86871 | Exclusion Beats Bidding |
+| Social 86872 | The Consent Problem |
+| Reputation 86873 | Responding Well Matters More Than Responding Fast |
+| Content 86874 | Written for Two Readers |
+| AI Opt 86875 | Getting Cited by AI Answers |
+| Dental SEO 86877 / Medical SEO 86878 | Local SEO & the Map Pack |
+
+Per the user's three decisions: the icon list keeps **5 items** (not padded to
+the design's 6), the new design's **image icons were kept** on the three cards,
+and the button is **"Get Pricing" -> /pricing/** (the old
+"Get My Free Analysis" -> /schedule/ CTA is retired from these sections).
+
+Design B's sub-heading slot had no counterpart in the source, so one line was
+written per page ("No contract, and no obligation to continue." / "See how AI
+assistants answer for your practice today." / "See exactly where you rank
+before you commit.").
+
+On 86870 the old sections were deleted outright; on the other 7 the new
+sections were swapped into the old sections' exact positions, so page flow and
+the founder section `f6cbf83` are unchanged. Element-ID collision check run
+before writing: 0 collisions on all 7 pages.
+
+### 3. Content gap found and fixed
+The 5-item list in Design A was **SEO boilerplate on all 8 pages** — keyword
+research, on-page optimization, map pack, schema, technical SEO — regardless of
+topic. That predated this work (the list was inherited from the marketing
+layout and never rewritten per page); the migration simply carried it across
+faithfully. Rewritten per page: PPC gets negative keywords / radius / search
+terms / call tracking / landing pages, Social gets consent process /
+before-after inside HIPAA / real staff / sustainable cadence / review prompts,
+and so on. SEO's own list was already correct and was left alone.
+
+**Verified across all 8:** both new sections present, 0 old sections left,
+0 duplicate element IDs, 0 broken images, 0 remaining "Move '...'"
+placeholders, all render.
+Backups: `o360_backup_seopage_20260812`, `o360_backup_channelpages_20260812`,
+templates in `o360_tpl_sections_20260812`.
+
+### Still open
+- Cloudflare whitelist rule — user is setting it up; a custom rule matching a secret header with action Skip is the approach, since the block is edge-side (origin returns 200 to a full-UA request, the edge returns 403).
+- 5 unrecoverable review photos; re-pointing About Us once the 3 recovered ones are uploaded.
