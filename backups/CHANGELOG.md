@@ -2882,3 +2882,50 @@ An image referenced **only** from a raw CSS file or a custom-CSS box is not dete
 `UNUSED` means "no reference found", not "provably unreferenced". The third category exists for
 exactly this reason — 276 images that would otherwise have read as unused are in fact still held by
 a template or backup.
+
+---
+
+## 2026-08-11 — Batch 68: usage markers prefixed to image Titles
+
+### Why the Description alone was not enough
+Folders Pro renders the Media Library hover panel with a fixed field list — Title, Alternative Text,
+Dimensions, Size, Type, Date. Description is not in it, and stock list view has no Description
+column either, so the Batch 67 data was only visible by clicking into each image one at a time.
+Title is the one field that shows both in that panel and under every thumbnail.
+
+### Applied
+All **2,918** image titles prefixed:
+
+| Marker | Count |
+|---|---|
+| `__USED__` | 1,077 |
+| `__TPL__` | 276 (only in templates, drafts or trash) |
+| `__UNUSED__` | 1,565 |
+
+The full page list stays in the Description; the Title carries only the flag so it stays readable.
+
+### Removal — a single statement, nothing else touched
+```sql
+UPDATE wp_posts
+SET post_title = TRIM(REGEXP_REPLACE(post_title,'^__(USED|TPL|UNUSED)__[[:space:]]*',''))
+WHERE post_type='attachment' AND post_title REGEXP '^__(USED|TPL|UNUSED)__';
+```
+Anchored to the start of the string and to those three exact tokens, so it cannot touch a title that
+merely contains similar text. The prefix is also stripped before re-applying, so re-running the
+marking pass never double-prefixes.
+
+### Backups
+- **Every original title** (all 2,918, not just changed ones) in option
+  `o360_backup_attachment_titles_20260811` and in
+  `/uploads/dedupe-backup-2026-08-11/attachment-titles-before.json`.
+- Restoring from that file is exact and does not depend on the regex working.
+
+### Verified
+- 0 images left unmarked
+- **0 slugs changed** — `post_name` was untouched, so no attachment URL moved
+- Alt text untouched
+
+### Worth knowing
+Title is publicly visible in a few places — Elementor's lightbox and some gallery captions. 649
+images have blank alt text. Modern WordPress does not fall back to Title for alt, but the markers
+should come off before these pages get much traffic, and certainly before the migration.
