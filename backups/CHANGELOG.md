@@ -3133,3 +3133,48 @@ templates** on this site that my classification treated as inert.
 Closest replacement: **49072 `custom-websites-laptop-mobile.png`** (1875x1075) — the alt text on the
 missing image reads "Custom dental Website on a Laptop and phone", which matches. Not applied
 without approval.
+
+---
+
+## 2026-08-12 — Batch 72: client-folder dedup + re-marking with the template fix
+
+### Client folders — only one real duplicate left
+Scoped strictly to **Clients** (2505), **Clients Archive** (2835, the new one) and **Clients Best**
+(2669) — 1,292 images. Nothing outside those folders was touched.
+
+- **Byte-identical groups: 0.** The earlier manual cleanup already removed them.
+- **Resolution-variant groups: 2**, of which one is a false positive —
+  `Screenshot-2026-05-18-113415` vs `-113429` are two different screenshots taken 14 seconds apart.
+  Excluded again.
+
+**One deletion: 84485** `2023/05/fussell-health.png` (1600×998, 132 KB). Kept **83518**
+`Fussell-Health.png` (1600×1000, 739 KB) — higher resolution, per the rule that the best-quality
+source should survive because everything gets re-encoded to WebP later.
+
+Backed up to `/uploads/dedupe-backup-2026-08-12/` (5 files) and option `o360_backup_drop_84485`.
+
+**Correction:** I previously reported this file had "2 live references" and held it back. Both were
+its **own** `_wp_attached_file` and `_wp_attachment_metadata` rows — a self-reference, not a usage.
+Zero external references existed anywhere.
+
+### Re-marking — with theme-builder templates now counted as LIVE
+This fixes the flaw that led to attachment 49055 being deleted while template 86918 still used it.
+
+The live set is now built from:
+1. Published pages, posts and portfolio items
+2. **Every template wired into `elementor_pro_theme_builder_conditions`**
+3. **Templates embedded via a `template_id` widget inside anything already live** (two passes)
+
+That gives **672 live containers**, against the published-pages-only view used before.
+
+| Marker | Count | Previous |
+|---|---|---|
+| `__USED__` | **1,091** | 1,077 |
+| `__TPL__` | **147** | 276 |
+| `__UNUSED__` | **1,553** | 1,565 |
+
+**129 images moved out of the `__TPL__` bucket** — they are used by templates that genuinely render,
+and were previously mislabelled as not-live. Those are exactly the ones that were unsafe to delete.
+
+Library is now **2,791 images**. Titles and descriptions both backed up to
+`o360_backup_titles_20260812` and `o360_backup_desc_20260812`.
