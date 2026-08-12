@@ -3001,3 +3001,45 @@ These look like staff photos. Flagged, not touched.
 ### Files left in place
 The 91 restored files stay on disk as orphans (~8.4 MB). The attachment records are still deleted,
 so the library is clean; removing the files again would risk repeating this. Not worth 8 MB.
+
+---
+
+## 2026-08-12 — Batch 70: global colors connected; structure review
+
+### Global styles — 199 color controls connected, 32 pages
+Backup: `/uploads/dedupe-backup-2026-08-11/globals-colors-before.json` plus option
+`o360_backup_globalcolor_pages_20260812`.
+
+Every literal colour whose hex **exactly matches an existing global** is now connected to it —
+`#FFFFFF` → White, `#195BAB` → Dark Blue 5, `#E35D11` → Orange 3, and so on. The literal value is
+kept underneath as a fallback, which is how Elementor itself stores a global pick. **Rendered colour
+is byte-identical, so there is no visual change.**
+
+### What was deliberately NOT changed
+**171 literal colours have no exact global.** The big ones are `#D7E7F7` (104 uses), `#FFFFFF12`
+(28, the divider alpha) and `#F4F8FC` (21). Connecting these would mean **adding new Global Colors**,
+which CLAUDE.md rule 5 says needs explicit permission. Flagged, not done.
+
+**126 hardcoded typography settings left alone.** This is the important one: connecting them would
+**change the design**. Example — the stat numbers on Home are `4rem / bold / -5px letter-spacing`,
+while the "Stat Number" global is `Mark Pro 2em / weight 400`. Connecting them would visibly shrink
+and lighten the text. Rule 7 (fidelity) outranks rule 4 here, so typography needs a per-style
+decision rather than a bulk connect.
+
+### Correction to Batch 53
+That entry claimed the marketing channel pages "sit at root (`/ppc/`, `/social/` …)". **Wrong.**
+All six are children of 18386 and resolve at `/marketing/ppc/`, `/marketing/social/`,
+`/marketing/reputation/`, `/marketing/content/`, `/marketing/ai-optimization/`, `/marketing/seo/`.
+The structure is consistent; there is nothing to fix.
+
+### Structure review — findings
+- **Careers is in the trash**, not private as recorded earlier — 27 KB of built page sitting at
+  `careers__trashed`.
+- **Blog has 4 posts** and no link in the live menu. Against 46,273 redirect hits aimed at articles
+  that were never written.
+- **Header carries a PRICING button and the phone number** outside the menu, so `/pricing/` is
+  reachable even though it has no menu item.
+- **`/products/` is published-but-redirecting**, so there is no index page for products. Adding a
+  seventh product currently means adding a section to `/web-design/` and nothing else.
+- **No case-study or results pages.** The marketing pages cite 186K visits and 67K booked
+  appointments with no page behind those numbers.
