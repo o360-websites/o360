@@ -3518,3 +3518,70 @@ Backup: `o360_backup_images_20260812`.
 - Orthodontic's what-you-get image still shows the dental testimonial — the library has only three orthodontic screenshots in Clients Unused and all three were used in the stories row.
 - The pricing button uses Elementor's SYSTEM globals (accent/secondary), not custom entries. Copied as-is from the approved source button rather than changed unilaterally.
 - Hero/offset image tuning (`_margin -110`, `_offset_y_end -2`, absolute→static) was tuned to Medical's images; other pages use different screenshots so those two hero images are worth an eyeball.
+
+## Batch 78 — 2026-08-12 — Success-story hide, layout parity with Medical, folder move
+
+### 1. Success-story section hidden on 5 specialties
+Section `6e3671d0` set to `hide_desktop` + `hide_tablet` + `hide_mobile` on
+Medical Spa (87828), Mental Health (87830), Chiropractic (87831),
+Optometry (87832), Veterinary (87833). Responsive-hide was used deliberately so
+the section still shows in the Elementor editor for gradual per-specialty
+updates. Dental, Medical and Orthodontic left visible.
+Verified: section still present in the data on all 8 pages, `HIDDEN` state on
+exactly the 5, and `elementor-hidden-desktop` renders on those 5 only.
+Backup: `o360_backup_storyhide_20260812`.
+
+### 2. Visual/layout parity with /marketing/medical/
+Browser screenshots were not possible — Chromium cannot traverse this session's
+egress proxy (ERR_CONNECTION_RESET on every host; example.com returns
+ERR_TUNNEL_CONNECTION_FAILED), and o360.com's WAF returns 403 to every
+non-image request from both this environment and the cloud sandbox. So the
+comparison was done structurally against the stored Elementor trees, which
+located the cause precisely.
+
+Batch 77's design copy only touched elements whose IDs exist on BOTH pages.
+Three things did not have counterparts, and those were the visible differences:
+
+**a. Hero images were in the reverse order.** Medical's hero column
+`453d577b` holds `6a68b78d` (main screenshot) THEN `6a12e63d` (Google-review
+badge). Every other page had them reversed. Since Batch 77 copied Medical's
+`_margin: -110px top` and `position: absolute → static` onto `6a12e63d`, the
+negative offset was landing on the wrong element — this was the image
+placement problem. Order corrected on 6 pages (Medical Spa was already right).
+
+**b. Hero button container had a different ID.** Medical uses `f678fb7`,
+the others `887d4fc` — so it received no styling in Batch 77. Medical's
+settings copied onto `887d4fc` on all 7 pages.
+
+**c. The stats bar was still the legacy layout.** Medical's position-2 section
+is a modern flex **container** `f4f70c5` (8 headings in 6 containers); every
+other page still had the old `393e660` **section** built from columns and
+dividers. Replaced with a clone of Medical's container on all 7 pages, with
+each page's OWN 8 stat headings carried across in order (8/8 slots filled on
+every page) — so Dental/Veterinary/Optometry keep
+"186K / WEBSITE VISITS / 67K / SCHEDULED APPOINTMENTS / 434+ / 5-Star Reviews /
+97% / CLIENT SATISFACTION" while gaining Medical's layout.
+
+**Verified after:** all 8 pages have `f4f70c5` at position 2, hero order
+main-then-badge, 0 duplicate element IDs, 0 broken images, all render.
+Backup: `o360_backup_layoutfix_20260812`; reference copy of Medical's stats
+section + hero button container in `o360_ref_stats_20260812`.
+
+**Still differs, flagged not fixed:** Medical's founder photo is
+`Dr.-Sean-Fahimi-dental-office-blue-orange.jpeg` (907x1024, ratio 0.89) while
+every other page uses `Dr-Sean-Fahimi-DDS-Working.jpg` (1128x1422, ratio 0.79).
+At the shared 444px width that renders 499px tall vs 562px — a 63px difference
+in that section. Changing it means swapping the photo, which is a content
+decision, so it was left alone.
+
+### 3. Swapped images moved to the Clients folder
+All 32 images used in Batch 77's specialty swap moved from `media_folder`
+term 2835 "Clients Unused" to term 2505 "Clients". Verified 32/32 are now in
+Clients and out of Clients Unused. Counts recalculated: Clients Unused
+338 -> 306, Clients 609 -> 641.
+Backup of prior folder membership: `o360_backup_imgfolders_20260812`.
+
+### 4. Channel pages — NOT started
+User removed SEO/Social/PPC/Reputation/Content from the menu because the
+content is not finished, and asked to give direction before that work begins.
+Holding.
