@@ -2703,3 +2703,43 @@ still shows the dental fallback.
 ### Also surfaced
 `o360+-+Pediatric.mp4` exists on the trashed Pediatric page but neither `/websites/pediatric/` nor
 `/websites/pediatric-dentistry/` uses it — both share `09671dfc.mp4`. Not changed.
+
+---
+
+## 2026-08-11 — Batch 64: Multi-Media videos assigned; full pool inventoried
+
+Backup: option `o360_backup_special_video_20260811b`.
+
+### Applied
+- **`/websites/pediatric/` (86905)** → `o360+-+Pediatric.mp4`, from the trashed Pediatric page.
+  Was on `09671dfc.mp4`. **`/websites/pediatric-dentistry/` deliberately left on `09671dfc.mp4`.**
+- **`/websites/physical-therapy/` (86859)** and **`/websites/sports-medicine/` (86860)** →
+  `4d5fcf4f.mp4` (Orthopedic Surgery source).
+
+### A write of mine was silently reverted
+The physical-therapy `special_video` set in Batch 62 was **gone** — null in the database. Both that
+page and sports-medicine show `post_modified` of 18:06 and 18:36 today, so a page save wiped it.
+This is the ACF equivalent of the Elementor-tab overwrites seen earlier in the week.
+
+Likely cause found: those two pages had **no `_special_video` ACF key field**, whereas pages where
+the value stuck (pediatric, orthopedic, chiropractic) all carry `field_wl_special_video`. Without
+the key row ACF does not recognise the value as its own and can blank it on the next save. The key
+field has now been written on both pages alongside the value.
+
+### The full pool — 25 videos
+18 come from `featured_video` on trashed project-category pages; 9 are in use with no
+project-category source (so their origin is unrecorded).
+
+**Everything in the pool is now assigned.** There is no unused video left to draw on.
+
+Shared across more than one page: `0d90d74e` (cosmetic-surgery + medical-spa), `55da7c2e`
+(mental-health + funeral-home), `17381bb7` (urgent-care + family-physician, plus a trashed page),
+`4d5fcf4f` (orthopedic + physical-therapy + sports-medicine).
+
+### 16 specialty pages still have no video
+allergy, anesthesiology, anti-aging, bariatrics, cardiology, ENT, gastroenterology, general surgery,
+home care, hospital, internal medicine, oncology, pulmonology, radiology, rheumatology, telemedicine.
+
+All show the template's dental fallback. Note **telemedicine** is empty despite a
+Telemedicine project-category page existing in trash with `17381bb7.mp4` — that file went to
+urgent-care and family-physician instead.
