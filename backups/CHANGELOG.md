@@ -3718,3 +3718,82 @@ templates in `o360_tpl_sections_20260812`.
 ### Still open
 - Cloudflare whitelist rule — user is setting it up; a custom rule matching a secret header with action Skip is the approach, since the block is edge-side (origin returns 200 to a full-UA request, the edge returns 403).
 - 5 unrecoverable review photos; re-pointing About Us once the 3 recovered ones are uploaded.
+
+## Batch 81 — 2026-08-12 — Section images + live verification via WAF bypass
+
+### 1. Cloudflare preview header now working
+User created a Cloudflare custom rule ("Preview header bypass for Claude Code
+Novamira", order 1) keyed on a secret request header that skips remaining
+custom rules, managed rules, Super Bot Fight Mode and Browser Integrity Check.
+
+**The header value is deliberately NOT recorded in this repo.** It lives only
+in the session scratchpad at `<scratchpad>/.o360env` (mode 600) and was
+confirmed absent from the repository before committing.
+
+This gives read access to the live site for the first time. Chromium still
+cannot traverse the session's egress proxy (ERR_PROXY_CONNECTION_FAILED), so
+screenshots remain unavailable — but curl-based fetch and asset checking now
+work against production.
+
+### 2. Design A images made topic-appropriate
+The image in the new Design A section was the generic Google-results graphic
+`marketing-main-image.png` on all 8 channel pages. Changed where it did not fit:
+
+| Page | Image |
+|---|---|
+| PPC 86871 | `Responsive-Display-Ad-doctors.png` (82506, 3034x2084) |
+| Social 86872 | `social-icons.png` (85348, 1774x872) |
+| Reputation 86873 | `Review-Summary.png` (84645, 2686x928) |
+| Content 86874 | `Collage-Blue.png` (87467, 1950x1019) |
+
+SEO, Dental SEO and Medical SEO keep `marketing-main-image.png` — a search
+results graphic is correct for them. Every replacement was verified present on
+disk before writing, and alt text was taken from the attachment.
+Backup: `o360_backup_designAimg_20260812`.
+
+**AI Optimization left on the generic image and flagged** — the library has no
+AI/assistant imagery at all (searched chat, gpt, schema, robot, ai). Same gap
+previously noted for the accessibility page.
+
+### 3. Live verification against production
+Fetched all 8 channel pages through the bypass header and HEAD-checked every
+image URL each page actually serves:
+
+| Page | HTTP | images | broken | placeholders |
+|---|---|---|---|---|
+| seo | 200 | 37 | 0 | 0 |
+| ppc | 200 | 46 | 0 | 0 |
+| social | 200 | 46 | 0 | 0 |
+| reputation | 200 | 49 | 0 | 0 |
+| content | 200 | 46 | 0 | 0 |
+| ai-optimization | 200 | 69 | 0 | 0 |
+| dental-seo | 200 | 69 | 0 | 0 |
+| medical-seo | 200 | — | — | 0 |
+
+All four new Design A images confirmed present in the live HTML, all per-page
+list rewrites confirmed live, and `Get My Free Analysis` confirmed gone from
+the migrated sections.
+
+### 4. Miss caught by the live check: Rank Math meta
+The live HTML surfaced `measured in booked appointments` inside a meta
+description — Batch 77's language fix only rewrote `_elementor_data`, never the
+SEO meta. **13 live meta descriptions** still carried "run by a doctor" and/or
+booking language, and those are what appear in Google results and social
+shares.
+
+Fixed all 13: `run by a doctor` -> `run by a dentist` (including the
+capitalised "Run by a doctor-led team" variant, which the first pass missed
+because the replace was case-sensitive), `booked appointments` ->
+`scheduled appointments`, `booked intakes` -> `scheduled intakes`,
+`exams booked` -> `exams scheduled`, `a booking factor` -> `a scheduling
+factor`. **Verified: 0 rank_math meta rows with old wording remain.**
+Longest result is 160 chars, within the snippet limit.
+Backup: `o360_backup_rankmathmeta_20260812`.
+
+Note: 13 OTHER pages have rank_math descriptions over 160 chars (26681, 82599,
+83110, 83115, 86349, 86647, 86650, 86657, 87836, 87837, 87838, 87841, 87846) —
+pre-existing, unrelated to this work, not touched.
+
+### 5. Design decision recorded
+User: keep the current design on the marketing/channel pages for now; revisit
+later. Only Dental Marketing and the Marketing hub were reverted (Batch 79).
