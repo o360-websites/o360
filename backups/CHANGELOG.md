@@ -2520,3 +2520,18 @@ patient communication **7**, Business Associate **7**, Security Rule **4**, pati
 The Rank Math title and focus keyword ("hipaa compliant website builder") were left alone —
 deliberate targeting decisions, not mine to change. Flagged for the user.
 The empty image-box `3771678f` is still the one broken image on this page.
+
+**Batch 60 follow-up — HIPAA page SEO meta updated (approved).**
+
+| | Before | After |
+|---|---|---|
+| Title | HIPAA-Compliant Website Builder & Design for Practices \| O360® | HIPAA-Compliant Website Design, Builder & Hosting \| O360® |
+| Focus keyword | hipaa compliant website builder | hipaa compliant website builder, hipaa compliant website hosting, hipaa compliant web design |
+| Description | …builder and design… fully hosted by O360. | …design, builder and hosting… Encrypted patient forms, secure patient communication and a signed BAA. |
+
+Title renders at 57 characters, description at 157 — both inside the usual truncation limits.
+Email was deliberately left out of the title per instruction; the page keeps design, builder and
+hosting as the three targets.
+
+Note: the old description said "**fully** hosted by O360" — dropping it also removes one more
+absolute-sounding phrase. Previous values remain in option `o360_backup_hipaa_seo_20260811`.
