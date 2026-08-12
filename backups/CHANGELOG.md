@@ -2650,3 +2650,56 @@ pediatric-dentistry + pediatric, and now orthopedic + physical-therapy).
 
 Minor: `17381bb7.mp4` is still referenced by a trashed page (`healthcare__trashed`) alongside
 urgent-care and family-physician.
+
+---
+
+## 2026-08-11 — Batch 63: veterinary Multi-Media video recovered from a trashed page
+
+### No restore was needed
+The user suggested restoring the trashed project-category pages, reading the URLs, then re-trashing
+them. That round trip was unnecessary and carried real risk — restoring a page whose parent (86292)
+is also trashed is exactly what produced the `project-category__trashed/<slug>/` live-URL problem
+found earlier.
+
+**Trashed posts keep their postmeta**, so the values were read straight out of the database with no
+status change. Verified afterwards: **18 of 18** source pages are still in the trash.
+
+### The video URLs live in a `featured_video` meta field
+18 trashed project-category pages carry one. Full map recovered — useful for the migration:
+
+| Page | File |
+|---|---|
+| Veterinarian (86346) | **25594783.mp4** |
+| Orthopedic Surgery | 4d5fcf4f.mp4 |
+| Pediatric | o360+-+Pediatric.mp4 |
+| Chiropractic | be647f16.mp4 |
+| Dental | o360+-+Dental+Website.mp4 |
+| Dental Lab | b3d9f41c.mp4 |
+| Endodontic | 80b5dfcf.mp4 |
+| Eye Specialty | ebc3323b.mp4 |
+| Medical | o360+-+Hospital.mp4 |
+| Medical Spa / Plastic Surgery | 0d90d74e.mp4 |
+| Mental Health | 55da7c2e.mp4 |
+| OBGYN | 476839b7.mp4 |
+| Orthodontic | 4eb47290.mp4 |
+| Pain Management | 273db1eb.mp4 |
+| Podiatry | a188b332.mp4 |
+| Telemedicine / Urgent Care | 17381bb7.mp4 |
+
+### Applied
+`/websites/veterinary/` `special_video` set to `.../videos/25594783.mp4` — a file referenced
+nowhere else on the site, so it is genuinely the veterinary video rather than a borrowed one.
+Previous (empty) value added to option `o360_backup_vet_portfolio_terms_20260811`.
+
+### Could not be done — no source exists
+**Cardiology and physical therapy have no project-category page in any status.** The trashed set is
+exactly the 18 above; neither specialty is among them, and neither was ever created. Their
+`project_category` taxonomy terms do exist and are well populated — `cardiologist` (14 items),
+`physical-therapy` (12 items) — but no page and therefore no `featured_video`.
+
+Physical therapy currently carries the orthopedic video from Batch 62. Cardiology remains empty and
+still shows the dental fallback.
+
+### Also surfaced
+`o360+-+Pediatric.mp4` exists on the trashed Pediatric page but neither `/websites/pediatric/` nor
+`/websites/pediatric-dentistry/` uses it — both share `09671dfc.mp4`. Not changed.
