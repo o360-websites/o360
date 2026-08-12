@@ -3085,3 +3085,51 @@ elements and should be eyeballed rather than done blind.
 | About O360 + Reviews | 1 | 246 KB |
 | Video Thumbnails | 1 | 81 KB |
 | Laptop 3D | 1 | 236 KB |
+
+---
+
+## 2026-08-12 — Batch 71: fonts connected; keeper rule confirmed; a live breakage found
+
+### The dedup table = what was REMOVED
+To answer the question directly: the folder table lists the **35 attachments that were deleted**,
+not restored. Their database records are still gone. Only the **files** were copied back to disk in
+Batch 69, to stop the URL references breaking — they sit there as orphans.
+
+### Keeper rule — confirmed correct
+Every keeper was the **highest-resolution** member of its group; the sort was by pixel count
+descending. Verified: **30 of 30**. Five entries initially looked like the keeper was smaller, but
+that was because four of those keepers no longer exist (see below) and the fifth pair are SVGs,
+which carry no pixel dimensions.
+
+### 4 Global Fonts connected — 93 controls, 18 pages
+Each global was built to mirror the **exact** property set already hardcoded on those elements, so
+connecting them produces identical CSS. **No visual change.** Backup:
+`/uploads/dedupe-backup-2026-08-11/globals-fonts-before.json`.
+
+This also corrects my earlier caution. I said connecting would "visibly change 93 elements" — that
+was true of connecting to the *pre-existing* globals whose values differ, not of these new ones.
+
+### Fussell pair — NOT deleted
+The stated rule (always keep the higher resolution, since everything gets re-encoded to WebP later)
+is right, and it reverses my earlier reasoning. But the smaller file **has 2 live references**, so
+deleting it would have broken them. Left in place; it needs the references re-pointed first.
+
+### 126 images removed since the marking pass — and one live breakage
+The library is down from 2,918 to 2,792.
+
+**29 of the 30 dangling references on live pages were already broken before any of this** — long
+pre-existing, including 85997 (referenced on 21 pages) and 71055 (on 14).
+
+**One is new and live: attachment 49055 "Custom Websites Laptop".** It is referenced by template
+**86918 "Landing for Websites"**, which carries **46 theme-builder conditions** — it renders every
+specialty page. The original file `2020/01/custom-websites-laptop.png` is gone from disk; only a
+`450x260` thumbnail survives.
+
+**Cause — a flaw in my marking pass.** I classified `elementor_library` templates as "not live", so
+images used only by 86918 were labelled `NOT ON ANY LIVE PAGE`. That label is wrong: a template
+wired into theme-builder conditions is as live as a page. There are **26 theme-builder-active
+templates** on this site that my classification treated as inert.
+
+Closest replacement: **49072 `custom-websites-laptop-mobile.png`** (1875x1075) — the alt text on the
+missing image reads "Custom dental Website on a Laptop and phone", which matches. Not applied
+without approval.
