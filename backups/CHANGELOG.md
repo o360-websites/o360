@@ -2780,3 +2780,66 @@ first candidates if new footage is ever produced.
 ### Note
 Each write also created the `_special_video` ACF key row where it was missing — the fix for the
 silent blanking found in Batch 64.
+
+---
+
+## 2026-08-11 — Batch 66: image deduplication applied
+
+### Backups taken first
+- **`/wp-content/uploads/dedupe-backup-2026-08-11/`** — 91 files copied (24.7 MB), covering every
+  original plus all its generated sizes, zero failures. Plus `manifest.json` with the full database
+  row for each attachment: title, slug, mime, parent, dates, `_wp_attached_file`,
+  `_wp_attachment_metadata`, alt text, media-folder terms and URL.
+- Same record duplicated in option `o360_dedupe_backup_20260811`.
+- **`elementor-before.json`** in the same folder — the original `_elementor_data` for all 22 pages
+  whose references were rewritten.
+
+`MEDIA_TRASH` is off on this install, so `wp_delete_attachment()` is permanent and removes files
+from disk. That is why the files were copied aside rather than relying on a trash state.
+
+### Three exclusions from the audited list
+- **`Screenshot-2026-05-18-113415` / `-113429`** — not duplicates. Two different screenshots taken
+  14 seconds apart. My stem normalizer had merged them.
+- **`Fussell-Health.png` (1600×1000, 739 KB) / `fussell-health.png` (1600×998, 132 KB)** — two
+  pixels apart but 5.6× the file size, so "keep the largest resolution" picks the *worse* file. The
+  smaller is almost certainly the better-optimized export. Left alone.
+- **`line-art-design`** appeared in both duplicate classes and would have been dropped twice.
+  Merged into one group.
+
+### Applied
+**35 attachments deleted, 8.4 MB reclaimed.** References were re-pointed to the keeper **before**
+any deletion:
+
+- 22 pages/templates had `_elementor_data` rewritten — both the `"id":N` reference and the image URL
+- 3 `_thumbnail_id` rows repointed
+- 1 termmeta row repointed
+
+### Verification
+- All 35 deletions succeeded; **0 still present**
+- All 30 keepers exist and resolve
+- **Zero dangling references on any published page**
+
+### Correction to my own error message
+The re-point pass logged *"post 86999 — replacement broke JSON, SKIPPED"*. That wording was wrong.
+**86999's `_elementor_data` was already invalid JSON before I touched it** — a plain ID swap and a
+plain URL swap both fail on it identically. The guard correctly refused to write to already-corrupt
+data; it did not corrupt anything.
+
+### New finding: five corrupt Elementor records
+A site-wide JSON integrity check found **5 posts whose `_elementor_data` does not parse**:
+
+| ID | Title |
+|---|---|
+| 86979 | Landing for Websites — BACKUP 7 (pre rich-text merge) |
+| 86999 | Landing for Websites — BACKUP 8 (pre edu-video fallback swap) |
+| 87001 | Landing for Websites — BACKUP 9 (pre title/subtitle re-split) |
+| 87032 | Landing for Websites — BACKUP 10 (pre labels/AI boxes/reviews) |
+| 87058 | Landing for Websites — BACKUP 11 (pre medical fallbacks) |
+
+All five are **draft** `elementor_library` backups of the specialty landing template, so nothing
+renders from them and no live page is affected. But they are unrecoverable as backups — if any were
+being relied on as a rollback point for template 86918, it will not restore. Three of these (87001,
+87032, 87058) are the same drafts skipped during the Batch 50 guarantee sweep for the same reason.
+
+86999 still carries a reference to deleted attachment 86510. It cannot be repaired without
+hand-rebuilding the JSON, and it never renders.
