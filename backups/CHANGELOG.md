@@ -3318,3 +3318,96 @@ NOT broken — it renders fine on 86918. The Batch 74 claim that it was still
 broken came from the same stale-URL error.
 
 Nothing on the site was changed in this batch.
+
+## Batch 76 — 2026-08-12 — Marketing menu + pricing buttons
+
+### 1. Marketing pages added to the live menu
+
+Added to **Main Header (#2491)** — the menu the live Elementor header (86551)
+actually renders — as children of the existing "Marketing" item (42783),
+which previously had only one child (Dental Marketing).
+
+14 new items, ordered specialties → channels → hub:
+
+| Order | Item | Target |
+|---|---|---|
+| 14–20 | Medical / Medical Spa / Orthodontic / Mental Health / Chiropractic / Optometry / Veterinary Marketing | 86876, 87828–87833 |
+| 21–26 | Healthcare SEO · PPC & Google Ads · Social Media · Reputation Management · Content Marketing · AI Optimization | 86870–86875 |
+| 27 | All Marketing | 18386 |
+
+New item IDs 87861–87874. Trailing items (HIPAA, Company, About, Contact,
+Support) shifted from 14–18 to 28–32. Every target verified published BEFORE
+insertion; the script aborts if any is not.
+
+**Verified after:** 32 items, **0 unresolved URLs**, header template renders
+40,795 bytes and contains the new links.
+
+**Not added — flagged:** `/marketing/dental-seo/` (86877) and
+`/marketing/medical-seo/` (86878). They are sub-variants of Healthcare SEO;
+putting all three SEO pages in one dropdown reads as duplication. They stay
+interlinked from the SEO page. Say the word and I'll add them.
+
+**Backup:** `o360_backup_mainheader_menu_20260812` — all 18 original items with
+title, url, parent, order, object and object_id.
+
+### 2. Pricing button added to the marketing specialty pages
+
+Source: `/marketing/dental/` (86667), which carries a "Get Pricing" button in
+7 sections: `625380b7` hero, `2f61210d` what-you-get, `48c68eb7` SEO,
+`a011cbe` 4 icon-boxes, `42c5e65a` ads, `6e3671d0` stories, `65f4cb60` CTA.
+
+The button widget was cloned **verbatim** from the matching section — not a
+generic copy. The hero button differs from the other six (531 vs 613 bytes),
+so each section got its own source. Same parent container, same index within
+that container, so it lands in the same visual position.
+
+**37 buttons added across 7 pages:**
+
+| Page | Added |
+|---|---|
+| Medical (86876) | 2 |
+| Medical Spa (87828) | 6 |
+| Orthodontic (87829) | 6 |
+| Mental Health (87830) | 6 |
+| Chiropractic (87831) | 6 |
+| Optometry (87832) | 6 |
+| Veterinary (87833) | 5 |
+
+Sections that already had a pricing button were skipped, not duplicated.
+
+**Global styles honoured:** the button carries
+`__globals__: {background_color: globals/colors?id=accent,
+button_background_hover_color: globals/colors?id=secondary}` — copied
+unchanged, so colours stay connected to Global Colors and the hover state is
+preserved. NOTE: these are Elementor's *system* globals (accent/secondary),
+not custom entries. That is how the approved source button was already built,
+so it was copied as-is rather than changed unilaterally.
+
+**Verified after:** all 7 pages decode as valid JSON, **0 duplicate element
+IDs**, 0 malformed URLs, and each page renders exactly the expected number of
+`https://o360.com/pricing/` links (7 per page; Medical has 9 because it
+already carried 2 outside the tracked sections). Element cache and CSS cleared
+per page, `rocket_clean_post()` per page. `rocket_clean_domain()` NOT used.
+
+**Backup:** `o360_backup_mktpages_20260812` — `_elementor_data` for all 7
+targets plus the source, verified byte-identical before any edit.
+
+### Not done — channel pages still missing pricing buttons
+
+Out of scope for "specialty pages", flagged for a decision:
+`/marketing/seo/`, `/marketing/ppc/`, `/marketing/social/`,
+`/marketing/reputation/`, `/marketing/content/` are each missing the button in
+what-you-get, SEO and CTA sections. `/marketing/ai-optimization/`,
+`/marketing/dental-seo/`, `/marketing/medical-seo/` are missing it in 6
+sections each. The hub `/marketing/` is missing it in 2.
+
+### Still open
+
+3 recovered review photos (sanderscoley, nelsonleach, kameronjackson) could
+NOT be uploaded from this session — every transfer path is blocked: public
+file hosts are blocked by the agent proxy, o360.com's WAF returns 403 to the
+REST API and to all non-image requests, and the server itself resolves
+o360.com to origin, where the files no longer exist. Files were delivered to
+the user directly and are in `backups/recovered-images-2026-08-12/`. Once they
+are back in the library the About Us widgets need re-pointing to the new
+attachment IDs (old IDs 85820, 85822, 85823 are gone).
