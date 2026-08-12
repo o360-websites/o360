@@ -2535,3 +2535,52 @@ hosting as the three targets.
 
 Note: the old description said "**fully** hosted by O360" — dropping it also removes one more
 absolute-sounding phrase. Previous values remain in option `o360_backup_hipaa_seo_20260811`.
+
+---
+
+## 2026-08-11 — Batch 61: image duplicate audit (read-only, no changes)
+
+### Correction to my own first pass
+An initial name-based pass reported **237 duplicate groups and ~170 MB reclaimable**. That was
+wrong. The normalizer stripped trailing digits, which merged genuine batch uploads — 50 distinct
+images named `eye-2`…`eye-50` collapsed into one "duplicate group", as did `image-1`…`image-20` and
+several numeric sequences. Discarded and redone with file hashing.
+
+### Verified findings
+Library: **2,953 images, 1,126.7 MB**.
+
+**Byte-identical duplicates — confirmed by md5:** 9 groups, **3.28 MB**.
+Method: a true byte-duplicate must share dimensions *and* byte count, so that narrowed 2,946 images
+to 12 candidate groups (26 files, 7.8 MB read) which were then hashed. Cheap and definitive.
+
+- 4 pairs of `Animated-*` tiles re-uploaded (87454/87458, 87455/87459, 87456/87460, 87457/87461)
+- 8 SVG logo re-uploads — the O360 2020 logo exists 2–3 times over
+- **49072 `custom-websites-laptop-mobile.png` and 87677 `Dental-esthetics-responsive-website-design.png`
+  are byte-identical under different names.** 49072 is in use on `/products/hosting/` and
+  `/products/adapt/`.
+
+**Resolution variants — same image kept at two sizes:** 24 groups, **5.1 MB**.
+Matched on filename stem with only one trailing token stripped, requiring aspect ratio within 2%,
+at least two distinct dimensions, and group size ≤ 6 to exclude batch sequences.
+
+**Total reclaimable by deduplication: ~8.4 MB — 0.7% of the library.**
+
+### Where the weight actually is
+| Format | Files | Size | Avg |
+|---|---|---|---|
+| PNG | 965 | **595.6 MB** | 632 KB |
+| WEBP | 662 | 299.9 MB | 464 KB |
+| JPEG | 1,285 | 230.6 MB | 184 KB |
+
+**706 PNGs are over 300 KB, totalling 544 MB.** Several are 5500×3125 at 3–4 MB each
+(`Eye-Care-website-example-by-O360.png` is 4.3 MB). Converting the photographic PNGs to WebP/AVIF
+typically saves 60–80% — call it **350–430 MB**, roughly 45× what deduplication returns.
+
+### Number NOT to act on
+A usage scan flagged **1,641 images as unused**. That figure is unreliable and should not drive
+deletions: the scan reads Elementor data, `_thumbnail_id`, numeric postmeta and post content, but
+cannot see gallery ID lists, term meta, Elementor page-settings backgrounds, customizer settings, or
+references inside popup templates. Reported here only so it is not mistaken for a clean number
+later.
+
+No images were deleted, altered or re-linked.
