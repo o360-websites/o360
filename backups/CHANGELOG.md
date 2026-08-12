@@ -2929,3 +2929,19 @@ marking pass never double-prefixes.
 Title is publicly visible in a few places — Elementor's lightbox and some gallery captions. 649
 images have blank alt text. Modern WordPress does not fall back to Title for alt, but the markers
 should come off before these pages get much traffic, and certainly before the migration.
+
+**Batch 68 follow-up — title markers removed.**
+
+Restored from the backup rather than regex-stripping, so the result is exact rather than dependent
+on the pattern matching correctly. **2,792 titles restored, 0 markers left, 0 titles differing from
+the backed-up original.** Nothing skipped.
+
+Note the count: 2,792, not 2,918. The other 126 already matched their original title — those were
+images whose title was empty before marking, so stripping the prefix returned them to empty and no
+write was needed.
+
+**Descriptions were left in place** — they carry the page-usage detail, are invisible on the front
+end, and will be refreshed when the marking pass is re-run after the template cleanup.
+
+Backups retained for the next pass: `o360_backup_attachment_titles_20260811` and
+`o360_backup_attachment_descriptions_20260811`.
