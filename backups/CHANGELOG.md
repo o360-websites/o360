@@ -2843,3 +2843,42 @@ being relied on as a rollback point for template 86918, it will not restore. Thr
 
 86999 still carries a reference to deleted attachment 86510. It cannot be repaired without
 hand-rebuilding the JSON, and it never renders.
+
+---
+
+## 2026-08-11 — Batch 67: usage written into every image Description
+
+Backup: the 29 attachments that had an existing Description are saved in option
+`o360_backup_attachment_descriptions_20260811` and in
+`/uploads/dedupe-backup-2026-08-11/attachment-descriptions-before.json`. The other 2,889 were empty.
+
+### What was written
+Every one of the **2,918 images** now carries one of three lines in its Description field, visible
+in the Media Library attachment panel:
+
+| Marker | Count | Meaning |
+|---|---|---|
+| `USED ON: /path/, /path/…` | **1,077** | referenced by a published page, post or portfolio item |
+| `NOT ON ANY LIVE PAGE - only in: …` | **276** | only in templates, drafts, trash or backups |
+| `UNUSED` | **1,565** | no reference found anywhere |
+
+Description was chosen over Caption because Caption can render publicly in galleries and carousels;
+Description never does. Alt text and Title were left untouched.
+
+### Sources scanned
+`_elementor_data`, `_elementor_page_settings`, `_thumbnail_id`, all non-underscore postmeta (ACF, by
+both attachment ID and URL), post content, term meta, and the options table (widgets, customizer,
+Elementor kit). Matching is by attachment ID **and** by filename, so an image referenced only by URL
+is still caught.
+
+### Noise removed from a first pass
+An initial run produced labels like `attachment: phone2 [inherit]` and `revision: …` — images
+matching themselves, and revisions counting as usage. Revisions, attachments, nav menu items and ACF
+field definitions are now excluded as containers, and self-references are skipped. That first run
+was a dry run; nothing was written from it.
+
+### The known gap, restated
+An image referenced **only** from a raw CSS file or a custom-CSS box is not detectable this way, so
+`UNUSED` means "no reference found", not "provably unreferenced". The third category exists for
+exactly this reason — 276 images that would otherwise have read as unused are in fact still held by
+a template or backup.
