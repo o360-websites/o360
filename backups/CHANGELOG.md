@@ -3043,3 +3043,45 @@ The structure is consistent; there is nothing to fix.
   seventh product currently means adding a section to `/web-design/` and nothing else.
 - **No case-study or results pages.** The marketing pages cite 186K visits and 67K booked
   appointments with no page behind those numbers.
+
+**Batch 70 follow-up — new Global Colors and Fonts added (approved).**
+
+Kit 79953 backed up first: option `o360_backup_elementor_kit_20260812` and
+`/uploads/dedupe-backup-2026-08-11/elementor-kit-before.json`.
+
+**6 Global Colors added** — every literal with no global that is used more than once:
+Light 3 `#D7E7F7` (104 uses) · White 7% `#FFFFFF12` (28) · Light 4 `#F4F8FC` (21) ·
+Dark Blue 6 `#002244` · Blue 6 `#0095F3` · Dark Blue 7 `#063D84`.
+
+**159 further colour controls connected** across 27 pages. Combined with the earlier pass,
+**358 colour controls are now on globals** and every repeated literal colour on the site is
+connected. Rendered colour unchanged throughout — each global holds the identical hex.
+
+**4 Global Fonts added:** Stat Number XL (4rem/bold/-5px/lowercase, 56 uses) · Small Text
+(0.9rem/1.4rem, 20) · List Text (17px/400/2em, 12) · Intro Text (20px/1.6em, 5).
+
+**7 repeating typography combos deliberately NOT made global.** They are single-property overrides,
+not styles — `text-transform: uppercase` (56 uses), `font-weight: 600` (3), `font-weight: bold` (2),
+`letter-spacing: 0` (5), an empty `line-height` (2). A global sets *all* typography properties, so
+connecting an element that currently only overrides text-transform would force a family, size and
+weight onto it and change how it looks. Making these global would also clutter the panel with
+entries that are not design tokens.
+
+The 4 new fonts exist but are **not yet connected** — connecting them is a visual change on 93
+elements and should be eyeballed rather than done blind.
+
+**Deleted duplicates by media folder** (35 total, from the backup manifest):
+
+| Folder | Files | Size |
+|---|---|---|
+| Ads | 8 | 649 KB |
+| About O360 | 7 | 830 KB |
+| Logos | 4 | 20 KB |
+| Tiles | 4 | 2,988 KB |
+| Clients Best | 4 | 2,223 KB |
+| Reviews | 3 | 653 KB |
+| Responsive | 1 | 346 KB |
+| About O360 + Logos | 1 | 5 KB |
+| About O360 + Reviews | 1 | 246 KB |
+| Video Thumbnails | 1 | 81 KB |
+| Laptop 3D | 1 | 236 KB |
