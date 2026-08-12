@@ -3411,3 +3411,110 @@ o360.com to origin, where the files no longer exist. Files were delivered to
 the user directly and are in `backups/recovered-images-2026-08-12/`. Once they
 are back in the library the About Us widgets need re-pointing to the new
 attachment IDs (old IDs 85820, 85822, 85823 are gone).
+
+## Batch 77 — 2026-08-12 — Marketing pages: buttons, design, copy, images
+
+### 1. Pricing button on the remaining marketing pages
+35 more buttons across the 9 channel/hub pages, same verbatim-clone method as
+Batch 76 (matching section's own button, same parent, same index).
+SEO/PPC/Social/Reputation/Content +3 each · AI Optimization, Dental SEO,
+Medical SEO +6 each · hub +2. All 17 marketing pages now carry the button in
+every section that exists on them. Verified: valid JSON, 0 duplicate element
+IDs, rendered `/pricing/` link counts correct on every page.
+Backup: `o360_backup_mktchannel_20260812`.
+
+### 2. Design copied from /marketing/medical/ (86876)
+Diffed 86876 against the old design and separated **styling** keys from
+**content** keys, so no specialty copy or imagery was overwritten.
+
+42 styling keys copied: `__globals__`, margins/padding, widths
+(incl. tablet/mobile + boxed_width), background colour/image/overlay,
+box-shadow, borders and radii, image border width/radius, flex align + gap,
+alignment, spacing, position/offset, opacity, primary_color, and the title +
+description typography set. Where Medical has no value the key is REMOVED on
+the target, so the design matches exactly rather than partially.
+
+| Pages | Elements restyled | Settings changed |
+|---|---|---|
+| Dental | 37 | 166 |
+| 6 specialty pages | 34 each | ~163 each |
+| 5 channel pages | 29 each | 100 each |
+| AI Opt / Dental SEO / Medical SEO | 47 each | 184 each |
+| Hub | 20 | 51 |
+
+Captured design: hero padding 80→120, `a011cbe` + `6236937c` get the
+pattern-organic background with classic overlay (0.92 / 0.89), founder + 3-step
+sections get global colour `a1d7e7f7`, FAQ section gets `a1f4f8fc`, icon-boxes
+lose their margin and gain a box shadow with translucent fills
+(`#D7E7F78A` / `#FFFFFFDE`) and Avenir 1.2em/600 titles, the 4 text boxes drop
+their border and go to 21px radius, accordion gains 22/25px padding, and image
+widths are re-tuned (261/452/684/671/444px). **Verified: 0 styling differences
+remaining vs the source on all 16 pages, 0 duplicate IDs, all render.**
+Backup: `o360_backup_mkt_predesign_20260812` (17 pages, byte-identical).
+
+### 3. Dr. Sean Fahimi — dentist, not doctor
+34 + 24 strings fixed across 17 live pages + template 86918 + Home.
+"run by a doctor" → "run by a dentist" (incl. the title-cased
+"Founded and Run by a Doctor" heading), "University of Pennsylvania" →
+"...School of Dental Medicine", "practiced for 15 years" → "practiced
+dentistry for 15 years", "15 years in practice" → "15 years in dental
+practice". The second pass was needed because the first only walked string
+settings — the icon-list entries are arrays and were missed.
+**Verified: 0 live occurrences of any old phrasing, 0 doubled
+"School of Dental Medicine".** Backup: `o360_backup_fahimi_20260812`.
+
+### 4. "Booked" → healthcare scheduling language
+133 strings across 16 pages. Word-level mapping with case preserved
+(booked→scheduled, booking→scheduling, bookings→scheduled appointments,
+book→schedule), plus phrase overrides where a literal swap read badly:
+"online booking"→"online scheduling", "loses bookings"→"loses appointments",
+"rebook"→"return", "BOOKINGS THIS MONTH"→"APPOINTMENTS THIS MONTH".
+`\b` boundaries mean "Facebook" is untouched.
+
+**Client testimonials deliberately excluded** — 13 remaining occurrences are
+all inside quoted client reviews, which must not be reworded. Two headlines
+were repaired by hand afterwards because the mechanical swap read badly:
+"Optometry Marketing That Books Exams" → "...That Fills Exam Chairs", and
+"Veterinary Marketing That Books More Appointments" → "...That Fills Your
+Appointment Schedule". Backup: `o360_backup_booking_20260812`.
+
+### 5. Marketing keywords
+39 + 7 natural sentence edits — no stuffing, no new sections.
+
+| Keyword | Before | After |
+|---|---|---|
+| online marketing | 2 | 12 |
+| digital marketing | 6 | 24 |
+| specialty ads | 0 | 8 |
+| promoting | 0 | 10 |
+| new appointments | 0 | 18 |
+| growth | 26 | 26 (already covered) |
+
+Backup: `o360_backup_keywords_20260812`.
+
+### 6. Specialty images from the Clients Unused folder
+Folder is `media_folder` term **2835 "Clients Unused"** — 338 images (the
+term's stored count of 29 is stale).
+
+Every specialty page was showing the **same four dental client screenshots**
+(newteethchicagodentalimplants, chestnut-dental, irvineendodontics, panamdl)
+in the stories section, plus a dental testimonial in the what-you-get section.
+32 images swapped for specialty-matched ones, alt text taken from each new
+attachment:
+
+- **Medical** → Grace Internal Medicine, Advanced Internal Medicine, Pediatrics of South Florida, MVM Health
+- **Medical Spa** → Olive Medical Aesthetics, Advanced Aesthetic Medicine, Acne Concierge, IA MedSpa
+- **Orthodontic** → Woodlands Ortho, Westlake Family Ortho, Assenmacher Ortho, SmileChic
+- **Mental Health** → Mynd Works Psychiatry, Valeo Behavioral Health, California Therapy, Uncover Counseling, Stone Creek Psychotherapy
+- **Chiropractic** → Murphy, Lighthouse, Belmont, Herceg, Tucker Chiropractic
+- **Optometry** → EsterOptics, Eyes On You, Whittington Eye Care, Shelburne Optometry, EyeSTL
+- **Veterinary** → Pawsy, Finary, Vetrio, Veterna, 911 Vet Med
+
+Every replacement was verified present on disk BEFORE writing. Dental page left
+alone (already correct). **Verified after: 0 broken images across all 17 pages.**
+Backup: `o360_backup_images_20260812`.
+
+### Not done / flagged
+- Orthodontic's what-you-get image still shows the dental testimonial — the library has only three orthodontic screenshots in Clients Unused and all three were used in the stories row.
+- The pricing button uses Elementor's SYSTEM globals (accent/secondary), not custom entries. Copied as-is from the approved source button rather than changed unilaterally.
+- Hero/offset image tuning (`_margin -110`, `_offset_y_end -2`, absolute→static) was tuned to Medical's images; other pages use different screenshots so those two hero images are worth an eyeball.
