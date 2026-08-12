@@ -3178,3 +3178,49 @@ and were previously mislabelled as not-live. Those are exactly the ones that wer
 
 Library is now **2,791 images**. Titles and descriptions both backed up to
 `o360_backup_titles_20260812` and `o360_backup_desc_20260812`.
+
+## Batch 73 — 2026-08-12 — Re-mark media library, two groups only
+
+Site changed a lot since Batch 72: attachments 2,809 -> 2,612; all 152 draft
+portfolio-items deleted (now 552 published, 0 draft); elementor_library down to
+23 published. Re-scanned from scratch.
+
+**Rule applied (per user):** an image is USED if it is referenced by ANY
+non-trashed post of any type — pages, posts, portfolio-items, Elementor
+templates, the Default Kit, reusable blocks, ad post types — plus site
+settings (theme mods, site icon, widgets) and term meta. Trash-only
+references do not count. `__TPL__` is retired.
+
+**Scan:** 1,269 containers. post_content + all postmeta, excluding
+`_elementor_element_cache`, `_elementor_css`, `_elementor_page_assets`,
+`_elementor_inspector_data` and transients (stale caches would create false
+"used"). Backslash-escaped URLs normalised (`\/` -> `/`) before matching.
+
+**Evidence used, in priority order:**
+| Signal | Images |
+|---|---|
+| full file-path match | 393 |
+| attachment-ID match (`_thumbnail_id`, ACF, gallery ids, `wp-image-N`) | 700 |
+| basename-only fallback | 18 |
+| loose `"id":N` in Elementor JSON | 1 |
+| no reference found | 1,500 |
+
+**Result:** `__USED__` 1,112 · `__UNUSED__` 1,500 · `__TPL__` 0 · unmarked 0.
+2,612 rows written. Description carries the container names for USED rows.
+
+**Fixed from Batch 72:** `Logo O360 SVG` (84394) and `O360 2020 logo circle
+icon` (84399) live in Default Kit — the active Elementor kit — and were
+wrongly in the not-live bucket. Both now `__USED__`.
+
+**Backups:** `o360_backup_marks_20260812c` (all 2,612 titles + descriptions
+before the pass), `o360_scan_20260812` (reference index),
+`o360_class_20260812` (per-image verdict + evidence).
+
+**Restore:** loop `o360_backup_marks_20260812c` writing `[0]` back to
+post_title and `[1]` back to post_content per attachment ID.
+
+**To strip markers when review is done:**
+```sql
+UPDATE wp_posts SET post_title = TRIM(REGEXP_REPLACE(post_title,'^__(USED|UNUSED)__[[:space:]]*',''))
+WHERE post_type='attachment' AND post_title REGEXP '^__(USED|UNUSED)__';
+```
