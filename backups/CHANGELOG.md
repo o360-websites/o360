@@ -3585,3 +3585,56 @@ Backup of prior folder membership: `o360_backup_imgfolders_20260812`.
 User removed SEO/Social/PPC/Reputation/Content from the menu because the
 content is not finished, and asked to give direction before that work begins.
 Holding.
+
+## Batch 79 — 2026-08-12 — Founder photo, design revert on Dental + hub
+
+### 1. Founder photo unified
+Widget `0b75f60` on the 6 newer specialty pages now uses Medical's
+`2026/07/Dr.-Sean-Fahimi-dental-office-blue-orange.jpeg` (att 86949, 907x1024)
+instead of `Dr-Sean-Fahimi-DDS-Working.jpg` (1128x1422). Removes the 63px
+section-height mismatch flagged in Batch 78.
+Backup: `o360_backup_founderimg_20260812`.
+
+### 2. Dental Marketing + Marketing hub reverted to their original design
+User: the Medical design was only meant for the NEW specialty pages, not
+`/marketing/dental/` (86667) or the `/marketing/` hub (18386).
+
+Reverted **only the design**, keeping every content fix. Restored from
+`o360_backup_mkt_predesign_20260812`:
+- all 42 styling keys per element (167 values on Dental, 51 on the hub)
+- Dental: legacy stats section `393e660` put back in place of `f4f70c5`
+- Dental: hero image order back to badge-first
+- Dental: founder photo back to `Dr-Sean-Fahimi-DDS-Working.jpg`
+
+The legacy stats section was re-inserted with its booking wording corrected
+(`BOOKED APPOINTMENTS` -> `SCHEDULED APPOINTMENTS`) so the revert does not
+reintroduce hotel language.
+
+**Verified: 0 styling differences vs the original snapshot on both pages,
+0 duplicate IDs, and the content work survived** — 7 pricing links each,
+0 occurrences of "booked", 0 of "run by a doctor", both render.
+Pre-revert state saved to `o360_backup_prerevert_20260812`.
+
+The 6 newer specialty pages keep the Medical design.
+
+### 3. Finding: 5 redirects are hijacking live marketing pages
+Rank Math rows shadowing published pages with a 301 to `/marketing/`:
+
+| Row | Source | Hits | Shadows |
+|---|---|---|---|
+| 1900 | `marketing/seo` | 1,732 | 86870 |
+| 1898 | `marketing/ppc/` | 527 | 86871 |
+| 1901 | `marketing/social` | 461 | 86872 |
+| 1903 | `marketing/content` | 302 | 86874 |
+| 1899 | `marketing/reputation` | 211 | 86873 |
+
+All five URLs resolve correctly via `url_to_postid()`, so the pages exist —
+the redirect fires first (only Rank Math's `fallback` hop is 404-gated).
+Confirmed live: fetching `/marketing/seo/` returns the `/marketing/` hub.
+NOT changed yet — pending user go-ahead.
+
+### 4. WAF finding
+The 403 on HTML requests is Cloudflare-side, not origin. A request from the
+origin server itself with a full Chrome User-Agent returns 200; the same
+full-UA request from outside still returns 403. So origin allows it and the
+edge blocks it — any whitelist has to be a Cloudflare rule.
