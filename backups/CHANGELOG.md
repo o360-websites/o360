@@ -2628,3 +2628,25 @@ folder. Not assumed; flagged for the user.
 `videos_examples` on the veterinary page reads `"dental"`. That is the field behind the
 dental/medical example links, which is populated but not read by the template — logged in Batch 55
 and still outstanding.
+
+**Batch 62 follow-up — /websites/physical-therapy/ video set from orthopedic.**
+
+`special_video` on physical-therapy (86859) was empty, so it had been showing the dental fallback.
+Set to the orthopedic video `.../videos/4d5fcf4f.mp4` as instructed. Previous (empty) value in
+option `o360_backup_pt_special_video_20260811`.
+
+**There is no physical-therapy-specific video on this site.** I searched every Elementor blob, all
+video-bearing ACF fields, post content and the options table for any `.mp4`/`.mov`/`.webm` URL:
+**zero** matches for physical, therapy, rehab, ortho, spine or pt. All 23 `special_video` values are
+accounted for and each maps to a named specialty — none is physical therapy.
+
+If a PT video exists in the S3 bucket but is not referenced anywhere on the site, I cannot see it —
+external fetches are blocked from this environment, so I cannot list or probe the bucket. The URL
+would have to come from the user.
+
+Full video → page map recorded for the migration (23 videos across 46 pages; several are shared —
+cosmetic-surgery + medical-spa, mental-health + funeral-home, urgent-care + family-physician,
+pediatric-dentistry + pediatric, and now orthopedic + physical-therapy).
+
+Minor: `17381bb7.mp4` is still referenced by a trashed page (`healthcare__trashed`) alongside
+urgent-care and family-physician.
