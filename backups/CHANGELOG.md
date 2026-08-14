@@ -4019,3 +4019,52 @@ Backups: `o360_backup_serp2swap_20260814`, attachment map in
 
 The real client "Fay Mansouri / irvineendodontics.com" now appears only on the
 two dental pages, where featuring a dental client is appropriate.
+
+## Batch 87 — 2026-08-14 — Distinct heroes + founder bio removed from channel pages
+
+### 1. Hero image duplication fixed
+`laptop-dental-website-purple.png` — the Dental Marketing hero — was the hero
+on **8 other pages**: SEO, PPC, Social, Reputation, Content, AI Optimization,
+Dental SEO and Medical SEO.
+
+Assigned a distinct image to each from the **"Laptop 3D" media folder (2805)**,
+a purpose-built family of clean cut-out laptop mockups on transparent
+background at 1775x1100 — the same visual treatment as `laptop-heart.png` and
+`laptop-dental-website-purple.png` already used on Medical and Dental.
+
+| Page | New hero |
+|---|---|
+| Healthcare SEO 86870 | family-physician-2.png (87355) |
+| PPC 86871 | urgent-care-2.png (87372) |
+| Social 86872 | skin-care-specialist.png (87370) |
+| Reputation 86873 | pain-management-1.png (87366) |
+| Content 86874 | psychology.png (87369) |
+| AI Optimization 86875 | cardiology.png (87352) |
+| Dental SEO 86877 | dental-implants-1.png (87353) |
+| Medical SEO 86878 | orthopedic-surgeon-1.png (87365) |
+
+Two candidate families were checked and REJECTED first: the `macbook-*` set is
+photographic lifestyle shots (a laptop held in someone's hands, busy
+background) and `Laptops.png` has a dark purple textured backdrop — both would
+clash with the light-blue hero section. Verified by actually viewing the files
+through the preview header rather than picking on filename.
+
+**Result: 17 distinct heroes across 17 marketing pages, 0 duplicates.**
+
+### 2. Founder bio removed from the channel pages
+Section `f6cbf83` (the "Meet Dr. Sean Fahimi" block) was on 7 channel pages.
+Removed from PPC, Social, Reputation, Content, AI Optimization, Dental SEO and
+Medical SEO.
+
+Note: Healthcare SEO (86870) already had no founder section — the user had
+removed it when building the new section template, so this simply brings the
+other seven in line with that decision.
+
+**Kept** on the main landing pages: Dental, Medical, Medical Spa, Orthodontic,
+Mental Health, Chiropractic, Optometry, Veterinary. (The Marketing hub never
+had one.)
+
+**Verified:** 0 "Fahimi" mentions on any of the 8 channel pages, 2 on each of
+the 8 specialty landing pages, 0 broken images site-wide across the 17 pages,
+all render, plus a live check through the preview header.
+Backup: `o360_backup_hero_fahimi_20260814`.
