@@ -4427,3 +4427,89 @@ rows removed from the WP Rocket used-CSS / ATF / lazy-render tables.
    heading reads "Founded and Run by Doctors" (plural) while its own body says
    "a dentist". Flagged, not changed.
 3. The "What's Included" price tables still list Twitter and Pinterest.
+
+---
+
+## Batch 93 — 2026-08-14 — "What You Get" secondary image made specialty-relevant on 11 marketing pages
+
+The secondary image in section `2f61210d` (widget `3b75267a`, the inset that sits
+under the SERP mockup) was a marketing composite — a laptop mockup with a doctor
+portrait in a circle — on most pages, and missing on two. It is now a plain
+website screenshot of a real client in the page's own specialty, matching what
+Orthodontic / Mental Health / Chiropractic / Optometry / Veterinary were already
+doing.
+
+**Backup:** option `o360_backup_wygimg_20260814` — full `_elementor_data` for all
+11 pages before the change. The cloned widget template is stored separately in
+`o360_wyg_tpl_20260814`.
+
+### Before
+
+| Page | Was |
+|---|---|
+| 86667 Dental Marketing | testimonial-dianadental2.png (composite) |
+| 86877 Dental SEO | testimonial-dianadental2.png (composite) |
+| 86876 Medical Marketing | Screenshot-7.png — **a dental site (Keep28 Dental Centre) on the medical page** |
+| 86878 Medical SEO | testimonial-maygrant2.png (composite) |
+| 86871 / 86872 / 86873 / 86874 / 86875 | testimonial-maygrant2.png (composite, identical on all five) |
+| 86870 Healthcare SEO | widget absent entirely |
+| 87828 Medical Spa Marketing | widget absent entirely |
+
+### After
+
+| Page | Now | Attachment |
+|---|---|---|
+| 86667 Dental Marketing | dianadental.ca | 76283 |
+| 86877 Dental SEO | ellensburgdentist.com (Mountain View Dental) | 74786 |
+| 86876 Medical Marketing | westorangefamilymedical.com | 74927 |
+| 86878 Medical SEO | ellicottcitymedicine.com | 79280 |
+| 86870 Healthcare SEO | Roger Fontes, M.D. | 80796 |
+| 86871 PPC | mdfirsthealthcare.com | 74966 |
+| 86872 Social Media | advantageplusmedicalcenter.com | 74869 |
+| 86873 Reputation | premierneurologycenter.com | 74973 |
+| 86874 Content | pediatricsofsouthflorida.com | 79578 |
+| 86875 AI Optimization | kollmorgenorthopedics.com | 74935 |
+| 87828 Medical Spa | roweaesthetics.com | 75042 |
+
+All eleven are 1600x1000 or larger and all already sit in the **Clients** media
+folder. Every page got a different screenshot so the pages do not look
+interchangeable.
+
+On 86870 and 87828 the widget did not exist, so `3b75267a` was cloned from 86878
+(carrying its border-radius, box-shadow, offsets and responsive settings intact)
+and appended to container `1e028f4`, after the SERP image `2f8c44a0` — the same
+position it holds on every other page.
+
+Unchanged: 87829 Orthodontic, 87830 Mental Health, 87831 Chiropractic, 87832
+Optometry, 87833 Veterinary — these already used a correct specialty screenshot.
+
+### Candidates rejected during visual review
+
+- `iamedspa.com` — med spa site whose hero is a shirtless "THE MEN'S CLINIC" banner
+- `balancedaestheticsmedspa.com` — hero reads "Coming Soon!"
+- `manriquemdaesthetics.com` — empty room, no clinical signal
+- `northstarfamilydental.com` — hero is a parking lot
+- `pacific-dental-arts` — a dental **lab**, not a practice
+
+### Cache handling
+
+Per page: `_elementor_element_cache` and `_elementor_css` deleted, CSS regenerated,
+`rocket_clean_post()`, and stale rows removed from the WP Rocket used-CSS / ATF /
+lazy-render tables.
+
+**Verified live on all 11:** the new screenshot is present, zero occurrences of
+`testimonial-maygrant2`, `testimonial-dianadental2` or `Screenshot-7.png` remain,
+and on the two inserted pages the new image renders inside section 2f61210d after
+the SERP image.
+
+### Not changed — flagged to the user
+
+1. **18386 (Marketing hub)** still uses `testimonial-mansouri.png` in the
+   equivalent slot. Its section heading differs ("Own the First Page — and the
+   Map") and the user previously parked the hub design, so it was left alone.
+2. **The icon list in this same section is still wrong on 9 pages.** On Healthcare
+   SEO it was fixed in Batch 92, but Medical SEO, Dental SEO, Dental Marketing,
+   Medical Marketing, PPC, Social, Reputation, Content and AI Optimization still
+   list paid ad channels (Google & Search Ads, Facebook & Instagram Ads, Microsoft
+   Bing Ads, AI & GPT Ads) regardless of what the section heading says. Visible in
+   the screenshot the user sent.
