@@ -4739,3 +4739,86 @@ Ads Management", "Healthcare Social Media Marketing For Practices", etc. Those
 are what appear in Google results and social shares, so changing them affects
 search listings and was left for the user to decide. The WP page titles and the
 menu labels are likewise unchanged.
+
+---
+
+## Batch 97 — 2026-08-14 — Gray frame removed from the 7 generated SERP images
+
+The generated Google-results mockups each sat on a light gray card with roughly
+70px of padding around the browser window. On the marketing pages that card read
+as a gray box floating on the light-blue section background. The browser window
+is now cropped out of the card and given transparent rounded corners, so it sits
+directly on whatever the section background is.
+
+### Method
+
+The frame colour was not consistent enough to key out — some images had a flat
+gray (223,226,231), others a near-white gradient — so a single background-colour
+match produced wrong crops on 3 of 7. Detection was done instead by summing the
+absolute pixel gradient per row and per column and taking the outermost strong
+edges, which is reliable for a crisp rectangle regardless of frame shade.
+
+Crop boxes used (left, top, right, bottom):
+
+| Attachment | Box | Result |
+|---|---|---|
+| 87880 orthodontist | 75, 83, 1189, 765 | 1114x682 |
+| 87881 optometrist | 71, 59, 1193, 778 | 1122x719 |
+| 87882 veterinarian | 73, 77, 1191, 771 | 1118x694 |
+| 87883 chiropractor | 94, 89, 1170, 759 | 1076x670 |
+| 87884 therapist | 66, 74, 1198, 772 | 1132x698 |
+| 87885 doctor | 77, 75, 1187, 774 | 1110x699 |
+| 87886 med spa | 51, 54, 1213, 799 | 1162x745 |
+
+Processing ran server-side in PHP/GD: crop to the box, then a 12px rounded-corner
+alpha mask with 4x4 supersampled coverage so the corners are antialiased rather
+than stair-stepped.
+
+### Originals kept
+
+Nothing was overwritten or deleted. Seven **new** attachments were created
+alongside the originals, inheriting each original's title, alt text and
+`media_folder` term:
+
+| Original | New | File |
+|---|---|---|
+| 87880 | **87906** | google-results-orthodontist-clean.png |
+| 87881 | **87907** | google-results-optometrist-clean.png |
+| 87882 | **87908** | google-results-veterinarian-clean.png |
+| 87883 | **87909** | google-results-chiropractor-clean.png |
+| 87884 | **87910** | google-results-therapist-clean.png |
+| 87885 | **87911** | google-results-doctor-clean.png |
+| 87886 | **87912** | google-results-med-spa-clean.png |
+
+Map stored in option `o360_serp_clean_map_20260814`.
+
+### Pages repointed (14)
+
+18386 Marketing, 86870 Healthcare SEO, 86871 PPC, 86872 Social, 86873 Reputation,
+86874 Content, 86876 Medical Marketing, 86878 Medical SEO, 87828 Medical Spa,
+87829 Orthodontic, 87830 Mental Health, 87831 Chiropractic, 87832 Optometry,
+87833 Veterinary — one image reference each.
+
+**Backup:** option `o360_backup_serpclean_20260814` holds the full
+`_elementor_data` for all 14 pages before the swap. No Rank Math og:image
+referenced any of these attachments, so none were changed.
+
+### Not changed
+
+The three AI-page images (87877, 87878, 87879) were left alone — they use a dark
+navy background by design, not the gray browser card the user pointed at.
+
+### Cache handling
+
+Per page: `_elementor_element_cache` and `_elementor_css` deleted, CSS
+regenerated, `rocket_clean_post()`, and 3-6 stale rows cleared from the WP Rocket
+used-CSS / ATF / lazy-render tables.
+
+### Verified
+
+- The generated PNG is genuinely RGBA: all four corner pixels alpha 0, centre
+  alpha 255, edge midpoints alpha 255
+- Rendered output inspected visually against the section's light-blue background
+  before and after
+- All 14 pages now serve a `-clean` variant and **zero** references to the old
+  framed files remain
