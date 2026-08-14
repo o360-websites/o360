@@ -3844,3 +3844,48 @@ never written into the sandbox directory or touched a plugin.
 Two sandbox helpers remain disabled as a result: `cdn-subdomain-consolidate.php`
 and `password-revert-monitor.php`. Clearing it means removing the one-off
 `restore_alt_titles.php` and deleting `.crashed` — left for the user to approve.
+
+## Batch 83 — 2026-08-14 — Sandbox safe mode cleared + two more AI images
+
+### 1. Novamira sandbox safe mode cleared (user approved)
+Both files backed up to option `o360_backup_sandboxfiles_20260814` (full
+contents, mtimes, sizes) and the backup verified BEFORE touching anything.
+
+- `restore_alt_titles.php` **renamed** to `restore_alt_titles.php.disabled`
+  rather than deleted — it is the one-off script that caused the Aug 5 fatal,
+  and the sandbox loader ignores `.disabled` files (same convention already
+  used by `clarity-recording-link.php.disabled`).
+- `.crashed` deleted.
+
+Verified: `.crashed` no longer exists, safe mode cleared. The two real sandbox
+helpers `cdn-subdomain-consolidate.php` and `password-revert-monitor.php` are
+now free to load again. To undo, restore both files from the option.
+
+### 2. Two more generated images for /marketing/ai-optimization/
+Generated 4 more variants and reviewed them before publishing.
+
+| Widget | Section | Was | Now |
+|---|---|---|---|
+| `2f8c44a0` | 2f61210d "What You Get" | google-results.png | `ai-signals-that-get-your-practice-cited.png` (att 87878) |
+| `246d5555` | 42c5e65a "Structured Data AI Can Read" | google1.png | `ai-structured-data-schema-practice.png` (att 87879) |
+
+- The signals image shows reviews, location, content and citation chips
+  converging into a generated answer panel — matching that section's copy about
+  structured data, entity consistency, mentions and reviews.
+- The schema image renders genuine, correct schema.org JSON-LD
+  (`"@context": "https://schema.org"`, `"@type": "MedicalClinic"`, nested
+  `Review` with `reviewRating`) resolving into a practice card — technically
+  accurate rather than decorative gibberish, with placeholder address
+  "123 Wellness Blvd, Cityville, ST" and phone "(555) 123-4567" so no real
+  practice is depicted.
+
+Both 1376x768, alt text set, filed in media folder 2772 "Marketing".
+
+**Verified live through the preview header:** page 200, all three new AI images
+return 200 from production, all three referenced in the live HTML, and
+**zero references to google-results.png / google1.png remain** on the page.
+0 broken images on the page.
+Backups: `o360_backup_aipage_20260814`, `o360_backup_aipage2_20260814`.
+
+The AI Optimization page now carries three purpose-made AI images and no longer
+borrows generic Google-search graphics.
