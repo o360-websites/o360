@@ -3918,3 +3918,57 @@ Products (83110), Patient Education Videos (87836), Healthcare Website Hosting
 (87838). They carry the identical hero because they were built from the
 marketing layout, but they are a different page family and the instruction was
 scoped to marketing pages.
+
+## Batch 85 — 2026-08-14 — "What You Get" image order + specialty-correct SERP images
+
+### 1. Order corrected against the Medical reference
+In section `2f61210d`, Medical (86876) has the SERP screenshot `2f8c44a0`
+FIRST and the laptop/testimonial `3b75267a` second, both inside container
+`1e028f4`. **Every other page had them reversed** — Batch 77 copied styling but
+never element order, the same drift found in the hero.
+
+Swapped on 14 pages: Dental, Ortho, Mental Health, Chiropractic, Optometry,
+Veterinary, PPC, Social, Reputation, Content, AI Optimization, Dental SEO,
+Medical SEO, Hub. Medical was already correct. Medical Spa and Healthcare SEO
+do not carry `3b75267a` at all, so they were skipped.
+**Result: 15/15 applicable pages match Medical, 0 wrong.**
+Backup: `o360_backup_wyg_order_20260814`.
+
+### 2. Specialty-correct SERP images generated
+`google-results.png` is a DENTAL search mock — it reads "dentist near me" and
+shows a real client, "Fay Mansouri, DDS | Irvine Endodontist,
+www.irvineendodontics.com". It was rendering on veterinary, optometry,
+chiropractic, mental-health and orthodontic pages.
+
+Generated 5 replacements with Higgsfield (1264x848), each in the same clean
+browser-window Google style but with the right query and generic placeholder
+names — no real practice, no invented practitioner:
+
+| Page | Query shown | Attachment |
+|---|---|---|
+| Orthodontic 87829 | "orthodontist near me" | 87880 |
+| Optometry 87832 | "optometrist near me" | 87881 |
+| Veterinary 87833 | "veterinarian near me" | 87882 |
+| Chiropractic 87831 | "chiropractor near me" | 87883 |
+| Mental Health 87830 | "therapist near me" | 87884 |
+
+All use "Your Practice ..." + `www.yourpractice.com` placeholders. Alt text set,
+filed in media folder 2772 "Marketing".
+
+Also fixed the item flagged in Batch 77: Orthodontic's testimonial image was
+still `testimonial-dianadental2.png` (Diana Dental) — now
+`westlakefamilyortho.com-screenshot.jpg`.
+
+**Verified:** 0 broken images across all 17 marketing pages, order correct
+everywhere, and live spot-check through the preview header on the 5 changed
+pages. Backup: `o360_backup_serpswap_20260814`.
+
+### Still dental-content on non-dental pages — flagged, not changed
+`testimonial-dianadental2.png` (Diana Dental) still sits in the What You Get
+section of PPC, Social, Reputation, Content, AI Optimization, Dental SEO and
+Medical SEO; `google-results.png` (the "dentist near me" mock naming a real
+client) still runs on Medical, Dental, Medical Spa, SEO, PPC, Social,
+Reputation, Content, Dental SEO, Medical SEO and the Hub. Dental SEO and Dental
+are correct as-is. The rest are cross-specialty or medical pages showing dental
+search results — worth a generic "doctor near me" version plus a medical
+testimonial.
