@@ -4153,3 +4153,54 @@ post-*.css directly with the new border rule in it.
 This is worth remembering: after any Elementor style change, the WP Rocket
 `wpr_rucss_used_css` / `wpr_above_the_fold` tables must be cleared for the
 affected URLs or the live page keeps serving the old inlined CSS.
+
+## Batch 89 — 2026-08-14 — Border restyle + Success Stories images reverted
+
+### 1. Hero border updated on the 6 bare-screenshot heroes
+- width 15px -> **25px**
+- colour -> custom Global Color **`78540a19` "Black 3" = #333333**
+- **default Elementor box shadow** added
+  (`image_box_shadow_box_shadow_type: yes`, no explicit value, so Elementor
+  emits its own default `0 0 10px 0 rgba(0,0,0,0.5)`)
+- radius unchanged at 25px
+
+The instruction said "dark-3"; no global is literally named that. The nearest
+were "Dark Blue 3" (#003A74) and "Black 3" (#333333). Dark Blue 3 was applied
+first and flagged; the user confirmed **Black 3**, which is now in place.
+
+Generated CSS on all 6:
+`.elementor-element-6a68b78d img{width:1000px;border-style:solid;
+border-width:25px 25px 25px 25px;border-color:var( --e-global-color-78540a19 );
+border-radius:25px 25px 25px 25px;box-shadow:0px 0px 10px 0px rgba(0,0,0,0.5);}`
+with the kit resolving `--e-global-color-78540a19:#333333`.
+
+**Cache verification note:** fetching the CSS file at its bare path returns a
+stale edge-cached copy. The page links it with a version query
+(`?ver=...&wpr_t=...`) and THAT url returns the new rule — verified. So the
+bare-path fetch is a red herring; visitors get the correct CSS.
+Backup: `o360_backup_heroborder2_20260814`.
+
+### 2. "Dental Success Stories" images reverted
+User: the 4 images in that section were swapped to specialty screenshots in
+Batch 77, but the accompanying copy still describes the original dental cases —
+so image and text no longer match. Originals restored until per-specialty
+data exists.
+
+Restored on all 7 pages (Medical, Medical Spa, Orthodontic, Mental Health,
+Chiropractic, Optometry, Veterinary) from `o360_backup_images_20260812`:
+`newteethchicagodentalimplants.com-screenshot.jpg`, `chestnut-dental.png`,
+`irvineendodontics.com-Screenshot-1.png`, `panamdl.png` — 4 per page, 28 total.
+
+**Scope kept tight:** only the four story-grid widgets (`5017d845`, `63e9829f`,
+`313d6d5d`, `726339a2`) were reverted. The specialty-matched image in the
+"What You Get" section was NOT touched, since that one has no case-specific
+copy tied to it — Ortho keeps Westlake Ortho, Vet keeps 911 Vet Med, etc.
+
+**Verified:** all 8 specialty pages plus AI Optimization show the 4 original
+dental story images, 0 broken images, all render.
+Pre-revert state saved to `o360_backup_prestoryrevert_20260814`.
+
+**Still outstanding:** the story section remains responsive-hidden on Medical
+Spa, Mental Health, Chiropractic, Optometry and Veterinary (Batch 88), so it is
+visible only on Dental, Medical and Orthodontic until per-specialty cases are
+written.
