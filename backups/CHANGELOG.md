@@ -4513,3 +4513,49 @@ the SERP image.
    list paid ad channels (Google & Search Ads, Facebook & Instagram Ads, Microsoft
    Bing Ads, AI & GPT Ads) regardless of what the section heading says. Visible in
    the screenshot the user sent.
+
+---
+
+## Batch 94 — 2026-08-14 — "What You Get" bullet list matched to each page's own channel (7 pages)
+
+Icon list `589f41db`, inside section `2f61210d`, was carrying the same
+eight-item **paid ads** list on every marketing page regardless of what that
+page's heading and body promised.
+
+**Correction to the previous batch note:** Batch 93 flagged this as affecting
+nine pages. On review it is **seven**. Dental Marketing (86667) and Medical
+Marketing (86876) are full-service pages — their body copy reads "running your
+entire digital marketing and patient-acquisition engine" — so a multi-channel
+list is correct there and both were deliberately left alone.
+
+**Backup:** option `o360_backup_wyglist_20260814` — full `_elementor_data` for
+all 7 pages before the change.
+
+### Changed
+
+| Page | Heading | List now covers |
+|---|---|---|
+| 86877 Dental SEO | What You Get | GBP/map pack, citations & NAP, per-procedure pages, keyword research, on-page & internal linking, dental schema, Core Web Vitals, reporting on rankings/calls/appointments |
+| 86878 Medical SEO | What You Get | same, with condition-and-procedure pages and medical schema |
+| 86871 PPC & Google Ads | What We Actually Manage | Search & Performance Max, Bing, Meta, negative keyword lists, geo radius from patient data, ad scheduling & bids, landing-page match, call tracking & cost per new patient |
+| 86872 Social Media | What We Run | posting schedule, team/office photo & video, patient-education posts, FB/IG/GBP, review prompts, community engagement, HIPAA review before publish, reach & inquiry reporting |
+| 86873 Reputation | What We Put in Place | timed review request, specialty-appropriate platform routing, monitoring across Google/Yelp/directories, response drafting, GBP review management, rating/volume/recency tracking, no gating or incentivising, reporting |
+| 86874 Content | What We Write | condition & procedure pages tied to local demand, cost & pricing pages, comparison pages, clinician review, named-author attribution, FAQ content, internal linking, reporting |
+| 86875 AI Optimization | What You Get | schema for AI parsing, entity consistency, third-party mentions, review signals, answer-complete content, named clinical authorship, GBP/knowledge-panel accuracy, citation reporting |
+
+Each list keeps 8 items so the section's layout and column balance are unchanged.
+Existing icons and repeater `_id`s were preserved; only `text` was rewritten.
+
+Every list is now consistent with that page's own heading and body paragraph —
+e.g. Reputation's list now reflects the body's explicit promise that reviews are
+never gated, filtered or incentivised.
+
+### Cache handling
+
+Per page: `_elementor_element_cache` and `_elementor_css` deleted, CSS
+regenerated, `rocket_clean_post()`, and the WP Rocket used-CSS / ATF /
+lazy-render rows cleared.
+
+**Verified live on all 9** (7 changed + the 2 intentionally left): each changed
+page renders its own 8-item list, and Dental Marketing and Medical Marketing
+still render the full multi-channel list as intended.
