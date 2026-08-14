@@ -1,5 +1,9 @@
-import { HomePage } from "@/components/home/HomePage";
+import { FounderSection } from "@/components/home/FounderSection";
 
 export default function Page() {
-  return <HomePage />;
+  return (
+    <main id="main">
+      <FounderSection />
+    </main>
+  );
 }

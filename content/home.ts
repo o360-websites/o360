@@ -173,11 +173,11 @@ export const home = {
   },
   founder: {
     heading: "Led by Doctors Who Understand Your Practice",
-    body: "O360® was founded in 2003 by Dr. Sean Fahimi — a dentist. He graduated from the University of Pennsylvania School of Dental Medicine, practiced, and then built the company doctors actually want to work with. The people who design your site and answer your calls are in the United States, and they already know your specialty.",
+    body: "O360® was founded in 2003 by Dr. Sean Fahimi — a dentist. He graduated from the University of Pennsylvania School of Dental Medicine, practiced dentistry for 15 years, and built several successful practices of his own before building the web design and marketing partner he wished he had as a client.",
     ratings: [
-      { value: "4.9/5", label: "Rating On Google" },
-      { value: "4.8/5", label: "Rating on Glassdoor" },
-      { value: "#1", label: "Ranked on DentalCountry" },
+      { value: "4.9/5", label: "4.9/5 Rating On Google" },
+      { value: "4.8/5", label: "4.8/5 Rating on Glassdoor" },
+      { value: "#1", label: "Ranked #1 on DentalCountry" },
     ],
     flips: [
       { front: "434+", backTitle: "Why are our ratings so high?", back: "5-Star Reviews on Google" },

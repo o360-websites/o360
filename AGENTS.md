@@ -24,7 +24,9 @@ npm run build
 
 Homepage content is in `content/home.ts`. Custom fonts (Avenir, Mark Pro) are in `app/fonts/`. Deploy config is `netlify.toml`. Supabase keys go in `.env.local` from `.env.example` — there is not yet an O360 Supabase project (org `O360 Core Websites` already has Orbit101 and Dental Country).
 
-Do not treat WordPress as the place to rebuild pages. New UI work goes in Next.js.
+The pixel-fidelity bar is the homepage founder block (`components/home/FounderSection.tsx`, `#founder`): “Led by Doctors Who Understand Your Practice”. Values come from live Elementor CSS (`post-10545.css` + kit `79953`), not approximations. This site’s Elementor breakpoints are **799px / 1199px**, not the Elementor defaults. Anonymous HTML GET to `o360.com` is Cloudflare-blocked; the Elementor CSS files under `/wp-content/uploads/elementor/css/` still load with a browser User-Agent.
+
+`app/page.tsx` currently renders only that founder section so it can be judged in isolation. Restore `HomePage` on `/` after this section is accepted. Do not treat WordPress as the place to rebuild pages. New UI work goes in Next.js.
 
 ### Talking to WordPress from a cloud agent
 

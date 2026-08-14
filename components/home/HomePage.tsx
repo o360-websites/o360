@@ -4,6 +4,7 @@ import { home } from "@/content/home";
 import { Button } from "@/components/Button";
 import { FeatureIcon } from "@/components/icons";
 import { Faq } from "@/components/home/Faq";
+import { FounderSection } from "@/components/home/FounderSection";
 
 export function HomePage() {
   const { desktopHero, mobileHero } = home;
@@ -137,33 +138,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-16 lg:px-8 lg:py-24">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-12 lg:grid-cols-2">
-          <div>
-            <h2 className="text-[2.2em] font-bold text-navy-2">{home.founder.heading}</h2>
-            <p className="mt-5 text-[17px] leading-8">{home.founder.body}</p>
-            <div className="mt-8 flex flex-wrap gap-8">
-              {home.founder.ratings.map((r) => (
-                <div key={r.label}>
-                  <p className="font-display text-3xl font-bold text-orange">{r.value}</p>
-                  <p className="text-[16px] font-light">{r.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {home.founder.flips.map((f) => (
-              <div
-                key={f.front}
-                className="flex min-h-40 flex-col justify-center bg-navy px-4 py-6 text-center text-white"
-              >
-                <p className="font-display text-4xl font-bold">{f.front}</p>
-                <p className="mt-2 text-sm text-blue-4">{f.back}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FounderSection />
 
       <section className="bg-light-4 px-5 py-16 lg:px-8">
         <div className="mx-auto grid max-w-[1400px] items-center gap-10 lg:grid-cols-2">
