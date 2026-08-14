@@ -3889,3 +3889,32 @@ Backups: `o360_backup_aipage_20260814`, `o360_backup_aipage2_20260814`.
 
 The AI Optimization page now carries three purpose-made AI images and no longer
 borrows generic Google-search graphics.
+
+## Batch 84 — 2026-08-14 — Hero image order across all marketing pages
+
+User reported the Google review badge sitting ABOVE the laptop in the hero
+(screenshot from /marketing/medical-seo/); the laptop should be on top.
+
+Audited every published container holding BOTH hero image widgets
+(`6a68b78d` laptop / `6a12e63d` Google review badge) — 20 containers, all with
+the same parent `453d577b`. **12 had the badge first.**
+
+Fixed the **9 marketing pages** that were wrong: Marketing hub (18386), Dental
+Marketing (86667), PPC (86871), Social (86872), Reputation (86873), Content
+(86874), AI Optimization (86875), Dental SEO (86877), Medical SEO (86878).
+
+Already correct and untouched: Healthcare SEO (86870, correct natively),
+Medical Marketing (86876) and the 6 specialty pages (fixed in Batch 78).
+
+**Result: 17/17 marketing pages are now laptop-first, 0 wrong.**
+Verified twice — in the stored Elementor tree, and against production through
+the preview header by comparing the byte offset of the laptop image against the
+review badge in the live HTML on 9 pages. Render + broken-image check clean on
+all 9 changed pages.
+Backup: `o360_backup_heroorder_20260814`.
+
+**NOT changed — 3 product pages still badge-first**, flagged for a decision:
+Products (83110), Patient Education Videos (87836), Healthcare Website Hosting
+(87838). They carry the identical hero because they were built from the
+marketing layout, but they are a different page family and the instruction was
+scoped to marketing pages.
