@@ -3972,3 +3972,50 @@ Reputation, Content, Dental SEO, Medical SEO and the Hub. Dental SEO and Dental
 are correct as-is. The rest are cross-specialty or medical pages showing dental
 search results — worth a generic "doctor near me" version plus a medical
 testimonial.
+
+## Batch 86 — 2026-08-14 — Remaining dental imagery removed from non-dental pages
+
+Completes Batch 85. `google-results.png` (a "dentist near me" mock naming the
+real client "Fay Mansouri, DDS | Irvine Endodontist, irvineendodontics.com")
+and `testimonial-dianadental2.png` (Diana Dental) were still running on medical
+and cross-specialty pages.
+
+### Generated 2 more SERP mockups
+| Attachment | Query | Placeholder names |
+|---|---|---|
+| 87885 `google-results-doctor.png` | "doctor near me" | Your Practice Medical Group / www.yourpractice.com |
+| 87886 `google-results-med-spa.png` | "med spa near me" | Your Practice Med Spa / www.yourpractice.com |
+
+**Both were regenerated once.** The first attempts rendered sitelinks reading
+"Book Appointment" and "Book Online", which contradicts the site's own language
+rule ("schedule", not "book" — Batch 77). Re-prompted with the word "Book"
+explicitly forbidden; they now read **"Schedule Appointment"** and
+**"Schedule Online"**. The med spa retry also fixed a nonsense second result
+title ("Your Practice Med Spa - Alternative").
+
+### Testimonial image
+Non-dental pages now use `testimonial-maygrant2.png` (att 85549) — May-Grant
+Obstetrics | Gynecology, a real medical client, in the identical laptop +
+circular-headshot treatment as the Diana Dental image it replaces, so the
+composition is unchanged.
+
+### Applied
+| Page | SERP | Testimonial |
+|---|---|---|
+| Medical Marketing 86876 | doctor | (Screenshot-7, unchanged) |
+| Medical SEO 86878 | doctor | maygrant |
+| PPC 86871 / Social 86872 / Reputation 86873 / Content 86874 | doctor | maygrant |
+| AI Optimization 86875 | (AI signals, unchanged) | maygrant |
+| Healthcare SEO 86870 | doctor | n/a |
+| Marketing hub 18386 | doctor | (mansouri, unchanged) |
+| Medical Spa 87828 | med spa | n/a |
+| Dental 86667 / Dental SEO 86877 | dental (correct) | Diana Dental (correct) |
+
+**Verified:** all 17 marketing pages — image order correct, 0 broken images,
+and no dental-specific imagery left on any non-dental page. Live spot-check
+through the preview header on 8 pages confirms the new files are serving.
+Backups: `o360_backup_serp2swap_20260814`, attachment map in
+`o360_serp2_20260814`.
+
+The real client "Fay Mansouri / irvineendodontics.com" now appears only on the
+two dental pages, where featuring a dental client is appropriate.
