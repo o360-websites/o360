@@ -3797,3 +3797,50 @@ pre-existing, unrelated to this work, not touched.
 ### 5. Design decision recorded
 User: keep the current design on the marketing/channel pages for now; revisit
 later. Only Dental Marketing and the Marketing hub were reverted (Batch 79).
+
+## Batch 82 — 2026-08-14 — Generated AI imagery for /marketing/ai-optimization/
+
+The library had no AI/assistant imagery (searched chat, gpt, schema, robot, ai),
+so the AI Optimization page was still using the generic Google-results graphic
+`marketing-main-image.png` in its Design A section.
+
+Generated 3 variants with Higgsfield (nano_banana_pro / nano_banana_2, 16:9,
+1376x768) showing an AI assistant answering "who is a good dentist near me" and
+citing a practice — in O360 navy with light-blue panels and an orange accent.
+All three were reviewed before anything was published.
+
+- **v1 chosen** — straight-on, most legible, clean citation card.
+- v2 rejected: invented fake practitioner names ("Dr. Anya Sharma",
+  "Dr. David Chen"), which would be fabricated people on a live sales page.
+- v3 rejected: skewed perspective, weaker legibility.
+
+The prompt deliberately used the placeholder "Your Practice" and forbade logos
+and brand names so the image does not depict a real business.
+
+**Delivery path solved:** the WordPress host has general outbound HTTPS
+(example.com and raw.githubusercontent.com both return 200), so the image was
+pulled straight in with `download_url()` + `media_handle_sideload()`. This is
+the route that was missing when the 3 recovered review photos could not be
+uploaded — worth reusing for those if a public URL can be produced.
+
+Attachment **87877** `2026/08/ai-search-answer-citing-your-practice.png`
+(1376x768), alt text set, filed in media folder 2772 "Marketing".
+Assigned to widget `d292177` on page 86875.
+
+**Verified:** page renders 288,979 bytes, 0 broken images, new image present in
+the rendered HTML and served 200 from production.
+Backup: `o360_backup_aipage_20260814`.
+
+### Unrelated: Novamira sandbox safe-mode notice — NOT caused by this session
+User reported "Safe mode is active. A sandbox plugin caused a fatal error."
+`wp-content/novamira-sandbox/.crashed` is dated **2026-08-05 12:00:04**, nine
+days before this session began. Cause recorded in the file:
+`novamira-sandbox/restore_alt_titles.php` called `wp_update_post()`, which fired
+folders-pro's `edit_attachment` notification hook, which called
+`wp_get_current_user()` before pluggable functions were loaded.
+Every file in that directory predates this session (Jun 10 – Aug 5). This
+session has only ever used the inline `novamira/execute-php` ability and has
+never written into the sandbox directory or touched a plugin.
+Two sandbox helpers remain disabled as a result: `cdn-subdomain-consolidate.php`
+and `password-revert-monitor.php`. Clearing it means removing the one-off
+`restore_alt_titles.php` and deleting `.crashed` — left for the user to approve.
