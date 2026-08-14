@@ -2,6 +2,13 @@
 
 Site operations for [o360.com](https://o360.com) go through the Novamira WordPress MCP connector. Working rules for backups, global styles, and fidelity live in `CLAUDE.md`. MCP client config lives in `.mcp.json`.
 
+## End of every chat
+
+Close every completed turn with two blocks:
+
+1. **Summary** — what is true now (what ran, what changed, what did not).
+2. **Questions** and/or **To do** — decisions needed from the user, and the next actions. Do not skip this even when the work looks finished.
+
 ## Cursor Cloud specific instructions
 
 This repository is an MCP ops connector, not a local web app. There is no `package.json`, linter, test suite, or `dev` server. The “application” is the stdio proxy `@automattic/mcp-wordpress-remote`, which talks to `https://o360.com/wp-json/mcp/novamira`.
