@@ -4559,3 +4559,82 @@ lazy-render rows cleared.
 **Verified live on all 9** (7 changed + the 2 intentionally left): each changed
 page renders its own 8-item list, and Dental Marketing and Medical Marketing
 still render the full multi-channel list as intended.
+
+---
+
+## Batch 95 — 2026-08-14 — Healthcare PPC (86871) built out, with hero specialty signal and dedicated Dental / Medical sections — DRAFT for review
+
+Built as a proposal, same as Batch 92. Social (86872), Reputation (86873) and
+Content (86874) were **not** touched — they wait on the user's reaction.
+
+**Backup:** option `o360_backup_ppcbuild_20260814` — full `_elementor_data` for
+86871 before any change (9 sections, 889 words).
+
+### Structure
+
+9 sections / 889 words -> **19 sections / 2,884 words**.
+
+Eight sections were copied from Healthcare SEO 86870 (`ec6222f`, `a011cbe`,
+`42c5e65a`, `4bb1f2d2`, `39d4fd74`, `6e3671d0`, `6236937c`, `5f1ac72d`) and then
+rewritten for paid search. **Two new sections were created** by deep-cloning
+`42c5e65a` with freshly generated IDs for every descendant:
+
+- `ppc-dental-section` — "Dental PPC"
+- `ppc-medical-section` — "Medical PPC"
+
+They sit at positions 7 and 8, directly after "What We Actually Manage", so a
+visitor meets their own specialty early rather than at the bottom of the page.
+ID uniqueness was asserted before writing: 168 unique element IDs, zero
+collisions.
+
+Final order: de04a06 | 625380b7 | f4f70c5 | 3109b177 | ec6222f | 2f61210d |
+**ppc-dental-section** | **ppc-medical-section** | e686509 | a011cbe | 42c5e65a |
+4bb1f2d2 | 50dc6ed | 39d4fd74 | 6e3671d0 | 6236937c | 5f1ac72d |
+dental-faq-section | 65f4cb60
+
+### Hero — specialty made visible
+
+- `75efa1b2` -> **"Google Ads for Dental and Medical Practices"** (was "Paid
+  Search Managed by People Who Know Healthcare")
+- `6b9bd428` -> intro now names dentists, physicians, pediatric dentistry,
+  optometry, mental health, medical spa, veterinary and podiatry, and points to
+  the dental and medical sections further down.
+
+### The two new sections
+
+| | Dental PPC | Medical PPC |
+|---|---|---|
+| Angle | procedure-value bidding | condition- and insurance-led search |
+| Body | emergency/same-day campaigns, implant and full-arch consults, Invisalign, pediatric dentistry kept separate | conditions over procedures, filtering students/job seekers/reps, per-specialty radius |
+| List | 7 items | 7 items |
+| Image | dianadental.ca (76283) | westorangefamilymedical.com (74927) |
+| Button | "See Dental Marketing" -> /marketing/dental/ | "See Medical Marketing" -> /marketing/medical/ |
+
+### Copy rewritten — 44 edits
+
+All eight copied sections were rewritten from SEO to paid search, including
+`42c5e65a` "Technical SEO & Site Health" -> **"Landing Pages That Convert the
+Click"**, `4bb1f2d2` "Reviews & Reputation Signals" -> **"Call Tracking &
+Attribution"**, `6236937c` "Where Should Your SEO Budget Go First?" -> **"Where
+Should Your Ad Budget Go First?"** (Google Search -> landing page -> call
+tracking -> Meta/remarketing), and the four cost-per-patient boxes rebuilt around
+negative keywords, radius, case-value bidding and clinician review.
+
+Because sections were copied and cloned rather than authored from scratch, every
+color and font reference carried across still bound to the custom Global Colors
+and Global Fonts. No value was set individually on any element.
+
+### Verified live
+
+- All 19 sections present and in the intended document order
+- Zero occurrences of "Technical SEO" or "map pack" — no SEO copy leaked through
+- Specialty mentions across the page: dentist 17, optometry 13, veterinary 14,
+  mental health 8, medical spa 8, podiatry 8, pediatric dentistry 6
+- Both new section buttons resolve to /marketing/dental/ and /marketing/medical/
+- All 33 images return HTTP 200 with real payloads
+
+### Cache handling
+
+`_elementor_element_cache` and `_elementor_css` deleted, CSS regenerated via
+`Elementor\Core\Files\CSS\Post::update()`, `rocket_clean_post()`, and the WP
+Rocket used-CSS / ATF / lazy-render rows cleared.
