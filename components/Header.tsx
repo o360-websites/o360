@@ -7,7 +7,6 @@ import { headerNav, site } from "@/content/home";
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   return (
     <header className="sticky top-0 z-50 bg-navy text-white">
@@ -25,12 +24,7 @@ export function Header() {
 
         <nav className="hidden flex-1 items-center gap-1 lg:flex" aria-label="Primary">
           {headerNav.map((item) => (
-            <div
-              key={item.label}
-              className="relative"
-              onMouseEnter={() => setOpenMenu(item.label)}
-              onMouseLeave={() => setOpenMenu(null)}
-            >
+            <div key={item.label} className="group relative">
               <Link
                 href={item.href}
                 className="inline-flex items-center gap-1 px-3 py-2 text-[15px] font-medium tracking-wide hover:text-blue-2"
@@ -38,8 +32,8 @@ export function Header() {
                 {item.label}
                 {item.children ? <span className="text-[10px]">▾</span> : null}
               </Link>
-              {item.children && openMenu === item.label ? (
-                <div className="absolute left-0 top-full min-w-56 bg-white py-2 text-ink shadow-lg">
+              {item.children ? (
+                <div className="invisible absolute left-0 top-full z-50 min-w-56 bg-white py-2 text-ink opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
                   {item.children.map((child) => (
                     <Link
                       key={child.href + child.label}
