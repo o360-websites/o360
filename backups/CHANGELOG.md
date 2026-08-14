@@ -4204,3 +4204,84 @@ Pre-revert state saved to `o360_backup_prestoryrevert_20260814`.
 Spa, Mental Health, Chiropractic, Optometry and Veterinary (Batch 88), so it is
 visible only on Dental, Medical and Orthodontic until per-specialty cases are
 written.
+
+---
+
+## Batch 90 — 2026-08-14 — New "SEO/PPC" top-level menu + founder bio moved above FAQ
+
+### 90a. Main Header: new top-level "SEO/PPC" dropdown
+
+The Marketing dropdown was carrying the specialty pages only (9 items) because
+the channel pages had been pulled out manually. Rather than putting them back
+and pushing Marketing to 15 items, the channel pages now live under their own
+top-level item.
+
+**Backup:** option `o360_backup_menu_20260814` — full snapshot of all 26 items
+of menu "Main Header" (term 2491): ID, parent, order, title, url, type, object,
+object_id, target, classes, attr_title, description, xfn.
+
+**Added** (menu 2491), parent item 87887 "SEO/PPC" -> /marketing/seo/, with 8
+children:
+
+| Item ID | Label | Target |
+|---|---|---|
+| 87888 | Healthcare SEO | /marketing/seo/ (86870) |
+| 87889 | Dental SEO | /marketing/dental-seo/ (86877) |
+| 87890 | Medical SEO | /marketing/medical-seo/ (86878) |
+| 87891 | PPC & Google Ads | /marketing/ppc/ (86871) |
+| 87892 | AI Optimization | /marketing/ai-optimization/ (86875) |
+| 87893 | Content Marketing | /marketing/content/ (86874) |
+| 87894 | Social Media | /marketing/social/ (86872) |
+| 87895 | Reputation Management | /marketing/reputation/ (86873) |
+
+All 8 added as `post_type`/`page` items (not custom links), so they follow the
+page if a slug changes.
+
+**Reordered** the whole menu so the block sits between Marketing and HIPAA.
+Final top-level order: Web Design (9 children) | Portfolio | Marketing (9) |
+SEO/PPC (8) | HIPAA | Company (3). Nothing was removed or renamed.
+
+**Restore:** read `o360_backup_menu_20260814`, delete items 87887-87895 with
+`wp_delete_post($id,true)`, then write each saved `order` back to
+`wp_posts.menu_order`.
+
+**Verified live** (through the preview header) on /marketing/dental/: parent and
+all 8 children render with the correct hrefs and labels.
+
+### 90b. Dr. Sean Fahimi bio moved above the FAQ
+
+Section `f6cbf83` (founder / Dr. Sean Fahimi) was sitting at top-level index 9,
+mid-page between the ads section and the social section. It now sits directly
+above `dental-faq-section`.
+
+**Backup:** option `o360_backup_biomove_20260814` — full `_elementor_data` for
+all 8 pages before the move.
+
+**Changed** (8 pages — every marketing sub page that currently carries the
+section): 86667 Dental, 86876 Medical, 87828 Medical Spa, 87829 Orthodontic,
+87830 Mental Health, 87831 Chiropractic, 87832 Optometry, 87833 Veterinary.
+
+Order on each went from
+`... 8:42c5e65a | 9:f6cbf83 | 10:4bb1f2d2 | ... | 14:5f1ac72d | 15:dental-faq-section`
+to
+`... 8:42c5e65a | 9:4bb1f2d2 | ... | 14:5f1ac72d | 15:f6cbf83 | 16:dental-faq-section`.
+
+Pure array reorder — no section content, settings or IDs were touched. Per page:
+`_elementor_element_cache` and `_elementor_css` deleted, CSS regenerated via
+`Elementor\Core\Files\CSS\Post::update()`, `rocket_clean_post()`, and the stale
+row deleted from `wp_wpr_rucss_used_css` / `wp_wpr_above_the_fold` /
+`wp_wpr_lazy_render_content`.
+
+**Restore:** write the saved blob from `o360_backup_biomove_20260814` back to
+`_elementor_data` (wp_slash) and re-run the same cache purge.
+
+**Verified live** on all 8: the bio section renders before the FAQ section in
+document order on every page.
+
+**Not done — pending user confirmation.** 8 marketing sub pages do *not* have
+the founder section at all, because it was deliberately removed from them in
+Batch 87 on the instruction "I don't think Sean Fahimi bio should be on every
+channel page": 86870 Healthcare SEO, 86871 PPC, 86872 Social, 86873 Reputation,
+86874 Content, 86875 AI Optimization, 86877 Dental SEO, 86878 Medical SEO.
+Re-adding it there would reverse that earlier decision, so it was left alone and
+raised with the user instead.
