@@ -4822,3 +4822,68 @@ used-CSS / ATF / lazy-render tables.
   before and after
 - All 14 pages now serve a `-clean` variant and **zero** references to the old
   framed files remain
+
+---
+
+## Batch 98 — 2026-08-14 — Agent handoff documentation for the Cursor migration
+
+Repo-only change. **No site changes.** Written so a fresh agent in Cursor (or any
+other tool) starts with the rules and the hard-won operational knowledge rather
+than rediscovering both on a live production site.
+
+### Added
+
+| File | Purpose |
+|---|---|
+| `AGENTS.md` | Entry point. The 12 hard rules, live-site rules of engagement, file map, secrets warning, current state. Read by Cursor and increasingly a cross-tool standard. |
+| `.cursor/rules/o360.mdc` | Same rules with `alwaysApply: true` frontmatter so Cursor auto-loads them. **Cursor does not read `CLAUDE.md`** — without this file every mandatory rule would have been invisible to it. |
+| `docs/OPERATIONS.md` | The operations manual — see breakdown below. |
+| `.mcp.json.example` | Connector config shape with `${WP_API_USERNAME}` / `${WP_API_PASSWORD}` placeholders instead of the live value. |
+
+### Rewritten
+
+- `README.md` — was two lines with a typo. Now routes to the right doc and leads
+  with the two mistakes most likely to be made.
+- `.gitignore` — added `.env`, `.env.*`, `!.env.example`.
+
+### What `docs/OPERATIONS.md` captures
+
+Knowledge that existed only in session context and would otherwise have been
+lost:
+
+1. Connector usage, the read/write shape for `_elementor_data`, `wp_slash()` and
+   `JSON_UNESCAPED_SLASHES` requirements, JSON-escaped URLs, element-ID
+   uniqueness when cloning.
+2. The shared section and widget ID map across the marketing pages.
+3. **Rendered-vs-stored** — that a stale URL in `_elementor_data` does not mean a
+   broken image, with the concrete figures (a stored-data audit reported 131
+   broken refs across 35 pages; the true rendered figure was 16 across 8 files).
+   Also that missing images return HTTP 200 with a ~146-byte body.
+4. The full cache-purge recipe including the three WP Rocket tables
+   `rocket_clean_post()` does not clear, the ban on `rocket_clean_domain()`, and
+   the stale-edge-copy red herring on bare CSS paths.
+5. Reference tables: all 17 marketing pages with IDs and URLs, key templates,
+   all 31 custom Global Colors, all 20 custom Global Typography styles, media
+   folder term IDs.
+6. Techniques: responsive hide, Elementor's default box shadow, the two working
+   routes for getting an image into the media library, Rank Math specifics, and
+   the finding that **no page-view data is queryable** (GSC/GA tables empty,
+   Clarity data off-site, redirect hits bot-polluted).
+7. Open items — 11 outstanding threads carried forward.
+
+### Security — flagged, not fixed
+
+`.mcp.json` contains a live WordPress application password in plaintext and is
+tracked in git, so the value is in history. It was **left in place deliberately**:
+removing it would break the working connector, and deleting the file does not
+remove it from history. The fix is to rotate the application password in WP
+Admin, move the value to an untracked `.env`, then untrack `.mcp.json`. This is
+documented in `AGENTS.md` §4, `README.md` and the Cursor rule file. Flagged to
+the user as the thing to do before connecting further tools.
+
+### Also corrected
+
+`WORKING-NOTES.md` is untracked, so it never reaches a fresh clone — the handoff
+notes this rather than referring agents to a file that will not exist. Its page
+IDs also predate several renames (it lists `seo/dental 86877`, which is now
+`/marketing/dental-seo/`).
