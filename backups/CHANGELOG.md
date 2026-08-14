@@ -4068,3 +4068,33 @@ had one.)
 the 8 specialty landing pages, 0 broken images site-wide across the 17 pages,
 all render, plus a live check through the preview header.
 Backup: `o360_backup_hero_fahimi_20260814`.
+
+### Batch 87 addendum — stale caches and social-share images
+
+After the hero swap, the live HTML still referenced the old dental laptop on
+the 8 channel pages. Two distinct causes, both found by checking production
+rather than trusting the server-side render:
+
+**a. WP Rocket LCP preload records.** `wp_wpr_above_the_fold` held rows whose
+stored LCP element was still the old hero, so Rocket emitted
+`<link rel="preload" as="image">` for an image no longer on the page — wasted
+bandwidth on every visit. `rocket_clean_post()` does NOT clear these; they live
+in their own tables. Backed up to `o360_backup_rocket_atf_20260814`, then
+deleted 9 above-the-fold rows, 13 used-CSS rows and 9 lazy-render rows for
+those URLs so Rocket regenerates them.
+
+Two remaining rows still reference the dental laptop and were LEFT ALONE —
+`/marketing/dental/` and `/products/hosting/` genuinely use that image.
+
+**b. No per-page social-share image.** Rank Math had no
+`rank_math_facebook_image` on any of the 17 marketing pages, so link previews
+fell back to whatever it could scrape: the generic O360 logo on 7 pages, the
+Google-review badge on Dental, and a stale dental laptop on Healthcare SEO —
+meaning an SEO page shared a dental screenshot on social.
+
+Set each page's own hero as its `rank_math_facebook_image` +
+`rank_math_facebook_image_id` across all 17 marketing pages.
+Backup: `o360_backup_ogimg_20260814`.
+
+**Verified live on all 8 channel pages:** correct og:image, 0 references to the
+old dental hero, 0 Fahimi mentions.
