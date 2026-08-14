@@ -4329,3 +4329,101 @@ template**. A scan of every `_elementor_data` row containing a `nav-menu` widget
 returns only three templates: Header 86551 (menu `main-header`), Archive: Blog
 83365 and Single: Blog 83599 (both menu `links-to-categories`). So there is no
 separate mobile or secondary nav that needs the same edits.
+
+---
+
+## Batch 92 — 2026-08-14 — Healthcare SEO (86870) built out to the full 17-section shape — DRAFT for review
+
+Built as a proposal. The other four thin channel pages (PPC 86871, Social 86872,
+Reputation 86873, Content 86874) were **not** touched — they wait on the user's
+reaction to this one.
+
+**Backup:** option `o360_backup_hcseo_20260814` — full `_elementor_data` for
+86870 before any change (9 sections, 881 words).
+
+### Structure
+
+Went from 9 sections / 881 words to **17 sections / 2,472 words**, matching the
+section order of Dental SEO (86877) and AI Optimization (86875), which sit at
+17 sections / ~2,800 words.
+
+Eight sections were copied in from Dental SEO 86877 and then rewritten:
+`ec6222f`, `a011cbe`, `42c5e65a`, `4bb1f2d2`, `39d4fd74`, `6e3671d0`,
+`6236937c`, `5f1ac72d`. The nine existing sections were kept in place.
+
+Final order: de04a06 | 625380b7 | f4f70c5 | 3109b177 | **ec6222f** | 2f61210d |
+e686509 | **a011cbe** | **42c5e65a** | **4bb1f2d2** | 50dc6ed | **39d4fd74** |
+**6e3671d0** | **6236937c** | **5f1ac72d** | dental-faq-section | 65f4cb60
+
+Because the sections were copied wholesale, every color and font reference came
+across as-is — all still bound to the custom Global Colors / Global Fonts. No
+value was set individually on any element.
+
+### Copy rewritten (20 widgets)
+
+De-dentalized for the healthcare-wide hub, and made SEO-specific:
+
+| Widget | Change |
+|---|---|
+| 10fa83f7 | "Why Dentists Choose Our SEO Team" -> "Why Healthcare Practices Choose Our SEO Team" |
+| 1384d8c6 | "Founded and Run by Dentists" -> "Founded and Run by a Dentist"; body matched to the approved Fahimi wording (dentist who has owned and operated private practices) |
+| 1b794e5 | "...Lowest in Dental SEO" -> "...Lowest in Healthcare SEO" |
+| e06d734, ef8eb73 | dental -> healthcare; "procedures" -> "conditions and procedures" |
+| 794fb43 | "Most dental sites fail on mobile" -> "Most healthcare sites" |
+| 224be6e | "dental and local-business schema" -> "medical and local-business schema" |
+| 3a3eaa4 | "Procedure-Level Pages" -> "Condition & Procedure Pages"; removed the implants/Invisalign/veneers/full-arch examples |
+| 5b2d6e8 | "Content Written by Dentists" -> "Content Reviewed by Clinicians" |
+| 78b7d064, 55da2141 | dental schema / procedure content -> medical schema / condition and procedure content |
+| 5570feb7 | "Dental SEO Success Stories" -> "SEO Success Stories" |
+| 25a0e821 | "Real dental practices..." -> "Real practices..." |
+| 170c6afe | "Procedure Pages" box de-dentalized |
+| 220dd672 | "our dental SEO programs" -> "our healthcare SEO programs" |
+
+### Three icon lists replaced (they were carrying the wrong channel entirely)
+
+Two of these were pre-existing bugs on this page, not introduced by the copy-in:
+
+- **589f41db** (in "What SEO Actually Involves") listed **paid ad channels** —
+  Google & Search Ads, Facebook & Instagram Ads, Microsoft Bing Ads, AI & GPT
+  Ads. Replaced with 8 genuine SEO items.
+- **5e47397b** (in "Technical SEO & Site Health") listed **ad campaign items** —
+  Custom Campaign Strategy, Bing Ads, A/B testing. Replaced with 7 technical SEO
+  items.
+- **6d3ecfc3** (in "Reviews & Reputation Signals") listed **social media items**.
+  Replaced with 6 review/reputation items.
+
+Existing icons and repeater `_id`s were preserved; only `text` changed.
+
+### Typo fix
+
+`18993109` and `2f8c44a0` captions: "Las Vegas Cardiologoy" -> "Las Vegas Cardiology".
+
+### Cache handling
+
+`_elementor_element_cache` and `_elementor_css` deleted, CSS regenerated via
+`Elementor\Core\Files\CSS\Post::update()`, `rocket_clean_post()`, and 2 stale
+rows removed from the WP Rocket used-CSS / ATF / lazy-render tables.
+
+### Verified live
+
+- All 17 sections present and in the intended document order
+- Zero occurrences of "Dentists", "Invisalign", "veneers", "Dental SEO Success",
+  "Cardiologoy"
+- The two remaining "dental SEO" strings are the intentional cross-links to the
+  dental and medical SEO pages, in the hero and the FAQ
+- The only remaining "implants" mentions are a real client's screenshot filename
+  and a verbatim client testimonial
+- All 29 upload images return HTTP 200 with real payloads; `hamburger-icon.svg`
+  is a genuine 352-byte SVG, not a soft 404
+- No responsive-hide flags except the intentional ones on spacer `de04a06`
+
+### Open points raised with the user
+
+1. Success Stories on this page still shows four **dental** cases (New Teeth
+   Chicago, Chestnut Dental, Irvine Endodontics, Pan-Am Dental Lab). The section
+   heading was de-dentalized and the quotes are genuine, but the case mix is
+   dental-heavy for a healthcare-wide page.
+2. Medical Marketing (86876) has an inconsistency not touched here: the box
+   heading reads "Founded and Run by Doctors" (plural) while its own body says
+   "a dentist". Flagged, not changed.
+3. The "What's Included" price tables still list Twitter and Pinterest.
