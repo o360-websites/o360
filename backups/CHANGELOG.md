@@ -4638,3 +4638,104 @@ and Global Fonts. No value was set individually on any element.
 `_elementor_element_cache` and `_elementor_css` deleted, CSS regenerated via
 `Elementor\Core\Files\CSS\Post::update()`, `rocket_clean_post()`, and the WP
 Rocket used-CSS / ATF / lazy-render rows cleared.
+
+---
+
+## Batch 96 — 2026-08-14 — Social, Reputation and Content built out; PPC revised; FAQs doubled; "healthcare" replaced with "dental and medical"
+
+Applies the approved PPC pattern (Batch 95) to the remaining three channel
+pages, plus two user-requested revisions applied to all four.
+
+**Backups:** `o360_backup_chanbuild_20260814` (86872/86873/86874 pre-build) and
+`o360_backup_ppcfix_20260814` (86871 pre-revision).
+
+### Result
+
+| Page | Before | After |
+|---|---|---|
+| 86871 PPC | 19 sections / 2,884 w | 19 / **3,177 w** |
+| 86872 Social | 9 / 876 w | 19 / **3,075 w** |
+| 86873 Reputation | 9 / 853 w | 19 / **3,034 w** |
+| 86874 Content | 9 / 847 w | 19 / **3,089 w** |
+
+### Structure (86872 / 86873 / 86874)
+
+Eight sections copied from Healthcare SEO 86870, plus two new specialty sections
+deep-cloned from `42c5e65a` with freshly generated IDs for every descendant:
+
+- `soc-dental-section` / `soc-medical-section`
+- `rep-dental-section` / `rep-medical-section`
+- `con-dental-section` / `con-medical-section`
+
+Each page asserted at **168 unique element IDs, zero collisions** before writing.
+Both specialty sections sit at positions 7-8, immediately after the "what we do"
+section. Each carries its own heading, sub-heading, body, image, 7-item list, and
+a button to /marketing/dental/ or /marketing/medical/.
+
+### "healthcare" -> "dental and medical"
+
+Per the user's instruction, every visible occurrence of "healthcare" in page copy
+was replaced across all four pages. On-page count is now **zero** on all four.
+
+H1s changed:
+
+| Page | Was | Now |
+|---|---|---|
+| 86871 | Healthcare PPC & Google Ads | **Dental & Medical PPC** |
+| 86872 | Healthcare Social Media | **Dental & Medical Social Media** |
+| 86873 | Healthcare Reputation Management | **Dental & Medical Reputation Management** |
+| 86874 | Healthcare Content Marketing | **Dental & Medical Content Marketing** |
+
+Sub-headlines now all follow "... by People Who Only Work in Dentistry and
+Medicine", and each FAQ heading was renamed to match.
+
+Two stragglers were caught on a second pass and fixed: an icon-list item on 86873
+("Google, Yelp and healthcare directories" -> "specialty directories") and a FAQ
+answer on 86874 ("Healthcare writers" -> "Dental and medical writers").
+
+### FAQs: 3 -> 8 on every page
+
+The three existing questions were preserved verbatim and five added per page. New
+questions cover, among others: ads vs existing rankings and referral-driven
+specialists (PPC); platform choice, no photos/no time, and account ownership
+(Social); review volume, incentivising, untrue reviews, and ranking impact
+(Reputation); page count, publishing prices, named authorship, and timeframes
+(Content).
+
+**Compliance wording:** the new PPC question "How do you handle HIPAA and
+advertising rules?" states plainly that O360 is not the practice's compliance
+advisor and does not give legal advice, and directs the reader to their own
+counsel. The Reputation answers continue to refuse gating and incentivising
+outright.
+
+### Specialty coverage (rendered page counts)
+
+| Page | dental | medical | ped. dentistry | optometry | mental health | med spa | veterinary | podiatry |
+|---|---|---|---|---|---|---|---|---|
+| PPC | 59 | 55 | 6 | 13 | 8 | 9 | 14 | 8 |
+| Social | 49 | 51 | 6 | 12 | 8 | 10 | 12 | 6 |
+| Reputation | 53 | 42 | 5 | 13 | 7 | 9 | 13 | 8 |
+| Content | 50 | 47 | 5 | 11 | 7 | 7 | 11 | 6 |
+
+### Verified live on all four
+
+- 19 sections present and in the intended document order
+- 8 FAQ questions render on each page
+- **Zero** occurrences of "healthcare" in visible page copy
+- All images return HTTP 200 with real payloads (33/32/33/33, zero broken)
+- Colors and fonts remain bound to the custom Globals throughout; nothing set
+  per-element
+
+### Cache handling
+
+Per page: `_elementor_element_cache` and `_elementor_css` deleted, CSS
+regenerated, `rocket_clean_post()`, and WP Rocket used-CSS / ATF / lazy-render
+rows cleared.
+
+### Not changed — flagged to the user
+
+The **Rank Math SEO titles and og:titles** still read "Healthcare PPC & Google
+Ads Management", "Healthcare Social Media Marketing For Practices", etc. Those
+are what appear in Google results and social shares, so changing them affects
+search listings and was left for the user to decide. The WP page titles and the
+menu labels are likewise unchanged.
