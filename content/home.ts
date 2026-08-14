@@ -1,5 +1,4 @@
-const img = (file: string) =>
-  `https://o360.com/wp-content/uploads/${file}`;
+const img = (file: string) => `/media/${file}`;
 
 export const site = {
   name: "O360®",
@@ -94,29 +93,29 @@ export const home = {
   },
   desktopHero: {
     heading: "Website Design & Marketing For Dental & Medical Practices",
-    background: img("2020/05/honeycomb-pattern-2.webp"),
+    background: img("2022/08/pattern-organic.png"),
     primary: { label: "Websites", href: "/web-design" },
     secondary: { label: "Marketing", href: "/marketing" },
     screenshots: [
-      img("2025/10/veterinary-website-petcute.png"),
-      img("2025/10/beyondthesmiledental-3.jpg"),
-      img("2025/10/vidarevival-3.png"),
-      img("2025/10/MalamaPainSpine-3.png"),
-      img("2025/10/FloridaInjuryRegenerative4.png"),
-      img("2025/10/maygrant.png"),
-      img("2025/10/DublinRanchDentalx3.png"),
-      img("2025/10/hex-dental-lab-3.jpeg"),
-      img("2025/10/skinsolutiosny-3.png"),
-      img("2025/10/364-Bariatrics-3.png"),
-      img("2025/10/NicholsonDental.png"),
-      img("2025/10/Reverence-Behaviour-Health-3.png"),
-      img("2025/10/wirxpharmacy-3.jpg"),
-      img("2025/10/fpmx3.png"),
-      img("2025/10/1015x3.png"),
-      img("2025/10/florida-surgical-specialists-1.png"),
-      img("2025/10/SweetViewOptical-1.png"),
-      img("2025/10/new-path-vision-4.webp"),
-      img("2025/10/drharryintsiful-1.webp"),
+      img("2022/06/veterinary-website-petcute.png"),
+      img("2026/03/beyondthesmiledental-3.jpg"),
+      img("2026/03/vidarevival-3.png"),
+      img("2026/03/MalamaPainSpine-3.png"),
+      img("2026/03/FloridaInjuryRegenerative4.png"),
+      img("2023/09/maygrant.png"),
+      img("2026/03/DublinRanchDentalx3.png"),
+      img("2026/03/hex-dental-lab-3.jpeg"),
+      img("2026/03/skinsolutiosny-3.png"),
+      img("2026/03/364-Bariatrics-3.png"),
+      img("2021/07/NicholsonDental.png"),
+      img("2026/03/Reverence-Behaviour-Health-3.png"),
+      img("2026/03/wirxpharmacy-3.jpg"),
+      img("2026/03/fpmx3.png"),
+      img("2026/03/1015x3.png"),
+      img("2024/08/florida-surgical-specialists-1.png"),
+      img("2024/08/SweetViewOptical-1.png"),
+      img("2026/03/new-path-vision-4.webp"),
+      img("2024/08/drharryintsiful-1.webp"),
     ],
     features: [
       {
@@ -191,10 +190,10 @@ export const home = {
     body: "Our gallery features our team’s best work, each design uniquely tailored to the practice and the doctor behind it. We design for more than 40 specialties.",
     cta: { label: "View Portfolio", href: "/portfolio" },
     thumbs: [
-      { src: img("2025/10/good-medicine-3.png"), href: "/portfolio" },
-      { src: img("2025/10/elitespinespecialists3.png"), href: "/portfolio" },
-      { src: img("2025/10/skinsolutiosny-3.png"), href: "/portfolio" },
-      { src: img("2025/10/annapolis-counseling-center3.png"), href: "/portfolio" },
+      { src: img("2026/03/good-medicine-3.png"), href: "/portfolio" },
+      { src: img("2026/03/elitespinespecialists3.png"), href: "/portfolio" },
+      { src: img("2026/03/skinsolutiosny-3.png"), href: "/portfolio" },
+      { src: img("2026/03/annapolis-counseling-center3.png"), href: "/portfolio" },
     ],
     specialties: ["Dentistry", "Medical", "Cosmetics", "Mental Health", "Medical Spa", "See the Full List"],
   },
@@ -210,22 +209,22 @@ export const home = {
   marketing: {
     heading: "Result Driven Marketing",
     body: "Solutions that cover all digital marketing channels for your practice. See why thousands of other doctors choose O360!",
-    background: img("2020/06/bg-clouds-top-3.webp"),
+    background: img("2026/03/bg-clouds-top-3.webp"),
     cards: [
       {
-        image: img("2020/07/Asset-23.webp"),
+        image: img("2024/08/Asset-23.webp"),
         title: "Organic Search",
         body: "Rank your website for the top keywords. Ensure your website shows well on all local searches and even other locations.",
         cta: { label: "About SEO", href: "/marketing" },
       },
       {
-        image: img("2020/07/ppc-partners2.png"),
+        image: img("2024/08/ppc-partners2.png"),
         title: "Paid Advertising",
         body: "Get your practice in front of interested patients. We can help you lower ad costs and increase your conversion rates.",
         cta: { label: "PPC Ads", href: "/marketing" },
       },
       {
-        image: img("2020/07/social-icons.png"),
+        image: img("2023/09/social-icons.png"),
         title: "Social Media",
         body: "Grow brand awareness, increase patient engagement, and improve patient satisfaction with social media marketing.",
         cta: { label: "Social Media", href: "/marketing" },
