@@ -11,7 +11,20 @@ Close every completed turn with two blocks:
 
 ## Cursor Cloud specific instructions
 
-This repository is an MCP ops connector, not a local web app. There is no `package.json`, linter, test suite, or `dev` server. The “application” is the stdio proxy `@automattic/mcp-wordpress-remote`, which talks to `https://o360.com/wp-json/mcp/novamira`.
+This repository now contains the **Next.js rebuild** of o360.com (App Router) plus the WordPress MCP connector used as the visual source during migration. WordPress/Elementor remains live on `o360.com` until cutover.
+
+### Next.js (new site)
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run lint
+npm run build
+```
+
+Homepage content is in `content/home.ts`. Custom fonts (Avenir, Mark Pro) are in `app/fonts/`. Deploy config is `netlify.toml`. Supabase keys go in `.env.local` from `.env.example` — there is not yet an O360 Supabase project (org `O360 Core Websites` already has Orbit101 and Dental Country).
+
+Do not treat WordPress as the place to rebuild pages. New UI work goes in Next.js.
 
 ### Talking to WordPress from a cloud agent
 
@@ -41,4 +54,5 @@ The Novamira server currently exposes about 140 abilities (Elementor, ACF, Rank 
 - `novamira/run-wp-cli` fails because PHP `proc_open`/`exec` is disabled on the host. Use `novamira/execute-php` (full WP environment, `$wpdb`, etc.) or REST-style abilities instead.
 - Do not update, deactivate, uninstall, or delete the Novamira plugin — that drops the MCP connection.
 - Elementor v4 atomic widgets are **off**. Use the v3 Elementor abilities (`novamira/elementor-*`). Custom global colors/typography are the only allowed visual tokens (see `CLAUDE.md`).
-- There are no lint, test, or build commands in this repo. Prove connectivity with a read-only ability call (for example `novamira/execute-php` listing published pages, or `novamira/elementor-check-setup`).
+- WordPress MCP is still used to **read** the live site during migration. Prove Next.js with `npm run lint`, `npm run build`, and `npm run dev`.
+- Cloudflare still challenges anonymous GETs to `https://o360.com`; Next.js local/dev is the preview surface.
