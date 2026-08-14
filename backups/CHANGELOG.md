@@ -4098,3 +4098,58 @@ Backup: `o360_backup_ogimg_20260814`.
 
 **Verified live on all 8 channel pages:** correct og:image, 0 references to the
 old dental hero, 0 Fahimi mentions.
+
+## Batch 88 — 2026-08-14 — Frame border on un-framed hero screenshots
+
+User: hero images that are bare screenshots (no laptop mockup around them)
+should get a 15px #222 border with 25px radius, to read as a device frame.
+
+### Identifying which heroes are bare screenshots
+A transparency probe was unreliable — the framed laptop mockups are palette
+PNGs whose corner pixels sample as opaque. Instead all 7 candidate heroes were
+downloaded and assembled into a single contact sheet and inspected visually.
+
+| Page | Hero | Verdict |
+|---|---|---|
+| Marketing hub | marketing-laptop.png | framed laptop — skip |
+| Dental / Medical | laptop-dental-website-purple / laptop-heart | framed — skip |
+| 8 channel pages | Laptop 3D family (Batch 87) | framed — skip |
+| **Medical Spa 87828** | Golden-Glow-MediSpa | **bare screenshot** |
+| **Orthodontic 87829** | bethesdaorthodontists.com | **bare screenshot** |
+| **Mental Health 87830** | insyte-psychiatric | **bare screenshot** |
+| **Chiropractic 87831** | goodyearchiropractic_com | **bare screenshot** |
+| **Optometry 87832** | ba-ravenswoodeyecare-after | **bare screenshot** |
+| **Veterinary 87833** | Chafin-vet-website-design | **bare screenshot** |
+
+### Applied to widget `6a68b78d` on those 6 pages
+- `image_border_border`: solid
+- `image_border_width`: 15px all sides (linked)
+- `image_border_radius`: 25px all corners (linked)
+- border colour: **connected to the existing custom Global Color
+  `848d8fa` "Black 2" = #222222**, not hardcoded.
+
+Per the global-styles rule the hex was NOT written inline — the kit already had
+an exact #222222 custom global, so the widget references
+`globals/colors?id=848d8fa` and no new global had to be created.
+Medical Spa already had a stray `image_border_border: solid` with no width,
+colour or radius; that is now complete.
+
+**Verified in the served CSS:**
+`.elementor-element-6a68b78d img{width:1000px;border-style:solid;
+border-width:15px 15px 15px 15px;border-color:var( --e-global-color-848d8fa );
+border-radius:25px 25px 25px 25px;}` present in all 6 post-*.css files, and the
+kit defines `--e-global-color-848d8fa:#222222`.
+Backup: `o360_backup_heroborder_20260814`.
+
+### Cache note
+The border did not appear live at first: WP Rocket inlines a reduced "Used CSS"
+set and its stored copy predated the change. `rocket_clean_post()` does not
+clear it. Cleared 24 used-CSS, 17 above-the-fold and 17 lazy-render rows for
+the marketing URLs and flushed Elementor's file cache. While Used CSS
+regenerates (async, queued), WP Rocket correctly falls back to loading the full
+stylesheets — pages verified as fully styled during the rebuild, serving
+post-*.css directly with the new border rule in it.
+
+This is worth remembering: after any Elementor style change, the WP Rocket
+`wpr_rucss_used_css` / `wpr_above_the_fold` tables must be cleared for the
+affected URLs or the live page keeps serving the old inlined CSS.
