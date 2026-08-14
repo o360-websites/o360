@@ -4285,3 +4285,47 @@ channel page": 86870 Healthcare SEO, 86871 PPC, 86872 Social, 86873 Reputation,
 86874 Content, 86875 AI Optimization, 86877 Dental SEO, 86878 Medical SEO.
 Re-adding it there would reverse that earlier decision, so it was left alone and
 raised with the user instead.
+
+---
+
+## Batch 91 — 2026-08-14 — Menu changes made by the user (recorded, not authored by Claude)
+
+The user restructured Main Header (menu 2491) directly in wp-admin, based on
+their traffic data. Recorded here for the audit trail. **No changes were made by
+Claude in this batch.**
+
+**State snapshot:** option `o360_menu_state_20260814b` — all 33 items with ID,
+parent, order, title, url, type, object, object_id, target, classes, attr_title,
+description, xfn. (The prior state is still in `o360_backup_menu_20260814` from
+Batch 90.)
+
+### What changed vs Batch 90
+
+| # | Change |
+|---|---|
+| 1 | "Company" (item 83586, a `#` dead-end parent) **deleted**. "About O360" (82298 -> /about-us/) promoted to top level in its place, with Contact Us (31886) and Support (31891) as its children. |
+| 2 | Duplicate child "Healthcare SEO" (item 87888) **deleted** from the SEO/PPC dropdown — the parent item already links /marketing/seo/. |
+| 3 | SEO/PPC children reordered: Dental SEO, Medical SEO, PPC & Google Ads, Social Media, AI Optimization, Content Marketing, Reputation Management. |
+| 4 | Web Design's "All Specialties" **renamed** "Other Specialties" (item 86737). |
+| 5 | Marketing's "Other Healthcare Specialties" **renamed** "Other Specialties" (item 87875). |
+
+### Resulting structure
+
+Every top-level item is now a real page link — there are no `#` parents left, and
+each of the four dropdowns is built the same way (parent = hub page, children =
+its sub pages, an "Other Specialties" catch-all where one applies).
+
+- **Web Design** -> /web-design/ — 9 children
+- **Portfolio** -> /portfolio/
+- **Marketing** -> /marketing/ — 9 children
+- **SEO/PPC** -> /marketing/seo/ — 7 children
+- **HIPAA** -> /products/hipaa/
+- **About O360** -> /about-us/ — 2 children
+
+### Also verified
+
+Menu "Top" (term 2759, 33 legacy items) is **not referenced by any Elementor
+template**. A scan of every `_elementor_data` row containing a `nav-menu` widget
+returns only three templates: Header 86551 (menu `main-header`), Archive: Blog
+83365 and Single: Blog 83599 (both menu `links-to-categories`). So there is no
+separate mobile or secondary nav that needs the same edits.
