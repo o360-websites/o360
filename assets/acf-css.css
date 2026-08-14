@@ -1,0 +1,31 @@
+/* ACF CSS — central styles for ACF rich-text areas (repo copy).
+   Live source of truth: Elementor > Custom Code > "ACF CSS" (post 86997),
+   printed in <head> site-wide as <style id="o360-acf-css">.
+   Add class `acf-rich` to any Elementor widget bound to an ACF wysiwyg field.
+   Heading levels map to CUSTOM Global Fonts:
+   H1 = Page Title (h1) Bold   (33b6ca1c)
+   H2 = Section Title (h2) Bold (9b77dcee)
+   H3 = Paragraph Title (h3)   (78b2240a)
+   H4 = Widget Title (h3)      (a8a7c637)
+   H5 = Pre-Titles / subtitle  (b1592aad)
+   H6 = Section Title (h2) Thin (f31095a5)
+   Variants: acf-rich--h2-thin (h2 uses Thin), acf-rich--h5-thin (h5 uses Thin),
+   acf-rich--light is a marker class for dark sections (color comes from the
+   widget's Global Color, headings inherit). */
+.acf-rich h1,.acf-rich h2,.acf-rich h3,.acf-rich h4,.acf-rich h5,.acf-rich h6{color:inherit;margin:0 0 .5em;}
+.acf-rich h1{font-family:var(--e-global-typography-33b6ca1c-font-family),Sans-serif;font-size:var(--e-global-typography-33b6ca1c-font-size);font-weight:var(--e-global-typography-33b6ca1c-font-weight);line-height:var(--e-global-typography-33b6ca1c-line-height);letter-spacing:var(--e-global-typography-33b6ca1c-letter-spacing);text-transform:var(--e-global-typography-33b6ca1c-text-transform);}
+.acf-rich h2{font-family:var(--e-global-typography-9b77dcee-font-family),Sans-serif;font-size:var(--e-global-typography-9b77dcee-font-size);font-weight:var(--e-global-typography-9b77dcee-font-weight);line-height:var(--e-global-typography-9b77dcee-line-height);letter-spacing:var(--e-global-typography-9b77dcee-letter-spacing);text-transform:var(--e-global-typography-9b77dcee-text-transform);}
+.acf-rich h3{font-family:var(--e-global-typography-78b2240a-font-family),Sans-serif;font-size:var(--e-global-typography-78b2240a-font-size);font-weight:var(--e-global-typography-78b2240a-font-weight);line-height:var(--e-global-typography-78b2240a-line-height);letter-spacing:var(--e-global-typography-78b2240a-letter-spacing);text-transform:var(--e-global-typography-78b2240a-text-transform);}
+.acf-rich h4{font-family:var(--e-global-typography-a8a7c637-font-family),Sans-serif;font-size:var(--e-global-typography-a8a7c637-font-size);font-weight:var(--e-global-typography-a8a7c637-font-weight);line-height:var(--e-global-typography-a8a7c637-line-height);letter-spacing:var(--e-global-typography-a8a7c637-letter-spacing);text-transform:var(--e-global-typography-a8a7c637-text-transform);}
+.acf-rich h5{font-family:var(--e-global-typography-b1592aad-font-family),Sans-serif;font-size:var(--e-global-typography-b1592aad-font-size);font-weight:var(--e-global-typography-b1592aad-font-weight);line-height:var(--e-global-typography-b1592aad-line-height);letter-spacing:var(--e-global-typography-b1592aad-letter-spacing);text-transform:var(--e-global-typography-b1592aad-text-transform);}
+.acf-rich h6{font-family:var(--e-global-typography-f31095a5-font-family),Sans-serif;font-size:var(--e-global-typography-f31095a5-font-size);font-weight:var(--e-global-typography-f31095a5-font-weight);line-height:var(--e-global-typography-f31095a5-line-height);letter-spacing:var(--e-global-typography-f31095a5-letter-spacing);text-transform:var(--e-global-typography-f31095a5-text-transform);}
+/* variants: add next to acf-rich to restyle a level in that widget only */
+.acf-rich--h2-thin h2{font-family:var(--e-global-typography-f31095a5-font-family),Sans-serif;font-size:var(--e-global-typography-f31095a5-font-size);font-weight:var(--e-global-typography-f31095a5-font-weight);line-height:var(--e-global-typography-f31095a5-line-height);letter-spacing:var(--e-global-typography-f31095a5-letter-spacing);text-transform:var(--e-global-typography-f31095a5-text-transform);}
+.acf-rich--h5-thin h5{font-family:var(--e-global-typography-f31095a5-font-family),Sans-serif;font-size:var(--e-global-typography-f31095a5-font-size);font-weight:var(--e-global-typography-f31095a5-font-weight);line-height:var(--e-global-typography-f31095a5-line-height);letter-spacing:var(--e-global-typography-f31095a5-letter-spacing);text-transform:var(--e-global-typography-f31095a5-text-transform);}
+/* bullet lists styled like site icon lists */
+.acf-rich ul{list-style:none;margin:0 0 1em;padding:0;}
+.acf-rich ul li{position:relative;padding-left:1.7em;margin:0 0 .6em;font-family:var(--e-global-typography-73605fda-font-family),Sans-serif;font-size:var(--e-global-typography-73605fda-font-size);font-weight:var(--e-global-typography-73605fda-font-weight);line-height:var(--e-global-typography-73605fda-line-height);letter-spacing:var(--e-global-typography-73605fda-letter-spacing);text-transform:var(--e-global-typography-73605fda-text-transform);}
+.acf-rich ul li::before{content:"\2714";position:absolute;left:0;top:0;color:var(--e-global-color-3e77f8c3);}
+.acf-rich ol{margin:0 0 1em;padding-left:1.4em;}
+/* quotes */
+.acf-rich blockquote{margin:1em 0;padding:.4em 0 .4em 1.1em;border-left:3px solid var(--e-global-color-2fb5ebc2);font-style:italic;}

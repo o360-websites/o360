@@ -1,0 +1,62 @@
+{
+  "date": "2026-08-11",
+  "batch": 59,
+  "action": "Repointed 64 redirect rules that had an empty destination to their matching /websites/<specialty>/ page.",
+
+  "IMPORTANT_CORRECTION": {
+    "what_i_reported": "In the redirect audit I classified these 64 rules as BROKEN — 'rules pointing at nothing at all', 'the destination field is empty, there is no target to send anyone to'. I also noted they were the only 64 rules not set to 301, and treated that as further evidence of breakage.",
+    "what_is_actually_true": "Their header_code was 410 (Gone). In Rank Math, 410 is a deliberate redirect TYPE — 'Content Deleted' — and it requires an empty destination by design. These rules were not broken. Someone had intentionally marked these old portfolio URLs as permanently removed so search engines would drop them from the index.",
+    "consequence": "The user approved this change on the basis of my incorrect framing. The change is still defensible — 12,282 hits of real visitor traffic were hitting a dead end and now land on a relevant specialty page — but it reverses a deliberate SEO decision and the user needs to decide whether to keep it.",
+    "how_to_revert": "For each row id below, set url_to='' and header_code='410'. Nothing else about the rows was modified — sources, status and hits are untouched."
+  },
+
+  "change_applied": {
+    "rows_updated": 64,
+    "rows_skipped": 0,
+    "hits_affected": 12282,
+    "from": { "url_to": "(empty)", "header_code": "410" },
+    "to": { "url_to": "https://o360.com/websites/<specialty>/ or /portfolio/", "header_code": "301" },
+    "verification": "Every target resolved with url_to_postid() BEFORE writing — zero skipped. After the change: 0 rows with an empty destination remain, and 0 active rules carry a non-301 code. Redirection cache cleared."
+  },
+
+  "mapping_method": {
+    "approach": "Keyword match against the source slug, ordered most-specific-first, then a hand review of all 64 before applying.",
+    "hand_review_caught": 16,
+    "corrections_made_to_the_auto_map": [
+      { "row": 2008, "source": "portfolio/aesthetic-dental-group", "auto": "medical-spa", "corrected": "dental", "why": "'aesthetic' matched before 'dental' — it is a dental practice" },
+      { "row": 2009, "source": "portfolio/allergy-asthma-sinus-associates", "auto": "ent", "corrected": "allergy", "why": "'sinus' matched before 'allerg' — the practice name leads with allergy" },
+      { "row": 2021, "source": "portfolio/just-wisdom-teeth", "auto": "dental", "corrected": "oral-surgery", "why": "wisdom teeth extraction is oral surgery" },
+      { "row": 2040, "source": "blogs/summary-of-archived-articles-on-seo", "auto": "/portfolio/", "corrected": "/marketing/seo/", "why": "a blog about SEO, not a portfolio item" },
+      { "row": 2039, "source": "blogs/our-powerful-dental-practice-management-guide", "auto": "dental", "corrected": "/marketing/dental/", "why": "a practice-management guide, closer to marketing than to website design" },
+      { "row": 2006, "source": "portfolio/weightexperts", "auto": "(none)", "corrected": "bariatrics" },
+      { "row": 1989, "source": "portfolio/911-covid-testing", "auto": "(none)", "corrected": "urgent-care" },
+      { "row": 1993, "source": "portfolio/florida-injury-and-regenerative-medicine", "auto": "(none)", "corrected": "pain-management" },
+      { "row": 2004, "source": "portfolio/the-youth-fountain", "auto": "(none)", "corrected": "anti-aging" },
+      { "row": 2014, "source": "portfolio/bva-spa", "auto": "(none)", "corrected": "medical-spa" },
+      { "row": 2024, "source": "portfolio/mimi-k-sato-re-md", "auto": "(none)", "corrected": "obgyn", "why": "'RE MD' is reproductive endocrinology" },
+      { "row": 2020, "source": "portfolio/johnson-victor-mens-health", "auto": "(none)", "corrected": "urology" },
+      { "row": 2010, "source": "portfolio/arvind-m-pai-md", "auto": "(none)", "corrected": "medical" },
+      { "row": 2015, "source": "portfolio/dr-ayala", "auto": "(none)", "corrected": "medical" },
+      { "row": 393, "source": "portfolio/vail-medical-center", "auto": "(none)", "corrected": "medical" },
+      { "row": 213, "source": "portfolio/integrated-medical-center", "auto": "(none)", "corrected": "medical" }
+    ],
+    "left_on_portfolio_deliberately": {
+      "rows": [449, 2001, 1994, 1991, 2012, 1999, 1992],
+      "why": "The slug does not name a specialty and guessing would be worse than a relevant index page. 449 south-bay-connect (411 hits), 2001 omran-sayed, 1994 fyetherapy, 1991 cove-wellness-center, 2012 boston-bio-life, plus 1999 and 1992 which are O360's own internal feature pages, not clients."
+    },
+    "ambiguous_but_applied": [
+      { "row": 2003, "source": "portfolio/pure-skin", "to": "dermatology", "note": "could equally be medical-spa" },
+      { "row": 2011, "source": "portfolio/bella-tra-skin-care", "to": "dermatology", "note": "could equally be medical-spa" },
+      { "row": 419, "source": "portfolio/heart-and-sleep", "to": "cardiology", "note": "likely cardiology plus sleep medicine; there is no sleep page" },
+      { "row": 721, "source": "portfolio/denver-pediatric-pulmonology", "to": "pulmonology", "note": "there is no pediatric-pulmonology page" }
+    ]
+  },
+
+  "full_row_record": "Every row: id, hits, source pattern, previous state (empty url_to + 410), and new target — recorded in the Batch 59 entry of CHANGELOG.md and in the tool output of this session. All 64 previous states were identical: url_to='' and header_code='410'.",
+
+  "row_ids_changed": [198, 746, 562, 682, 961, 642, 706, 236, 512, 449, 458, 393, 500, 409, 721, 86, 419, 218, 213, 591, 345, 729, 1997, 327, 220, 457, 1995, 1996, 2003, 2001, 1987, 2040, 2025, 1993, 2022, 2039, 1994, 1991, 2008, 2015, 2000, 1998, 2006, 2020, 2019, 2011, 2009, 1999, 2021, 2014, 2013, 2005, 1992, 2010, 2004, 1989, 2012, 2007, 2016, 2018, 2017, 2023, 2024, 1990],
+
+  "not_done": {
+    "other_410_rules": "No other active rules carried a 410 — these 64 were the complete set. If the 410 behaviour is wanted back, it applies to exactly this list."
+  }
+}

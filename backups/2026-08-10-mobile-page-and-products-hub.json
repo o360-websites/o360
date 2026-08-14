@@ -1,0 +1,117 @@
+{
+  "date": "2026-08-10",
+  "batch": 52,
+  "action": "Built /products/mobile/ (new) and rewrote the /products/ hub. Both on the Marketing layout, with the 6-box grid taken from /web-design/ per the user's choice. Fixed every remaining doubled-path 404 redirect on the site.",
+
+  "user_decisions_applied": {
+    "mobile_url": "/products/mobile/ — chosen because it matches the old URL that already had 1,019 hits pointing at it",
+    "logo": "kept at /products/logo/, not renamed to /products/branding/",
+    "hub_grid": "copy the 6-box section from /web-design/ (7c6c3df0) rather than stacking two 3-box marketing sections",
+    "order": "build both, then come back"
+  },
+
+  "backups_taken_first": [
+    {
+      "elementor_template_id": 87842,
+      "title": "ARCHIVE — Products hub (pre rewrite, 2026-08-10)",
+      "from_page": 83110,
+      "bytes": 6334,
+      "md5": "478bdaaea4",
+      "verified": "byte-identical"
+    }
+  ],
+  "restore": "Copy the ARCHIVE template's _elementor_data into page 83110's _elementor_data postmeta, then delete _elementor_element_cache and _elementor_css on that page. /products/mobile/ (87841) is new — deleting it restores the previous state, but redirect 1904 must be untrashed at the same time (see below).",
+
+  "pages": {
+    "87841": {
+      "path": "/products/mobile/",
+      "title": "Mobile Websites & Apps",
+      "status": "publish",
+      "parent": 83110,
+      "new_page": true,
+      "bytes": 89692,
+      "fields_rewritten": 53,
+      "angle": "Responsive is the baseline and is included; we design a separate phone layout AND a separate tablet layout rather than reflowing one design; the tablet breakpoint is the one nearly everyone skips; full native app development available as a scoped project.",
+      "sections": {
+        "from_marketing_86667": ["de04a06 (spacer)", "625380b7 (hero)", "393e660 (stats)", "3109b177 (problem)", "ec6222f (3 boxes: Phone / Tablet / App)", "2f61210d (what's included)", "a011cbe (4 icon-boxes)", "48c68eb7 (tablet section)", "42c5e65a (native app development)", "2dc6190 (3-step)", "dental-faq-section", "65f4cb60 (CTA)"],
+        "from_web_design_86913": ["12cc27a8 (mobile slides showcase — 4 phone screenshots already in place)", "2e7780c1 (image carousel, repurposed from testimonials to 9 mobile examples)", "76b05b56 (portfolio loop-grid gallery)"]
+      },
+      "id_collision_check": "Zero collisions between the 12 marketing sections (92 element IDs) and the 3 web-design sections (42 element IDs). Verified before assembly.",
+      "images": [
+        { "widget": "6a68b78d", "from": "85882 laptop-dental-website-purple", "to": "87741 Mobile 3 blue medical" },
+        { "widget": "18993109", "from": "86580 SmileTheory", "to": "32552 Two Healthcare Mobile Websites On Phones" },
+        { "widget": "3b75267a", "from": "85548 testimonial-dianadental2", "to": "80215 2 OBGYN Mobile Websites side by side" },
+        { "widget": "2f8c44a0", "from": "86427 google-results", "to": "33944 Medical Spa And Dental Spa Mobile Websites" },
+        { "widget": "4295a449", "from": "86428 marketing-main-image", "to": "87708 Clinic (iPad folder) — sits in the tablet section" },
+        { "widget": "246d5555", "from": "86429 google1", "to": "87737 mobile website for pediatricians" },
+        { "widget": "e6ab4c9 (carousel)", "from": "9 testimonial screenshots", "to": "9 mobile examples: 32548, 34917, 32550, 35108, 32551, 35351, 32553, 35353, 35355" }
+      ],
+      "media_available_not_yet_used": "Mobile folder 44 images, Responsive 72, Vertical 77 (full-length screenshots), iPad 23. 20 images are on the page; there is a large pool left if more examples are wanted."
+    },
+    "83110": {
+      "path": "/products/",
+      "title": "Products",
+      "status": "publish",
+      "bytes_before": 6334,
+      "bytes_after": 67298,
+      "was": "A stub: two headings, two images and a template widget. 17 pages linked into it and it linked out to none of the product pages.",
+      "owns_the_question": "What comes with the website, and what am I going to get billed for later?",
+      "sections": {
+        "from_marketing_86667": ["de04a06", "625380b7 (hero)", "393e660 (stats)", "3109b177 (problem: 'The quote you got has line items. Ours doesn't.')", "2f61210d (one monthly, not six invoices)", "a011cbe (4 icon-boxes: how this is priced)", "2dc6190 (3-step)", "dental-faq-section", "65f4cb60 (CTA)"],
+        "from_web_design_86913": ["7c6c3df0 — the 6-box grid, now the product grid"]
+      },
+      "product_grid": [
+        { "widget": "5dc207a6", "title": "Mobile Websites & Apps", "icon": 82302, "links_to": "/products/mobile/" },
+        { "widget": "614cae90", "title": "Website Accessibility", "icon": 82303, "links_to": "/products/adapt/" },
+        { "widget": "4e13d8e5", "title": "Patient Education Videos", "icon": 82304, "links_to": "/products/patient-education-videos/" },
+        { "widget": "13ffa538", "title": "HIPAA-Compliant Websites", "icon": 82305, "links_to": "/products/hipaa/" },
+        { "widget": "3771678f", "title": "Healthcare Website Hosting", "icon": 82307, "links_to": "/products/hosting/", "note": "This box had an EMPTY image on /web-design/ and /products/hipaa/. It now has one here." },
+        { "widget": "72d4e061", "title": "Logo & Brand Design", "icon": 82318, "links_to": "/products/logo/" }
+      ],
+      "honesty_note": "The hub does not claim logo design is included — every other item is stated as included, and the FAQ says plainly that logo depends on scope and that marketing (SEO, ads, social) is a separate optional program."
+    }
+  },
+
+  "copy_fixes_on_pages_not_otherwise_touched": [
+    { "page": 83110, "change": "'being unable to guarantee they keep working' -> 'being unable to stand behind them the same way'", "why": "Own wording, caught in the final sweep. Benign usage, but the word was asked to go." },
+    { "page": 83112, "change": "'Fully compliant servers' -> 'HIPAA-compliant servers'", "why": "Pre-existing on /products/hipaa/. Same absolute-claim class as 'Compliance Guaranteed'." }
+  ],
+
+  "redirects": {
+    "self_redirect_loop_avoided": {
+      "id": 1904,
+      "hits": 377,
+      "pattern": "products/mobile/",
+      "was": "https://o360.com/web-design/",
+      "action": "TRASHED, not repointed",
+      "why": "Its source pattern is now the live page itself. Repointing it to /products/mobile/ would have created a redirect loop. Trashed so the 377 hits resolve directly to the real page. If /products/mobile/ is ever removed, this row must be untrashed."
+    },
+    "doubled_path_404s_fixed": [
+      { "id": 180, "hits": 642, "pattern": "mobile-website", "was": "/products/products/mobile/", "now": "/products/mobile/" },
+      { "id": 6, "hits": 439, "pattern": "blogs/why-its-important-for-your-website-to-be-accessible-to-all", "was": "/products/products/ssl/", "now": "/products/adapt/" },
+      { "id": 181, "hits": 95, "pattern": "products-logo", "was": "/products/products/logo/", "now": "/products/logo/" },
+      { "ids": [102, 103], "hits": 0, "was": "/products/products/adapt/", "now": "/products/adapt/" },
+      { "ids": [109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 828], "hits": 0, "was": "/project-feature/products/adapt/", "now": "/products/adapt/" }
+    ],
+    "repointed": [
+      { "id": 1036, "hits": 37, "pattern": "blogs/mobile-website/", "was": "/web-design/", "now": "/products/mobile/" },
+      { "id": 148, "hits": 0, "pattern": "blogs/products/mobile", "was": "/web-design/", "now": "/products/mobile/" }
+    ],
+    "left_alone": "Seven responsive/mobile blog patterns (1247, 1725, 1071, 1378, 1565, 1356, 1088) point at /blogs/the-benefits-of-responsive-websites-for-doctors/. Blog-to-blog, informational intent — not touched.",
+    "verification": "Full-table scan after the change: ZERO active redirects with a doubled path (/products/products/ or /project-feature/products/), and ZERO rows whose source pattern equals their own destination path. Redirection cache cleared."
+  },
+
+  "verification": {
+    "all_seven_product_pages": "JSON decodes, zero duplicate element IDs, all published. Every internal link on every page resolves to a published post.",
+    "phrase_scan": "guarantee / legal protection / fully compliant / lawsuit / stray Rank Math variables: zero hits across all product pages after the fixes above.",
+    "images": "/products/ 12, /products/mobile/ 20, /products/hosting/ 12, /products/patient-education-videos/ 13, /products/adapt/ 10 — zero empty or missing references on any of them.",
+    "caches": "_elementor_element_cache and _elementor_css deleted per page; rocket_clean_post() per page. rocket_clean_domain() NOT used."
+  },
+
+  "not_done_flagged_for_user": {
+    "empty_image_box_3771678f": "Two LIVE pages still render this image-box with no image: /web-design/ (86913) and /products/hipaa/ (83112). It is titled 'Visual Effects'. The only unused icon in that 512x512 set is a smartphone, which does not fit the title — so this was left alone rather than guessed at. Pre-existing, not caused by this batch. Also present in three trashed backups and four archive templates, which do not render.",
+    "logo_page": "83115 /products/logo/ is 11 KB and untouched. The hub now links to it. Branding blog traffic (~6,200 hits across 5 URLs) is roughly 12x the logo product traffic (~506) but is informational intent, not commercial.",
+    "packages_pricing": "83858 /packages/ (0 inbound) and 26681 /pricing/ (98 inbound, one form section) still unchanged. The hub and all five product pages now point at /pricing/.",
+    "testimonials": "Still the inherited dental clients on the marketing landing pages. Deferred by the user."
+  }
+}

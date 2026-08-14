@@ -1,0 +1,34 @@
+{
+  "date": "2026-08-07",
+  "action": "Batch 28 — assigned intro_image on 13 /websites/ specialty pages that previously had none. Source pool: 'Laptop + 3D Item' media folder (2805), transparent-background 1775x1100 mockups 87351-87373. No page that already had an intro_image was touched.",
+  "rollback": "Delete the intro_image meta on the 13 page IDs listed in changes[] (they were empty before), and restore the attachment alt text listed in alt_before (all were empty strings).",
+  "pool_note": "Attachments 87351-87373 are higher-resolution re-renders of the SAME client sites already used at 800x450 (80145-80168). They are separate attachment IDs, so each of the 13 assigned images is used on exactly one page and its alt text is safe to make specialty-specific.",
+  "changes": [
+    {"page": 86703, "slug": "medical",            "intro_image_before": "", "intro_image_after": 87352, "image": "cardiology.png — Bradley H. Bennett M.D."},
+    {"page": 86858, "slug": "internal-medicine",  "intro_image_before": "", "intro_image_after": 87361, "image": "nuerology-mental.png — 'Compassion & Trust' handshake"},
+    {"page": 86727, "slug": "family-physician",   "intro_image_before": "", "intro_image_after": 87355, "image": "family-physician-2.png — Total Family Healthcare"},
+    {"page": 86852, "slug": "anesthesiology",     "intro_image_before": "", "intro_image_after": 87366, "image": "pain-management-1.png — Advanced Dental Anesthesia"},
+    {"page": 86869, "slug": "home-care",          "intro_image_before": "", "intro_image_after": 87359, "image": "mental-health-3.png — Dignified, 'The Comfort Of Staying Home'"},
+    {"page": 86861, "slug": "hospital",           "intro_image_before": "", "intro_image_after": 87372, "image": "urgent-care-2.png — Columbus Urgent Care"},
+    {"page": 86865, "slug": "radiology",          "intro_image_before": "", "intro_image_after": 87371, "image": "spine-specialist-1.png — SCINS 3D anatomical imaging"},
+    {"page": 86853, "slug": "rheumatology",       "intro_image_before": "", "intro_image_after": 87365, "image": "orthopedic-surgeon-1.png — Ferrera, body pain-point map"},
+    {"page": 86860, "slug": "sports-medicine",    "intro_image_before": "", "intro_image_after": 87351, "image": "back-specialist-Orthopaedic-Surgery.png — Herceg, golfer"},
+    {"page": 86864, "slug": "bariatrics",         "intro_image_before": "", "intro_image_after": 87373, "image": "Urology-2.png — active seniors cycling"},
+    {"page": 86868, "slug": "anti-aging",         "intro_image_before": "", "intro_image_after": 87370, "image": "skin-care-specialist.png — SKIN Dermatology"},
+    {"page": 86856, "slug": "pulmonology",        "intro_image_before": "", "intro_image_after": 87369, "image": "psychology.png — CMHS, outdoors / breathing"},
+    {"page": 86866, "slug": "telemedicine",       "intro_image_before": "", "intro_image_after": 87367, "image": "pharmacy-1.png — WIRX, 'Delivering Medicine to You'"}
+  ],
+  "left_on_fallback": {
+    "86867": "ent — no honest visual match in the pool",
+    "86863": "gastroenterology — no honest visual match in the pool",
+    "86855": "oncology — no honest visual match in the pool",
+    "86857": "general-surgery — no honest visual match in the pool"
+  },
+  "alt_before": {
+    "87351": "", "87352": "", "87355": "", "87359": "", "87361": "", "87365": "",
+    "87366": "", "87367": "", "87369": "", "87370": "", "87371": "", "87372": "", "87373": ""
+  },
+  "not_done_flagged_for_user": {
+    "hi_res_upgrade": "13 pages still use the 800x450 version of a visual that now exists at 1775x1100: dental 80145->87356, chiropractic 80146->87351(taken), physical-therapy 80147->87365(taken), pharmacy 80149->87367(taken), neurology 80151->87361(taken), orthopedic 80152->87371(taken), urgent-care 80153->87372(taken), cardiology 80154->87352(taken), optometry 80155->87363, urology 80156->87373(taken), pain-management 80157->87366(taken), mental-health 80158->87369(taken), obgyn 80159->87362, cosmetic-surgery 80160->87368, dermatology 80161->87370(taken), oral-surgery 80162->87364, endodontic 80163->87354, orthodontic 80164->87357, periodontic 80165->87353, pediatric-dentistry 80166->87358, dental-lab 80167->87360. Only the ones marked (taken) would duplicate a newly assigned image. Not applied — awaiting user decision."
+  }
+}

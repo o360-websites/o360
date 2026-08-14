@@ -1,0 +1,50 @@
+---
+description: Mandatory working rules for the live o360.com WordPress/Elementor site
+alwaysApply: true
+---
+
+# o360.com — live production site
+
+`o360.com` is a **live** WordPress/Elementor site and the client's primary sales
+channel. There is no staging. Edits made through the Novamira MCP connector
+(`novamira/execute-php`) are instantly public.
+
+Read `AGENTS.md` and `docs/OPERATIONS.md` before making changes.
+
+## Hard rules
+
+1. **Back up before every change.** Never delete an original. Save the full
+   `_elementor_data` blob to a WP option before editing a page.
+2. **Log every change** to `backups/CHANGELOG.md` — what changed, old → new, and
+   how to restore. Commit and push.
+3. **Never empty the trash.**
+4. **All colours and fonts must use the CUSTOM Global Colors / Global Fonts.**
+   Never set a colour or typography value directly on an element.
+5. **Never add or change a Global Color or Global Font without asking first.**
+6. Choose the global style by **name**, not by tag ("Section Title" for a section
+   heading, "Page Title" for an h1). Never rely on a bare tag default.
+7. **Do not change anything without approval.** Propose first.
+8. **When unsure, ask.** Accuracy over speed.
+9. **Never promise legal protection** in copy. HIPAA claims describe compliant
+   hosting and workflows only — never that O360 makes a practice compliant.
+10. Keep the **higher-resolution** image when deduplicating media.
+11. Work in **small batches**. No sweeping bulk operations.
+
+## Live-site specifics
+
+- **Never call `rocket_clean_domain()`** — purge per post only.
+- **A stale URL inside `_elementor_data` does NOT mean a broken image.**
+  Elementor re-resolves images from the attachment ID at render time. Audit
+  rendered output, never stored postmeta. (`docs/OPERATIONS.md` §3)
+- `rocket_clean_post()` does **not** clear WP Rocket's used-CSS, above-the-fold
+  or lazy-render tables. Run the full recipe in `docs/OPERATIONS.md` §4 after
+  every Elementor edit, or the change will not appear live.
+- Missing images return **HTTP 200** with a ~146-byte HTML body. Status-code
+  checks will not catch them; check the payload size.
+- Validate with `json_decode(...) !== null` before writing any `_elementor_data`.
+
+## Secrets
+
+A live WP application password is committed in `.mcp.json` and remains in git
+history. Do not propagate it. Never add new secrets to the repo — use an
+untracked `.env`. Check `git diff --cached` for credentials before committing.

@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__novamira-o360-com__mcp-adapter-discover-abilities",
+      "mcp__novamira-o360-com__mcp-adapter-execute-ability",
+      "mcp__novamira-o360-com__mcp-adapter-get-ability-info",
+      "mcp__Higs__generate_image",
+      "mcp__Higs__upscale_image",
+      "mcp__Higs__media_import_url",
+      "mcp__Higs__job_display",
+      "mcp__Higs__show_generations",
+      "mcp__Higs__models_explore",
+      "mcp__Higs__outpaint_image",
+      "mcp__Higs__remove_background",
+      "mcp__Higs__reframe",
+      "ToolSearch",
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git fetch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git branch:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(sleep:*)",
+      "Bash(curl:*)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)"
+    ]
+  }
+}

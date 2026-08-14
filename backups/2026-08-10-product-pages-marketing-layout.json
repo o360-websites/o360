@@ -1,0 +1,139 @@
+{
+  "date": "2026-08-10",
+  "batch": 51,
+  "action": "Rebuilt the three non-HIPAA product pages on the MARKETING page layout instead of the /web-design/ layout. Correcting an earlier mistake: /web-design/ was only ever meant to be the source for /products/hipaa/. Also created /products/hosting/ and repointed the SSL/hosting redirect cluster onto it.",
+
+  "why": "User instruction: 'Why did you use the web-design page for other product pages like ADAPT? That was ONLY for HIPAA. For others, use the Marketing page design for all other pages you create. Copy the page and use all the sections you need. If it is not enough, copy the sections there already to add more content. Don't create new plain sections. Always use an existing one and replace the content and images.'",
+
+  "source_layout": {
+    "page": 86667,
+    "path": "/marketing/dental/",
+    "note": "18 top-level sections. Product pages were assembled by selecting existing sections from this page verbatim — no new or plain sections were authored. Element IDs were kept as-is (Elementor only requires uniqueness within a page), which keeps bulk edits across the family possible."
+  },
+
+  "backups_taken_before_any_change": [
+    {
+      "elementor_template_id": 87839,
+      "title": "ARCHIVE — Patient Education Videos (pre marketing-layout rebuild, 2026-08-10)",
+      "from_page": 87836,
+      "md5": "2852a71ab5",
+      "bytes": 118961,
+      "verified": "byte-identical"
+    },
+    {
+      "elementor_template_id": 87840,
+      "title": "ARCHIVE — Website Accessibility (ADAPT) (pre marketing-layout rebuild, 2026-08-10)",
+      "from_page": 87837,
+      "md5": "687951add1",
+      "bytes": 120418,
+      "verified": "byte-identical"
+    }
+  ],
+  "restore": "Templates > open the ARCHIVE template, copy its _elementor_data into the page's _elementor_data postmeta, then delete _elementor_element_cache and _elementor_css on that page. Nothing was deleted; both pages' previous designs are recoverable in full.",
+
+  "pages": {
+    "87837": {
+      "path": "/products/adapt/",
+      "title": "Website Accessibility",
+      "status": "publish",
+      "sections_used_from_86667": ["de04a06 (empty header spacer)", "625380b7 (hero)", "393e660 (stats bar)", "3109b177 (problem)", "ec6222f (3 image-boxes)", "2f61210d (what you get)", "a011cbe (4 icon-boxes)", "48c68eb7 (what is your call)", "2dc6190 (3-step)", "dental-faq-section", "65f4cb60 (CTA)"],
+      "bytes": 68925,
+      "fields_rewritten": 43,
+      "liability_framing": "Preserved from the approved version: the plugin's coverage is stated factually; whether it is sufficient is explicitly the client's and their attorney's call. No guarantee, no promise of legal protection. The phrase the user rejected ('we will tell you honestly whether we think you need it') is not present."
+    },
+    "87836": {
+      "path": "/products/patient-education-videos/",
+      "title": "Patient Education Videos",
+      "status": "publish",
+      "sections_used_from_86667": ["de04a06", "625380b7", "393e660", "3109b177", "ec6222f", "2f61210d", "48c68eb7", "a011cbe", "39d4fd74 (3 image-boxes + 2 headings)", "2dc6190", "dental-faq-section", "65f4cb60"],
+      "bytes": 76706,
+      "fields_rewritten": 51,
+      "note": "The 11 residual HIPAA mentions carried over from the old web-design clone are gone — the page was rebuilt from a different source, so they no longer exist."
+    },
+    "87838": {
+      "path": "/products/hosting/",
+      "title": "Healthcare Website Hosting",
+      "status": "publish",
+      "parent": 83110,
+      "new_page": true,
+      "sections_used_from_86667": ["de04a06", "625380b7", "393e660", "3109b177", "ec6222f", "2f61210d", "48c68eb7 (SSL)", "a011cbe (4 icon-boxes)", "42c5e65a (HIPAA servers/email/forms)", "4bb1f2d2 (concierge support)", "2dc6190 (migration)", "dental-faq-section", "65f4cb60"],
+      "bytes": 77405,
+      "fields_rewritten": 51,
+      "false_start": "This page was first assembled from the /web-design/ + HIPAA layout (11 sections, 77778 bytes) before the user's correction arrived. It was rebuilt from the marketing layout in the same session and never published in the wrong form."
+    }
+  },
+
+  "image_swaps": {
+    "note": "Sections were copied with their marketing imagery (Google SERP screenshots, social icons, a dental testimonial). Those were replaced with images that match each product. All replacements are existing library attachments; no new media was uploaded and no attachment alt text was changed.",
+    "87836": [
+      { "widget": "18993109", "from": "86580 SmileTheory", "to": "83434 implantsinla.com dental-video-education", "dims": "1600x1000 -> 1600x1000" },
+      { "widget": "3b75267a", "from": "85548 testimonial-dianadental2", "to": "86959 medical education video mobile" },
+      { "widget": "2f8c44a0", "from": "86427 google-results", "to": "86958 video-dental-responsive many" },
+      { "widget": "4295a449", "from": "86428 marketing-main-image", "to": "86960 dental patient education video tooth" }
+    ],
+    "87838": [
+      { "widget": "18993109", "from": "86580 SmileTheory", "to": "87401 Single cloud blue blur" },
+      { "widget": "3b75267a", "from": "85548 testimonial-dianadental2", "to": "41040 SSL Security Badge Logo" },
+      { "widget": "2f8c44a0", "from": "86427 google-results", "to": "49072 Custom Websites Laptop Mobile" },
+      { "widget": "4295a449", "from": "86428 marketing-main-image", "to": "80212 obgyn-security-min" },
+      { "widget": "246d5555", "from": "86429 google1", "to": "36100 HIPAA Compliant Logo" },
+      { "widget": "385a5cd6", "from": "85348 social-icons", "to": "31617 Support Room In O360 Main Office" }
+    ],
+    "87837": [
+      { "widget": "2f8c44a0", "from": "86427 google-results", "to": "49072 Custom Websites Laptop Mobile", "confidence": "stand-in" },
+      { "widget": "4295a449", "from": "86428 marketing-main-image", "to": "71170 multiple-device", "confidence": "stand-in" }
+    ],
+    "flagged_for_user": "The media library has no accessibility-specific imagery (no assistive-technology, screen-reader or accessibility-toolbar visuals). The two swaps on /products/adapt/ are neutral device/website shots chosen only because leaving Google SERP screenshots on an accessibility page was worse. They need the user's direction."
+  },
+
+  "copy_fix": {
+    "page": 87838,
+    "change": "'Fully compliant servers' -> 'HIPAA-compliant servers'",
+    "why": "Inherited from the HIPAA page feature list. An unqualified 'fully compliant' is the kind of absolute claim the user asked to be removed site-wide alongside 'Compliance Guaranteed'."
+  },
+
+  "seo_meta_set": {
+    "87838": { "title": "Healthcare Website Hosting, SSL & Security | O360", "focus_keyword": "healthcare website hosting" },
+    "87837": { "title": "Website Accessibility for Healthcare Practices | O360", "focus_keyword": "website accessibility" },
+    "87836": { "title": "Patient Education Videos for Dental & Medical Practices | O360", "focus_keyword": "patient education videos" }
+  },
+
+  "redirects": {
+    "note": "Snapshot of every row BEFORE the change is recorded below, so any of these can be put back exactly. Nothing was trashed or deleted.",
+    "broken_targets_fixed": [
+      { "id": 183, "hits": 444, "pattern": "hipaa-compliant-email-service", "was": "https://o360.com/products/products/hipaa/ (404 — doubled path)", "now": "https://o360.com/products/hipaa/" },
+      { "id": 185, "hits": 146, "pattern": "ssl-certificates-https", "was": "https://o360.com/products/products/ssl/ (404 — doubled path)", "now": "https://o360.com/products/hosting/" },
+      { "id": 186, "hits": 160, "pattern": "blogs/importance-of-an-accessible-website/", "was": "https://o360.com/products/products/ssl/ (404 — doubled path)", "now": "https://o360.com/products/adapt/", "sources_change": "Row carried two patterns with different intents. 'blogs/products/ssl' was removed from this row because row 150 already carries that exact pattern and now points to /products/hosting/. The row keeps only the accessibility pattern." }
+    ],
+    "repointed_to_products_hosting": [
+      { "id": 820, "hits": 1015, "pattern": "articles/ssl-security", "was": "/web-design/" },
+      { "id": 1905, "hits": 398, "pattern": "products/ssl", "was": "/web-design/" },
+      { "id": 796, "hits": 214, "pattern": "products-ssl-certificate-request", "was": "/web-design/" },
+      { "id": 1605, "hits": 175, "pattern": "products/ssl-certificates-https ; project-feature/ssl", "was": "/web-design/", "sources_change": "the duplicated third pattern 'project-feature/ssl' was removed" },
+      { "id": 1606, "hits": 156, "pattern": "blogs/dont-accept-any-dental-or-medical-website-without-ssl-security ; blogs/optimized360-introduces-360-shield-...", "was": "/web-design/" },
+      { "id": 150, "hits": 121, "pattern": "blogs/products/ssl", "was": "/web-design/" },
+      { "id": 1348, "hits": 94, "pattern": "blogs/medical-website-hosting", "was": "/web-design/" },
+      { "id": 1522, "hits": 78, "pattern": "website-design/medical-website-hosting/", "was": "/websites/medical/" },
+      { "id": 2034, "hits": 0, "pattern": "blogs/ssl", "was": "/products/hipaa/" }
+    ],
+    "deliberately_left_alone": [
+      { "id": 1151, "hits": 375, "why": "Two announcement posts covering SSL *and* accessibility together. /web-design/ covers both; splitting them is a judgement call worth asking about." },
+      { "id": 1091, "hits": 141, "why": "Same — '360 Shield: SSL compliance and accessibility'. Mixed intent." }
+    ],
+    "verification": "All 12 changed rows re-read and resolved with url_to_postid(): every target maps to a published page. Zero unresolved targets. Rank Math redirection cache cleared (1,847 rows).",
+    "hits_recovered": "~750 hits that were landing on doubled-path 404s, plus ~2,250 SSL/hosting hits moved from a generic page to a page about what was searched for."
+  },
+
+  "verification": {
+    "all_three_pages": "JSON decodes, zero duplicate element IDs, zero empty or missing image references, all published.",
+    "caches": "_elementor_element_cache and _elementor_css deleted per page; rocket_clean_post() per page. rocket_clean_domain() NOT used.",
+    "phrase_scan": "guarantee / legal protection / fully compliant / lawsuit / stray Rank Math variables: zero hits across all three pages."
+  },
+
+  "not_done_flagged_for_user": {
+    "accessibility_imagery": "See image_swaps.flagged_for_user above.",
+    "products_hub": "83110 /products/ is still a 6 KB stub with 17 inbound links and does not link to /products/hosting/.",
+    "testimonials": "Still the dental clients inherited from the marketing layout on the marketing landing pages. Deferred by the user.",
+    "packages_pricing": "83858 /packages/ (0 inbound) and 26681 /pricing/ (98 inbound, one form section) unchanged."
+  }
+}

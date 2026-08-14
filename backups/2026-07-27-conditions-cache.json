@@ -1,0 +1,13 @@
+{
+  "note": "elementor_pro_theme_builder_conditions option value BEFORE adding the blog archive template (2026-07-27). Restore this option to roll back routing if needed.",
+  "elementor_pro_theme_builder_conditions": {
+    "elementor_head": {"84453": ["include/general"], "85174": ["include/general"], "85601": ["include/general"], "85620": ["include/general"], "85682": ["include/general"], "85808": ["include/general"], "85989": ["include/general"], "86664": ["include/general"], "86665": ["include/singular/page/21731"]},
+    "elementor_body_end": {"84452": ["include/general"], "84455": ["include/singular/page/83297", "include/singular/page/83116"], "84996": ["include/singular/page/21731"], "84998": ["include/general"], "85070": ["include/general"], "85939": ["include/singular/page/21731"], "86604": ["include/general"]},
+    "header": {"48853": ["include/singular/front_page"], "86551": ["include/general", "exclude/singular/front_page"]},
+    "archive": {"86465": ["include/archive/category"]},
+    "single": {"79588": ["include/singular/child_of/86671"], "86228": ["include/singular/not_found404"], "86351": ["include/singular/any_child_of/86292", "include/singular/child_of/86292"], "86368": ["include/singular/page", "exclude/singular/any_child_of/86292"], "86421": ["include/singular/in_category/1"]},
+    "elementor_body_start": {"85621": ["include/general"]},
+    "popup": {"82945": ["include/singular/in_category/1", "include/singular/in_category/2687"]},
+    "footer": {"26539": ["include/general"]}
+  }
+}

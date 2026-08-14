@@ -1,0 +1,100 @@
+{
+  "date": "2026-08-10",
+  "batch": 53,
+  "action": "Retired the /products/ hub page and rewired the structure so the feature pages are reached from their matching sections on /web-design/ instead of from a standalone catalog page. Child URLs kept at /products/*.",
+
+  "user_decisions_applied": {
+    "urls": "Leave the child pages at /products/* — no move to /features/.",
+    "hub": "Agreed it should not exist as a page. Features should link out from the sections on the main landing page.",
+    "menu": "HIPAA stays in the main menu for now (decision deferred). The other feature pages do not need menu links."
+  },
+
+  "features_url_history_answer": {
+    "question": "User asked whether a /features/ page or /features/mobile/-style URLs ever existed.",
+    "finding": "A /features/ URL structure did exist, but it was for DESIGN-FEATURE taxonomy pages, not product pages. 42 redirect rows involve features/ or project-feature/.",
+    "old_features_urls_with_traffic": [
+      { "pattern": "features/parallax", "hits": 304, "now": "/project-feature/parallax/" },
+      { "pattern": "features/special-effects", "hits": 116, "now": "/project-feature/effects/" },
+      { "pattern": "features/scheduler", "hits": 101, "now": "/project-feature/scheduler/" },
+      { "pattern": "features/drop-down-menu", "hits": 69, "now": "/project-feature/small-menu/" },
+      { "pattern": "features/video-background", "hits": 19, "now": "/web-design/" },
+      { "pattern": "features/hamburger-menu", "hits": 15, "now": "/project-feature/small-menu/" },
+      { "pattern": "features/patient-education-videos", "hits": 1, "now": "/products/patient-education-videos/" },
+      { "pattern": "features/adapt/prime-dental-care", "hits": 7, "now": "/products/adapt/" }
+    ],
+    "never_existed": "No /features/mobile/, /features/hipaa/, /features/logo/ or /features/ssl/ has ever existed as a redirect source or a page. There was also never a /features/ page itself — only a nav_menu_item titled FEATURES (26931, 2023) and a live project_feature taxonomy with 13 terms at /project-feature/*.",
+    "one_malformed_row_left_alone": { "id": 100, "pattern": "features/video-based", "hits": 21, "url_to": "https://o360.com/o360https://o360.com/products/video/", "status": "trashed", "why_left": "Already trashed, so it is inert. Flagged rather than edited." }
+  },
+
+  "correction_made_this_session": {
+    "what_i_said": "That the 'Top' menu (#2759) is the live navigation because it is assigned to theme location menu-1.",
+    "what_is_true": "The live header is Elementor theme-builder template 86551 'Header' (condition include/general), and its nav-menu widget renders 'Main Header' (#2491). The Elementor header overrides the theme location, so the Top menu is not what ships.",
+    "consequence": "Main Header already contains only ONE feature link — HIPAA. The change the user asked for (remove the other feature links from the menu) was already the live state. Nothing needed removing."
+  },
+
+  "hub_retired": {
+    "page": 83110,
+    "path": "/products/",
+    "from": "publish",
+    "to": "draft",
+    "why_draft_and_not_trash": "CRITICAL: trashing the parent renames its slug to 'products__trashed', which would rewrite every child URL to /products__trashed/hipaa/ etc. That is the exact defect found earlier on the trashed project-category parent (86292). Draft preserves post_name, so all six child URLs are unchanged.",
+    "child_urls_verified_after_change": {
+      "83112": "https://o360.com/products/hipaa/",
+      "83115": "https://o360.com/products/logo/",
+      "87836": "https://o360.com/products/patient-education-videos/",
+      "87837": "https://o360.com/products/adapt/",
+      "87838": "https://o360.com/products/hosting/",
+      "87841": "https://o360.com/products/mobile/"
+    },
+    "rollback_guard": "The script compared every child permalink before and after, and would have re-published the hub automatically if any had changed. None did.",
+    "backup": "Elementor template 87842 'ARCHIVE — Products hub (pre rewrite, 2026-08-10)' holds the rewritten hub. The original 6 KB stub is in the same template's history via batch 52's record. Restore by setting 83110 back to publish.",
+    "redirect": {
+      "id": 1783,
+      "action": "reactivated (was trashed)",
+      "pattern": "products/",
+      "to": "https://o360.com/web-design/",
+      "code": 301,
+      "hits_already_on_the_row": 517,
+      "why_reuse": "This exact row already existed with 517 hits of history. Reactivating it preserves that rather than creating a duplicate."
+    },
+    "verified": "Zero active redirects shadow any live /products/<child> URL."
+  },
+
+  "web_design_now_links_out": {
+    "page": 86913,
+    "backup": "Elementor template 87843 'ARCHIVE — Web Design (pre learn-more links, 2026-08-10)', 223,327 bytes, verified byte-identical",
+    "method": "A single anchor paragraph appended to the closing body text of each matching section. No new widgets, no new sections, and no per-element color or font — the link inherits the global link style, per the global-styles rule.",
+    "links": [
+      { "section": "12cc27a8 Mobile", "widget": "755e117e", "to": "/products/mobile/" },
+      { "section": "2e7ce96b HIPAA", "widget": "149a1d9e", "to": "/products/hipaa/" },
+      { "section": "23c628b6 Enterprise Hosting", "widget": "ff72d4e", "to": "/products/hosting/" },
+      { "section": "77f895dd Educational Videos", "widget": "a85afe2", "to": "/products/patient-education-videos/" },
+      { "section": "daa6d4a Website Accessibility", "widget": "2b63cec4", "to": "/products/adapt/" },
+      { "section": "368b3c6b Logo Design", "widget": "66ff6cf", "to": "/products/logo/" }
+    ],
+    "verified": "All six present in the stored JSON, exactly one occurrence each, page decodes."
+  },
+
+  "dead_nav_links_fixed": {
+    "menu": "Top (#2759) — assigned to theme location menu-1 but not rendered by the live Elementor header. Repaired anyway rather than left broken.",
+    "changes": [
+      { "item": 85701, "title": "SSL & HTTPS Security", "was": "/products/ssl/ (dead)", "now": "/products/hosting/" },
+      { "item": 85700, "title": "Patient Education Videos", "was": "/products/video/ (dead)", "now": "/products/patient-education-videos/" },
+      { "item": 85725, "title": "Funeral Homes", "was": "/websites/funeral-homes/ (dead — the page is singular)", "now": "/websites/funeral-home/" }
+    ],
+    "note": "Menu items were repaired, not removed. Removing items is a navigation decision, and the live menu (Main Header) never carried these links in the first place."
+  },
+
+  "verification": {
+    "menus": "Every item in Main Header and Top now resolves to a published post. The one apparent exception, 'Blog' -> /blogs/, is a category archive (template 86751 handles it) and is not resolvable by url_to_postid by design.",
+    "caches": "Elementor element cache and CSS cleared on 86913 and 83110; rocket_clean_post() on both; Rank Math redirection cache cleared; object cache flushed. rocket_clean_domain() NOT used."
+  },
+
+  "not_done_flagged_for_user": {
+    "hipaa_in_main_menu": "Left in place. User has an argument for keeping it and deferred the decision.",
+    "temp_mobile_header": "Elementor template 48864 'Temp Mobile Header' has a nav-menu widget pointing at menu slug 'main-o360', which does NOT resolve to any existing menu. If that template is ever activated, its navigation renders empty. It is not in the theme-builder conditions today, so it is not live.",
+    "empty_image_box_3771678f": "Still renders with no image on /web-design/ and /products/hipaa/. Unchanged from batch 52.",
+    "redirect_100": "Trashed row with a malformed doubled-domain target. Inert.",
+    "marketing_inconsistency": "The marketing channel pages sit at root (/ppc/, /social/, /reputation/, /content/, /ai-optimization/) while the specialty ones sit under /marketing/. Not addressed; noted for a future structural pass."
+  }
+}

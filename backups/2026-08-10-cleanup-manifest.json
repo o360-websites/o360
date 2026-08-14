@@ -1,0 +1,84 @@
+{
+  "date": "2026-08-10",
+  "action": "Batch 29 — page + redirect cleanup ahead of the marketing rewrite. Nothing was permanently deleted: pages went to WordPress trash, redirects went to Rank Math 'trashed' status. Trash must NOT be emptied.",
+  "page_counts": { "before": { "publish": 82, "draft": 26 }, "after": { "publish": 65, "draft": 9, "trash": 40 } },
+
+  "designs_saved_as_elementor_templates": [
+    { "template_id": 87703, "title": "ARCHIVE — Web Design (pre pillar rewrite, 2026-08-06)", "from_page": 87576, "md5": "e9e89fa071", "verified": "byte-identical" },
+    { "template_id": 87704, "title": "ARCHIVE — Web Design (pre-PDF, 2026-07-31)",           "from_page": 86915, "md5": "d7521af7be", "verified": "byte-identical" },
+    { "template_id": 87705, "title": "ARCHIVE — Home (pre who-we-are rewrite, 2026-08-06)",   "from_page": 87603, "md5": "dbebb16b95", "verified": "byte-identical" },
+    { "template_id": 87706, "title": "ARCHIVE — Web2 (alternate design)",                     "from_page": 86907, "md5": "e8222e7d9e", "verified": "byte-identical" }
+  ],
+  "note_86917": "Page 86917 was byte-identical to 86915 (both d7521af7be) — one copy saved, not two.",
+
+  "trashed_pages": {
+    "marketing_clone_drafts": {
+      "ids": [86879, 86880, 86881, 86882, 86883, 86884, 86885, 86886, 86887, 86888],
+      "why": "Third-level /marketing/seo/* and /marketing/ppc/* drafts. Verified: zero inbound links, zero revisions, never published, and byte-identical to each other (86883 == 86877; 86884 == 86876 == 86878). No unique design.",
+      "restore": "Pages > Trash > Restore. They return as drafts."
+    },
+    "page_backups": {
+      "ids": [87576, 87603, 86915, 86917],
+      "why": "Superseded by the Elementor templates above. 87576 and 87603 had EMPTY slugs, which is a live hazard.",
+      "restore": "Restore from trash, or re-import the ARCHIVE templates listed above."
+    },
+    "project_category_children": {
+      "ids": [86304, 86306, 86307, 86309, 86311, 86320, 86321, 86322, 86324, 86327, 86328, 86329, 86330, 86335, 86336, 86343, 86344, 86346],
+      "why": "17 published + 1 draft page whose parent (86292) is itself in the trash, so their live URLs were https://o360.com/project-category__trashed/<slug>/ — indexable pages with '__trashed' in the URL. Traffic is covered by the repointed redirects below.",
+      "restore": "Pages > Trash > Restore. Parent 86292 is also in trash."
+    },
+    "orphans": { "ids": [86907, 86753], "why": "86907 /web2-2/ design saved as template 87706. 86753 /websites/healthcare/ was an empty draft already covered by active redirects #1890 and #2104 to /web-design/." }
+  },
+
+  "elementor_templates_edited": [
+    { "id": 84644, "title": "Temp – Gallery Filter Light Section", "change": "/project-category/veterinarian/ -> /websites/veterinary/, /project-category/healthcare/ -> /websites/medical/", "md5_before": "8ee7bf0082", "md5_after": "c3a9833abd" },
+    { "id": 86118, "title": "Portfolio 2025 – Belinda",            "change": "same two link swaps", "md5_before": "820b1d621d", "md5_after": "e74aac8d72" },
+    { "id": 85673, "title": "Select Your Specialty",               "change": "/websites/healthcare/ -> /web-design/", "md5_before": "2cf6d2f50b", "md5_after": "4b54b7d3ba" },
+    { "id": 85674, "title": "Select Your Specialty (IN USE)",      "change": "/websites/healthcare/ -> /web-design/", "md5_before": "26684aa932", "md5_after": "2c72355139" }
+  ],
+
+  "redirects_repointed_to_correct_specialty": [
+    { "id": 614,  "hits": 4047, "from": "project-category/pediatric-dentistry",     "was": "/websites/medical/",          "now": "/websites/pediatric-dentistry/" },
+    { "id": 613,  "hits": 3224, "from": "project-category/urology",                 "was": "/websites/obgyn/",           "now": "/websites/urology/" },
+    { "id": 1376, "hits": 2077, "from": "project-category/holistic-medicine",       "was": "/websites/medical/",          "now": "/websites/holistic-medicine/" },
+    { "id": 1375, "hits": 1912, "from": "project-category/neurology-and-neurosurgery","was": "/websites/pain-management/","now": "/websites/neurology-and-neurosurgery/" },
+    { "id": 615,  "hits": 1233, "from": "project-category/prosthodontics",          "was": "/websites/dental/",           "now": "/websites/prosthodontic/" },
+    { "id": 1495, "hits": 668,  "from": "project-category/medical/holistic/",       "was": "/websites/medical/",          "now": "/websites/holistic-medicine/" },
+    { "id": 1935, "hits": 626,  "from": "project-category/pediatric-dentist/",      "was": "/websites/medical/",          "now": "/websites/pediatric-dentistry/" },
+    { "id": 1923, "hits": 591,  "from": "project-category/dermatology/",            "was": "/websites/medical-spa/",      "now": "/websites/dermatology/" },
+    { "id": 1500, "hits": 584,  "from": "project-category/medical/neurosurgeon/",   "was": "/websites/pain-management/",  "now": "/websites/neurology-and-neurosurgery/" },
+    { "id": 684,  "hits": 569,  "from": "project-category/neurology",               "was": "/websites/pain-management/",  "now": "/websites/neurology-and-neurosurgery/" },
+    { "id": 1925, "hits": 560,  "from": "project-category/oral-surgery/",           "was": "/websites/dental/",           "now": "/websites/oral-surgery/" },
+    { "id": 1934, "hits": 555,  "from": "project-category/physical-therapy/",       "was": "/websites/pain-management/",  "now": "/websites/physical-therapy/" },
+    { "id": 1918, "hits": 509,  "from": "project-category/holistic/",               "was": "/websites/medical/",          "now": "/websites/holistic-medicine/" },
+    { "id": 1915, "hits": 498,  "from": "project-category/neurosurgeon/",           "was": "/websites/pain-management/",  "now": "/websites/neurology-and-neurosurgery/" },
+    { "id": 1931, "hits": 495,  "from": "project-category/periodontic/",            "was": "/websites/endodontic/",       "now": "/websites/periodontic/" },
+    { "id": 1913, "hits": 485,  "from": "project-category/gi/",                     "was": "/websites/medical/",          "now": "/websites/gastroenterology/" }
+  ],
+  "redirects_repointed_note": "~19,600 historical hits were landing on the wrong specialty page. Each target was verified to exist and be published before the update.",
+
+  "redirects_defused": {
+    "count": 27,
+    "ids": [1696, 1871, 1872, 1873, 1874, 1875, 1876, 1877, 1878, 1879, 1880, 1881, 1882, 1883, 1884, 1885, 1886, 1887, 1888, 1889, 1892, 1893, 1894, 1895, 1896, 1897, 2036],
+    "why": "Inactive 301s pointing live /websites/<specialty>/ URLs (and /websites/ itself) at /web-design/. Harmless while inactive, catastrophic if anything re-enabled them. Each was verified to have a live published page at that path before being set to 'trashed'.",
+    "restore": "Rank Math > Redirections > Trash."
+  },
+  "redirects_other": [
+    { "id": 1706, "action": "trashed", "why": "sent websites/healthcare -> homepage while #1890 and #2104 sent the same path to /web-design/. Conflicting rules; kept the /web-design/ pair." },
+    { "id": 2037, "action": "trashed", "why": "active redirect with an EMPTY destination (websites/cosmetic-surgery/1000)" },
+    { "id": 2038, "action": "trashed", "why": "active redirect with an EMPTY destination (websites/orthopedic/1000)" }
+  ],
+
+  "verification": {
+    "specialty_pages_published": 46,
+    "specialty_urls_not_resolving": 0,
+    "active_redirects_shadowing_a_live_websites_page": 0,
+    "repointed_targets_resolving_to_published_pages": "16 of 16",
+    "method": "Server-side via WordPress (url_to_postid + get_post_status). Direct HTTP checks are not possible from this environment — the proxy/Cloudflare returns 403 on every o360.com HTML URL including ones known to work.",
+    "caches": "rocket_clean_post() on all 46 specialty pages plus /web-design/ and Home; wp_cache_flush(); rewrite rules flushed. rocket_clean_domain() was NOT used."
+  },
+
+  "not_done_flagged_for_user": {
+    "84668": "/web-design-old/ — 74 KB, PUBLISHED, duplicates /web-design/ and links to now-trashed drafts. Left alone: it is published and may hold backlinks. Needs a decision (trash + 301 to /web-design/, most likely)."
+  }
+}
