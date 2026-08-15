@@ -5374,3 +5374,82 @@ Deleting the taxonomies outright would additionally drop 1,842 term assignments
 and the CSS classes, with no extra benefit. The same argument applies to the
 `portfolio-item` rewrite base, which is what makes `/portfolio-item/*` soft-404
 to the homepage.
+
+---
+
+## Batch 104 — 2026-08-14 — Portfolio attribute taxonomies made private
+
+Colors, Styles, Features and Tags are now non-public with no rewrite, matching
+how **Specialties** was already configured. Term data is untouched.
+
+**Backup:** option `o360_backup_acf_taxonomies_20260814` — the full
+`post_content` of all four ACF taxonomy definitions before the change.
+
+### Changed
+
+All four are ACF-defined (`acf-taxonomy` posts). For each, `public` 1 -> **0**,
+`publicly_queryable` -> 0, and `rewrite` `{permalink_rewrite: custom_permalink,
+slug: project-…}` -> `{permalink_rewrite: no_permalink}`:
+
+| Taxonomy | ACF post | Old slug |
+|---|---|---|
+| Colors (`project_color`) | 84431 | `project-color` |
+| Styles (`project_style`) | 84432 | `project-style` |
+| Features (`project_feature`) | 84433 | `project-feature` |
+| Tags (`project_tag`) | 84430 | `project-tag` |
+
+Rewrite rules flushed afterwards; **0 rewrite rules containing `project-` remain**.
+
+Note on format: these ACF definitions are stored as **serialized PHP** in
+`post_content`, not JSON. A first attempt using `json_decode` failed cleanly on
+all four and changed nothing; the retry used `maybe_unserialize`/`serialize`.
+
+### Term data intact
+
+| Taxonomy | Terms | Term relationships |
+|---|---|---|
+| project_category | 48 | 1,409 |
+| project_color | 14 | 805 |
+| project_style | 9 | 759 |
+| project_feature | 13 | 256 |
+| project_tag | 7 | 60 |
+
+Nothing was deleted — only visibility changed, so this is reversible by restoring
+the backed-up `post_content`.
+
+### Verified live
+
+| URL | Before | After |
+|---|---|---|
+| `/project-color/black/` | 301 -> `/` (soft 404) | **404** |
+| `/project-style/feminine/` | 301 -> `/` | **404** |
+| `/project-feature/parallax/` | 301 -> `/` | **404** |
+| `/project-tag/dc/` | 301 -> `/` | **404** |
+| `/project-color/dark/` | 301 -> `/portfolio/` | 301 -> `/portfolio/` (unchanged) |
+| `/project-category/urology/` | 301 -> `/websites/urology/` | unchanged |
+| `/portfolio/` | 200 | 200, same 36 items |
+
+### One prediction I got wrong, and why it did not matter
+
+Batch 103b predicted the `post_class()` CSS hooks (`project_color-black`,
+`project_style-clean`) would survive. They did not — `post_class()` only emits
+taxonomy classes for **public** taxonomies, so they are gone.
+
+Checked whether anything consumed them before concluding it was safe: the
+portfolio page renders the **same 36 items**, the page is only 908 bytes smaller,
+"filter" occurrences are identical at 123, and a search for CSS/JS selectors of
+the form `.project_color-*` / `.project_style-*` returns **zero matches in both
+the before and after HTML**. Nothing depended on those classes.
+
+### Correction to the batch 103b recommendation
+
+103b suggested the ~35 `project-color|style|feature|tag` redirect rules could
+then be deleted as redundant. **That was wrong given the stated preference that
+portfolio archive URLs should forward to `/portfolio/`.** Those 33 active rules
+(10,169 lifetime hits) are now *more* useful than before: WordPress canonical
+handling used to intercept these URLs and send them to the homepage, overriding
+the rules. With the rewrite bases gone, the Rank Math rules actually fire and
+forward to `/portfolio/` as intended. **They were kept.**
+
+Redirect totals unchanged by this batch: 1,214 rules, 1,010 active, 1,376 active
+patterns.
