@@ -5519,3 +5519,50 @@ need a decision:
 `dental-marketing-ad` is the one to be careful with — the name suggests a live
 Google Ads landing destination. Deleting it could break a running campaign, so it
 was left in place pending confirmation.
+
+---
+
+## Batch 106 — 2026-08-14 — Campaign artifact redirects removed
+
+Owner confirmed `dental-marketing-ad` was a short-lived ad destination ("was just
+on for a couple of days") and is not in use, so all nine campaign artifacts
+flagged in batch 105 were removed.
+
+**Backup:** option `o360_backup_redirects_pre_campaign_20260814` (full table
+before this batch).
+
+### Removed — 9 patterns
+
+`footer-assoc-seo-2`, `seo-logos`, `impact-marketing-seo` (from rule 1599),
+`impact-marketing-package-ppc` (1600), `review-1` (1588), `review-3` and
+`reviews-google` (1603), `animations-and-videos-24` (1618),
+`dental-marketing-ad` (2043).
+
+3 rules deleted (1588, 1603, 1618 — every pattern removed); 3 trimmed and kept:
+
+- 1599: dropped 3, **12 patterns kept**
+- 1600: dropped 1, 2 kept
+- 2043: dropped `dental-marketing-ad`, **`dental-marketing` kept**
+
+### Verified live
+
+Now 404: `/dental-marketing-ad/`, `/seo-logos/`, `/footer-assoc-seo-2/`,
+`/impact-marketing-seo/`, `/reviews-google/`, `/review-1/`,
+`/animations-and-videos-24/`.
+
+Still working: `/dental-marketing/` -> `/marketing/dental/`,
+`/marketing-seo-packages/` -> `/marketing/`, and `/marketing/dental/` and
+`/marketing/` both 200.
+
+### Running total
+
+| Metric | Original | Now |
+|---|---|---|
+| Total rules | 1,943 | **1,201** |
+| Active rules | 1,835 | **998** |
+| Active source patterns | 2,585 | **1,313** |
+
+Active rules are now **below 1,000**. Active source patterns — the figure that
+maps one-to-one onto Netlify `_redirects` lines — are at 1,313, roughly **313
+over** the ~1,000 guideline. The `/blogs/*` block (766 patterns across 64
+destinations) remains the only group large enough to close that gap.
