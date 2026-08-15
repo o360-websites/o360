@@ -5044,3 +5044,122 @@ phantom chains**. After correcting normalisation the true figures are **1
 self-loop and 149 active-to-active chains**. The destination classification was
 done in-database and then spot-checked over HTTP, which is what surfaced both
 live bugs. Recorded in the audit so a future pass does not repeat the error.
+
+---
+
+## Batch 101 — 2026-08-14 — Redirect cleanup steps 1–4 (live bugs, dead rules, de-duplication, chain flattening)
+
+Executes steps 1–4 of the plan in `docs/REDIRECT-AUDIT.md`. Steps 5 and 6
+(recreate-vs-retarget for dead destinations, and the portfolio threshold) were
+**not** touched — they need the owner's judgement.
+
+### Backups — three copies before any change
+
+| Where | What |
+|---|---|
+| option `o360_backup_redirects_full_20260814` | all 1,943 rows as JSON (802 KB), round-trip verified |
+| `wp-content/uploads/o360-redirects-backup-20260814.json` | same, as a file |
+| `backups/2026-08-14-redirects-full.json` | same, committed to this repo |
+| option `o360_redirect_step2_ids_20260814` | the exact rule IDs deleted / deactivated in step 2 |
+
+**Restore:** re-insert from the JSON backup; every row carries its original `id`,
+`sources`, `url_to`, `header_code`, `hits`, `status` and timestamps.
+
+### Step 1 — two live bugs fixed
+
+| Rule | Change | Result |
+|---|---|---|
+| 1806 | `contains: education` -> **`exact: education`** | `/products/patient-education-videos/` returns **200** again (was 301 -> /blogs/). `/education/` still redirects to /blogs/ as intended. |
+| 1794 | dropped the `.well` and `.txt` patterns (6 of 8 kept) | `/.well-known/*` no longer 301s to the homepage — ACME/Let's Encrypt validation and domain-verification paths work again. |
+
+Checked and confirmed unaffected: `/robots.txt` 200, `/sitemap_index.xml` 200.
+
+### Step 2 — dead rules retired
+
+| Action | Rules |
+|---|---|
+| Deleted (were already `trashed`) | **103** |
+| Set `inactive` — active but **0 hits** ever | **127** |
+| Set `inactive` — active, has hits, unused for **>1 year** | **97** |
+
+Zero-hit and stale rules were set **inactive rather than deleted** — reversible
+with a single field flip, and inactive rules are excluded from any export. Only
+the already-discarded `trashed` rows were deleted outright.
+
+### Step 3 — de-duplication
+
+- **141 duplicate patterns removed from inside 16 rules.** Worst: rule 1579
+  (`portfolio/feed` repeated 46 times, 59 -> 13), rule 1280 (62 -> 20), rule 1599
+  (44 -> 16).
+- **Rule 1280 collapsed 20 -> 1.** It already carried a `contains: ?author=`
+  catch-all that covers every one of its exact `?author=N` patterns. This rule
+  alone handles 1.64M hits of bot enumeration.
+- **6 conflicting cross-rule patterns resolved** (the other 9 had already gone
+  inactive in step 2). In each case the surviving rule is the one whose
+  destination is live and topically closest:
+
+| Pattern | Kept | Dropped from |
+|---|---|---|
+| `/blogs/5-top-chiropractic-custom-websites-with-good-ranking/` | 1286 -> /web-design/ | 1152 (dest was dead) |
+| `/blogs/social-marketing-for-the-medical-profession/` | 1301 (live) | 1306 (dest was dead) |
+| `/blogs/how-to-implement-good-on-site-seo/` | 1389 (topical match) | 1599 |
+| `/blogs/optizign-preview-request/` | 1527 -> /blogs/ | 1603 (dest was dead) |
+| `/blogs/optimized360-introduces-360-shield-...` | 1606 -> /products/hosting/ | 1561 |
+| `/dental/` | see regression note below | — |
+
+### Step 4 — chains flattened
+
+**140 rules repointed** from an intermediate redirect to their terminal
+destination. Verified afterwards: **0 active-to-active chains and 0 self-loops
+remain**, and **0** of the flattened rules now point at a dead page.
+
+Largest cluster: 100 rules were pointing at
+`/blogs/25-dental-marketing-ideas-and-strategies/`, which then forwarded again to
+`/marketing/`. They now go straight to `/marketing/`.
+
+### Regression found by spot-check, and fixed
+
+Resolving the `/dental/` conflict broke it. The plan was to drop the pattern from
+rule 1444 and let rule 1685 serve it — but 1685 had already been set inactive in
+step 2, so `/dental/` started returning **404**.
+
+Root cause worth recording: the duplicate detection lower-cased patterns, so
+rule 1444 (`exact: dental`) and rule 1685 (`exact: Dental`) looked like the same
+pattern. **Rank Math treats them as distinct**, so they were never really in
+conflict.
+
+Fixed by reactivating 1444 with its destination typo corrected — it pointed at
+`/website/dental/` (singular, a dead path) and now points at `/websites/dental/`.
+Rule 1685 was aligned to the same destination so both letter cases behave the
+same. Verified live: `/dental/` and `/Dental/` both 301 to `/websites/dental/`.
+
+All six conflict-resolved patterns were then re-tested live; the other five were
+correct first time.
+
+### Result
+
+| Metric | Before | After |
+|---|---|---|
+| Total rules | 1,943 | **1,840** |
+| Active rules | 1,835 | **1,610** |
+| Active source patterns | 2,585 | **2,074** |
+| Active-to-active chains | 149 | **0** |
+| Self-loops | 1 | **0** |
+| Conflicting duplicate patterns | 15 | **0** |
+| Distinct active destinations | 194 | 174 |
+| Dead destinations remaining | 76 | 66 |
+
+**Active patterns down 20% (2,585 -> 2,074).** Netlify's practical ceiling is
+~1,000, so steps 5 and 6 still carry the bulk of the remaining reduction.
+
+### Live verification
+
+`/products/patient-education-videos/` 200 · `/robots.txt` 200 ·
+`/.well-known/security.txt` 404 (no longer hijacked) · `/dentist-websites/` ->
+`/websites/dental/` · `/portfolio/dublin-dentist-2/` -> `/websites/dental/` ·
+`/education/` -> `/blogs/` · `/dental/` and `/Dental/` -> `/websites/dental/` ·
+`/blogs/social-marketing-for-the-medical-profession/` -> live article ·
+`/websites/dental/` and `/marketing/` unaffected at 200.
+
+The Rank Math redirection cache table was truncated after each change so the new
+rules take effect immediately. `rocket_clean_domain()` was **not** called.
