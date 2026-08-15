@@ -4887,3 +4887,95 @@ the user as the thing to do before connecting further tools.
 notes this rather than referring agents to a file that will not exist. Its page
 IDs also predate several renames (it lists `seo/dental 86877`, which is now
 `/marketing/dental-seo/`).
+
+---
+
+## Batch 99 — 2026-08-14 — Cross-specialty conflicts: altered client names restored, dental examples removed from non-dental pages
+
+Follows a review of all 64 `/websites/` and `/marketing/` pages. Only the two
+highest-severity tiers were acted on, at the user's instruction; tiers 3 and 4
+were reported and deliberately left alone.
+
+**Backup:** option `o360_backup_xspec_20260814` — full `_elementor_data` for all
+8 affected pages before the change.
+
+### Tier 1 — real client names had been altered
+
+Three pages were quoting real clients under company names that do not exist.
+This originated in the automated `Dental` -> page-label word swap performed when
+these pages were first cloned from Dental Marketing; it caught client names along
+with body copy.
+
+| Page | Was | Restored to |
+|---|---|---|
+| 86876 Medical Marketing | "Chestnut Medical" / "Pan-Am Medical Lab" | **Chestnut Dental** / **Pan-Am Dental Lab** |
+| 86878 Medical SEO | "Chestnut Medical" / "Pan-Am Medical Lab" | same |
+| 86875 AI Optimization | "Chestnut AI" / "Pan-Am AI Lab" | same |
+
+Only the `title_text` of testimonial widgets `63e9829f` and `726339a2` was
+touched. The quotes themselves were already verbatim and were not edited. The
+Pan-Am quote's line "a brand dentists trust" is original and now sits under the
+correct company name again.
+
+### Tier 2 — dental-only examples on 8 non-dental pages
+
+Two shared FAQ answers carried dentistry-specific language onto Medical, Medical
+SEO, AI Optimization, Medical Spa, Mental Health, Chiropractic, Optometry and
+Veterinary. The wording was byte-identical on all eight, so three exact string
+replacements covered every instance:
+
+| Was | Now |
+|---|---|
+| "Most of our **dental programs** front-load paid search to **fill chairs** now" | "Most of our programs front-load paid search to fill the schedule now" |
+| "We know the difference between an **implant patient and a cleaning**, what **case acceptance** means, and why a referring **doctor** matters more than a like." | "We know the difference between a high-value case and a routine visit, what it costs you when a referral goes elsewhere, and why a referring provider matters more than a like." |
+| (86876 only) "At O360, one **dental-focused** team runs all of it together" | "At O360, one medical-focused team runs all of it together" |
+
+Deliberately **not** changed, to avoid over-correcting: the opening clause
+"founded and is run by healthcare professionals who have owned and operated
+private practices" was left as written — it is accurate and outside the scope of
+this fix.
+
+### Cache handling
+
+Per page: `_elementor_element_cache` and `_elementor_css` deleted, CSS
+regenerated, `rocket_clean_post()`, WP Rocket used-CSS / ATF / lazy-render rows
+cleared.
+
+### Verified
+
+Stored data and live HTML both checked on all 8 pages: **zero** occurrences of
+"Chestnut Medical", "Chestnut AI", "Pan-Am Medical Lab", "Pan-Am AI Lab",
+"implant patient and a cleaning", "our dental programs", "fill chairs" or "one
+dental-focused team"; the replacement phrasing renders on all 8; both correct
+client names render on all 8.
+
+### Reported, not changed
+
+- **Tier 3** — the four dental case studies still render on Medical, Medical SEO,
+  AI Optimization, the marketing hub and the five channel pages. They are already
+  responsive-hidden on Medical Spa, Mental Health, Chiropractic, Optometry and
+  Veterinary from batch 88.
+- **Tier 4** — the image caption "Dr. Rodney Shue - Las Vegas Cardiologoy" is
+  stored on 16 marketing pages, still carrying the typo fixed only on
+  `/marketing/seo/` in batch 92, and credits a cardiology practice on dental,
+  veterinary and optometry pages. **Verified that it does not render** — the
+  widget's caption is not displayed — so it is data hygiene only.
+- **Tier 4** — roughly eight gallery `alt` texts on `/websites/` pages name the
+  wrong specialty (e.g. "Examples of 5 exclusive funeral home websites" on
+  Neurology, "Collage of dermatology Websites" on Anesthesiology and Medical,
+  chiropractic image names on Urgent Care and Orthopedic, a kids-dentistry
+  carousel on Pediatric, a root-canal-specialist image on Veterinary).
+
+### Review scope and false positives
+
+All 64 pages were scanned. The 46 `/websites/` pages are **ACF-driven, not
+Elementor** — an initial Elementor-only scan covered none of them and had to be
+redone against ACF fields. Their body copy contains **no** cross-specialty
+conflicts.
+
+Discarded rather than "fixed": ad-copy "Bidding Adjustments" (matched a
+chiropractic pattern), "COMPOUNDING SIGNAL" (pharmacy), "neUROLOGist" (matched a
+urology substring), "vision therapy" on Optometry and "therapist" on Physical
+Therapy — all correct in context. The line "our founder is a dentist, our
+marketing lead is a dentist" appears on every specialty page and is a legitimate
+O360 credential, not a conflict.
