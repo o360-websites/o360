@@ -4979,3 +4979,68 @@ urology substring), "vision therapy" on Optometry and "therapist" on Physical
 Therapy — all correct in context. The line "our founder is a dentist, our
 marketing lead is a dentist" appears on every specialty page and is a legitimate
 O360 credential, not a conflict.
+
+---
+
+## Batch 100 — 2026-08-14 — Full redirect audit (audit only, no redirects changed)
+
+Complete audit of `wp_rank_math_redirections` written to
+**`docs/REDIRECT-AUDIT.md`**. **No redirect was created, edited or deleted.**
+
+### Two live bugs found
+
+1. **`/products/patient-education-videos/` (page 87836) is unreachable.** It 301s
+   to `/blogs/` because rule **1806** is a `contains` match on the string
+   `education`, which matches the page's own slug. The page is also the
+   destination of 12 other rules carrying 10,403 hits, so that traffic is being
+   funnelled into a page that immediately bounces. Verified live.
+2. **`/.well-known/*` is 301'd to the homepage.** Rule **1794** does `contains`
+   matches on `.txt`, `.htm`, `.html`, `.well`, `.asp`, `.aspx`, `.tgz`, `.jira`.
+   `.well` swallows the whole `/.well-known/` namespace — which is how ACME/
+   Let's Encrypt validates the domain over HTTP, and how several platforms verify
+   ownership. Verified live: `/.well-known/security.txt`,
+   `/.well-known/apple-app-site-association`, `/ads.txt` and `/some-page.html`
+   all 301 to `/`. This is an operational risk, not only an SEO one.
+
+### Scale
+
+1,943 rules (1,835 active, 5 inactive, 103 trashed), 2,585 raw source patterns,
+**2,397 unique**, 194 distinct active destinations, 2,226,032 lifetime hits.
+Netlify's practical ceiling is ~1,000 rules, so roughly a **60% reduction** is
+needed before migration.
+
+**75% of all redirect traffic (1,662,682 hits) is `?author=N` bot enumeration.**
+
+### Categorised findings
+
+- **REMOVE** — 103 trashed rules, 127 zero-hit active rules, 97 unused for over a
+  year, 1 true self-loop (rule 1808). ~330 rules / 340 patterns with no traffic
+  impact.
+- **CONSOLIDATE** — 144 duplicate patterns *inside* 19 rules (rule 1579 repeats
+  `portfolio/feed` ~45 times; rule 1280 repeats `?author=N` values 3–4× each).
+  Rule 1280's 62 patterns collapse to 1, since it already carries a
+  `contains: ?author=` catch-all. Plus 42 cross-rule duplicate patterns, **15 of
+  them conflicting** (same source, different destinations — winner is arbitrary).
+- **FLATTEN CHAINS** — 149 active→active chains across 9 destinations that are
+  themselves redirect sources. `/blogs/25-dental-marketing-ideas-and-strategies/`
+  alone has 100 rules pointing at it before it forwards again to `/marketing/`.
+- **RECREATE or RETARGET** — 76 destinations no longer exist; every rule pointing
+  at them sends a visitor 301 → 404. 61,049 lifetime hits. Split between deleted
+  blog posts (recreate or retarget) and retired portfolio taxonomy archives
+  (`/project-color/*`, `/project-style/*`, `/project-feature/*` — retarget).
+- **PORTFOLIO / leave to 404** — 623 active rules. 404 of them exceed 200 lifetime
+  hits, but those accumulated over ~5 years, so 200 lifetime is roughly 40
+  visits/year before excluding bots. Threshold needs to be agreed rather than
+  assumed.
+- **KEEP** — working specialty consolidations (`dentist-websites` etc.), short
+  vanity paths, the 14 correct `project-category/*/page/N` regex rules, and the
+  7 rules already returning 410.
+
+### Method note recorded in the audit
+
+An initial pass stripped query strings while normalising URLs, which turned every
+`?author=N` pattern into `/` and produced **60 phantom self-loops and 2,420
+phantom chains**. After correcting normalisation the true figures are **1
+self-loop and 149 active-to-active chains**. The destination classification was
+done in-database and then spot-checked over HTTP, which is what surfaced both
+live bugs. Recorded in the audit so a future pass does not repeat the error.
