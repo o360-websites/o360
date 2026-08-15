@@ -5245,3 +5245,132 @@ at the matching **`/websites/<specialty>/`** page — e.g.
 "all portfolio archive pages should forward to portfolio" could mean retargeting
 these to `/portfolio/`, but that would replace a specialty-relevant destination
 with a generic one. Left pointing at the specialty pages pending confirmation.
+
+---
+
+## Batch 103 — 2026-08-14 — project-category redirects mapped to specialty pages
+
+Per the owner's instruction: "Project categories should go to the
+`websites/specialty` pages."
+
+**Backup:** covered by `o360_backup_redirects_pre_portfolio_20260814` (taken in
+batch 102, before both batches touched destinations).
+
+### Result
+
+| | Rules |
+|---|---|
+| Already pointing at the right specialty page | 66 |
+| **Repointed to the correct specialty page** | **54** |
+| Not a specialty — left as-is | 11 |
+
+Highest-traffic corrections: `project-category/medical/cosmetic-surgery` (1,008
+hits) -> `/websites/cosmetic-surgery/`, `.../medical/holistic` (668) ->
+`/websites/holistic-medicine/`, `.../medical/neurosurgeon` (584) ->
+`/websites/neurology-and-neurosurgery/`, `project-category/primary-internal`
+(478) -> `/websites/internal-medicine/`, `project-category/clinics-hospitals`
+(473) -> `/websites/hospital/`, `project-category/cancer-treatment` (381) ->
+`/websites/oncology/`.
+
+An alias table maps legacy term slugs to current page slugs — `cardiologist` ->
+`cardiology`, `veterinarian` -> `veterinary`, `neurosurgeon` ->
+`neurology-and-neurosurgery`, `gi` -> `gastroenterology`, `cancer-treatment` ->
+`oncology`, `clinics-hospitals` -> `hospital`, `primary-internal` ->
+`internal-medicine`, `holistic` -> `holistic-medicine`, and ~40 more.
+
+### Error caught and corrected mid-batch
+
+The first pass took the **first** path segment of each pattern. Many patterns are
+nested — `project-category/medical/cosmetic-surgery` — so that resolved to
+"medical" and sent 16 rules to the generic `/websites/medical/` page, *less*
+specific than where they already pointed. Rule 7 alone (1,008 hits) was moved
+from `/websites/cosmetic-surgery/` to `/websites/medical/`.
+
+Re-run using the **last** meaningful segment (skipping `attachment`, `page` and
+numeric segments) with the first segment as fallback. All 16 were restored to
+their specific specialty page and 38 more were improved beyond their original
+targets.
+
+### 11 rules deliberately left alone
+
+Their source terms are not specialties: `gray`, `white` (colors), `social`,
+`business`, `template`, `moved`, `development`, `optizign`, `multi-specialty`,
+`implant`, `surgery`. Current destinations (`/portfolio/`, `/marketing/`,
+`/web-design/`) are appropriate. `project-category/surgery` (228 hits) currently
+goes to `/websites/medical/`; `/websites/general-surgery/` exists and may be a
+better target — flagged, not changed.
+
+### Verified live
+
+`/project-category/medical/cosmetic-surgery/` -> `/websites/cosmetic-surgery/` ·
+`/project-category/urology/` -> `/websites/urology/` ·
+`/project-category/cardiologist/` -> `/websites/cardiology/` ·
+`/project-category/medical/veterinarian/` -> `/websites/veterinary/` ·
+`/project-category/clinics-hospitals/` -> `/websites/hospital/` ·
+`/project-category/gray/` -> `/portfolio/`.
+
+---
+
+## Batch 103b — Investigation: the taxonomies, and why deleting redirects does not always give a 404
+
+The owner proposed removing all taxonomies except Specialties, on the theory that
+"the post type does the redirect from ACF". **The instinct is right, the
+mechanism is slightly different**, and it changes the recommended fix.
+
+### What is registered, and how
+
+Everything is registered through **ACF** (`acf-post-type` / `acf-taxonomy` posts):
+
+| Object | ACF post | `public` | rewrite slug | terms | assignments |
+|---|---|---|---|---|---|
+| Portfolio Items (`portfolio-item`) | 86364 | **0** | `portfolio-item` | — | 552 posts |
+| Portfolio (old post type) | 84428 | — | — | — | **acf-disabled** |
+| **Specialties** (`project_category`) | 84429 | **0** | **false** | 48 | 1,284 |
+| Colors (`project_color`) | 84431 | **1** | `project-color` | 14 | 787 |
+| Styles (`project_style`) | 84432 | **1** | `project-style` | 9 | 746 |
+| Features (`project_feature`) | 84433 | **1** | `project-feature` | 13 | 250 |
+| Tags (`project_tag`) | 84430 | **1** | `project-tag` | 7 | 59 |
+
+**Specialties is already `public = 0` with `rewrite = false`** — it generates no
+public URLs at all. The four others are public with rewrite slugs, and those are
+exactly the bases producing `/project-color/*`, `/project-style/*`,
+`/project-feature/*` and `/project-tag/*`.
+
+### Why a deleted redirect still 301s
+
+WordPress canonical handling. When a rewrite base is registered but the item is
+not publicly queryable, WP redirects to the homepage rather than serving a 404.
+Confirmed by matching every active Rank Math rule against these URIs in code —
+none matched — and Rank Math's `redirections_fallback` is `default` (no 404
+fallback), so it is not the plugin either.
+
+### Where the taxonomies are actually used
+
+- `project_category` — **heavily used and must stay**: 13 Elementor pages
+  including the live Portfolio page (86349), the active code snippet 17
+  "Websites landing: per-specialty portfolio query", and 54 items in the
+  "Gallery Filters" menu (2493).
+- `project_color` / `project_style` / `project_feature` — referenced in Elementor
+  only by **85588 "Sections BU 2024"**, which is a backup template, plus 13/8/11
+  items in the Gallery Filters menu. On the live `/portfolio/` page they appear
+  only as `post_class()` CSS hooks (`project_color-black`,
+  `project_style-clean`) — there are **no** links to any taxonomy archive URL.
+- `project_tag` — referenced in no Elementor data at all.
+
+### Recommendation (not applied)
+
+**Do not delete the taxonomies — make them private.** Setting Colors, Styles,
+Features and Tags to `public = false` and `rewrite = false`, exactly as
+Specialties already is, would:
+
+- remove the `/project-color/*`, `/project-style/*`, `/project-feature/*` and
+  `/project-tag/*` URL space, so those URLs 404 instead of soft-404ing to the
+  homepage;
+- keep every term assignment and every `post_class()` CSS hook intact, so nothing
+  visual changes;
+- make ~35 redirect patterns unnecessary, which can then be deleted.
+
+Deleting the taxonomies outright would additionally drop 1,842 term assignments
+and the CSS classes, with no extra benefit. The same argument applies to the
+`portfolio-item` rewrite base, which is what makes `/portfolio-item/*` soft-404
+to the homepage.
