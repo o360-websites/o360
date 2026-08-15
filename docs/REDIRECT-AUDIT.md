@@ -1,7 +1,13 @@
 # o360.com — Redirect Audit
 
-Audit only. **No redirects were changed.** Run 2026-08-14 against
-`wp_rank_math_redirections`.
+Audit run 2026-08-14 against `wp_rank_math_redirections`.
+
+> **STATUS — the numbers below are the pre-cleanup baseline.**
+> Steps 1–4 were executed in changelog batch 101, and the portfolio cleanup in
+> batch 102. Current state: **1,214 rules / 1,010 active / 1,376 active
+> patterns** (was 1,943 / 1,835 / 2,585). Chains, self-loops and conflicting
+> duplicates are all at zero. Remaining open work is §E (41 dead destinations,
+> down from 76) and the `project-category/*` destination question in batch 102.
 
 ---
 

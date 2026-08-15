@@ -5163,3 +5163,85 @@ correct first time.
 
 The Rank Math redirection cache table was truncated after each change so the new
 rules take effect immediately. `rocket_clean_domain()` was **not** called.
+
+---
+
+## Batch 102 — 2026-08-14 — Portfolio redirect cleanup
+
+Per the owner's decision: delete all individual portfolio redirects, forward
+portfolio archives to `/portfolio/`, and cap archive pagination at page 2.
+
+**Backup:** option `o360_backup_redirects_pre_portfolio_20260814` and
+`wp-content/uploads/o360-redirects-pre-portfolio-20260814.json` (1,840 rows,
+741 KB), taken after batch 101 and before this batch. Deleted rule IDs stored in
+`o360_redirect_portfolio_deleted_ids_20260814`.
+
+### What changed
+
+| Action | Count |
+|---|---|
+| Rules **deleted** — every pattern was an individual portfolio item | **622** |
+| Rules **trimmed** — item patterns removed, other patterns kept | 2 |
+| Individual item patterns removed (`portfolio/<slug>`, `portfolio-item/<slug>`) | **720** |
+| Lifetime hits on the deleted rules | 174,787 |
+| Paginated-archive regex rules **capped** `page/[0-9]+` -> `page/[12]` | **21** |
+| Exact paged rules beyond page 2 **deleted** | 4 (`portfolio/page/95`, `project-color/gray/page/9`, `project-category/general-dentist/page/12`, `blogs/page/12`) |
+| Rules whose destination was a dead portfolio-filter archive, **repointed to `/portfolio/`** | **62** (13,943 lifetime hits recovered from dead ends) |
+
+Rule 1578 was trimmed from 97 patterns to 1; rule 1579 from 13 to 12.
+
+### Result
+
+| Metric | Batch 101 end | Now |
+|---|---|---|
+| Total rules | 1,840 | **1,214** |
+| Active rules | 1,610 | **1,010** |
+| Active source patterns | 2,074 | **1,376** |
+| Distinct active destinations | 174 | **96** |
+| Dead destinations | 66 | **41** |
+
+Against the original baseline: **1,943 -> 1,214 rules** and **2,585 -> 1,376
+active patterns, a 47% reduction.** Netlify's practical ceiling is ~1,000.
+
+### Verified live
+
+`/portfolio/dublin-dentist-2/` 404 (intended) · `/portfolio/` 200 ·
+`/portfolio/page/2/` -> `/portfolio/` · `/project-category/dental/page/2/` ->
+`/websites/dental/` · `/project-color/dark/`, `/project-feature/youtube/` and
+`/styles/curved-round/` all -> `/portfolio/` · `/websites/dental/` 200.
+
+### Discovery — WordPress redirects some 404s on its own
+
+Deleting a redirect does **not** always produce a 404. Verified:
+
+| URL | Result |
+|---|---|
+| `/portfolio/dublin-dentist-2/` | **404** — as intended |
+| `/portfolio-item/clear-smiles-dental/` | **301 -> `/`** |
+| `/project-color/black/` | **301 -> `/`** |
+| `/zzz-total-nonsense-xyz123/` | 404 |
+| `/blogs/zzz-nonexistent-article/` | 404 |
+
+No Rank Math rule matches the two that redirect — this was confirmed by matching
+every active rule against those URIs in code. Rank Math's `redirections_fallback`
+is `default` (no 404 fallback), so it is not the cause either.
+
+The cause is WordPress core canonical handling: `portfolio-item` is a registered
+post-type base and `project-color` / `project-style` / `project-feature` are
+registered taxonomy bases. When the base exists but the individual item does not,
+WordPress canonical-redirects to the homepage instead of serving a 404.
+
+**Consequence for the migration plan:** "let portfolio items 404" works for
+`/portfolio/*`, but URLs under `/portfolio-item/*` and `/project-*/*` will keep
+soft-404ing to the homepage no matter how many redirect rules are removed.
+Making those genuinely 404 (or 410) needs either the rewrite bases unregistered
+or explicit 410 rules. **Not changed — raised with the owner.**
+
+### Not changed — awaiting a decision
+
+`project-category/<specialty>` rules (134 patterns, 119 active) currently point
+at the matching **`/websites/<specialty>/`** page — e.g.
+`project-category/urology` -> `/websites/urology/` (3,224 hits). The instruction
+"all portfolio archive pages should forward to portfolio" could mean retargeting
+these to `/portfolio/`, but that would replace a specialty-relevant destination
+with a generic one. Left pointing at the specialty pages pending confirmation.
