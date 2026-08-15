@@ -106,24 +106,26 @@ export function FounderSection() {
           </div>
 
           <div className={styles.right}>
-            {badges.map((badge) => (
-              <div className={`${styles.badge} ${badge.className}`} key={badge.front}>
-                <div className={styles.flip} tabIndex={0}>
-                  <div className={`${styles.layer} ${styles.front}`}>
-                    <div className={styles.overlay}>
-                      <p className={styles.frontNum}>{badge.front}</p>
-                      <p className={styles.frontLabel}>{badge.frontLabel}</p>
+            <div className={styles.stage}>
+              {badges.map((badge) => (
+                <div className={`${styles.badge} ${badge.className}`} key={badge.front}>
+                  <div className={styles.flip} tabIndex={0}>
+                    <div className={`${styles.layer} ${styles.front}`}>
+                      <div className={styles.overlay}>
+                        <p className={styles.frontNum}>{badge.front}</p>
+                        <p className={styles.frontLabel}>{badge.frontLabel}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className={`${styles.layer} ${styles.back}`}>
-                    <div className={styles.overlay}>
-                      <p className={styles.backTitle}>{badge.backTitle}</p>
-                      <p className={styles.backBody}>{badge.backBody}</p>
+                    <div className={`${styles.layer} ${styles.back}`}>
+                      <div className={styles.overlay}>
+                        <p className={styles.backTitle}>{badge.backTitle}</p>
+                        <p className={styles.backBody}>{badge.backBody}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -73,7 +73,7 @@
 .body a {
   color: #00418d;
   font-weight: 700;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .body a:hover {
@@ -139,10 +139,17 @@
 }
 
 .right {
+  align-items: center;
   box-sizing: border-box;
-  min-height: 420px;
+  display: flex;
   position: relative;
   width: 50%;
+}
+
+.stage {
+  height: 420px;
+  position: relative;
+  width: 100%;
 }
 
 .badge {
@@ -170,6 +177,11 @@
   bottom: 0;
   right: 6%;
   z-index: 3;
+}
+
+.badge:hover,
+.badge:focus-within {
+  z-index: 5;
 }
 
 .flip {
@@ -232,7 +244,6 @@
   font-size: 3.4rem;
   font-weight: 700;
   letter-spacing: 0;
-  line-height: 1;
   margin: 0 0 5px;
 }
 
@@ -291,6 +302,10 @@
     width: 100%;
   }
 
+  .stage {
+    height: 800px;
+  }
+
   .title,
   .body {
     text-align: center;
@@ -298,10 +313,6 @@
 
   .ratings {
     align-items: center;
-  }
-
-  .right {
-    min-height: 800px;
   }
 
   .badgeA {
