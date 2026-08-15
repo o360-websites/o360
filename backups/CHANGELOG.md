@@ -5453,3 +5453,69 @@ forward to `/portfolio/` as intended. **They were kept.**
 
 Redirect totals unchanged by this batch: 1,214 rules, 1,010 active, 1,376 active
 patterns.
+
+---
+
+## Batch 105 — 2026-08-14 — Old client paths, scanner probes and ads.txt removed
+
+**Backup:** option `o360_backup_redirects_pre_clientpaths_20260814` and
+`wp-content/uploads/o360-redirects-pre-clientpaths-20260814.json` (full table
+before this batch). Deleted rule IDs in
+`o360_redirect_clientpath_deleted_rules_20260814`.
+
+### Removed — 56 patterns
+
+| Group | Patterns | Detail |
+|---|---|---|
+| **Old client site paths** | **42** | Practices formerly hosted at `o360.com/<name>` — `ladddental`, `brooklynuro`, `torontoimplants-2`/`torontoimplants2`, `orthodonitcsmiles`, `pedsgastro`, `drdonnaokuda`, `weehawkenoralsurgery`, `coastdentalgroup`, `dermpartnersbocaraton`, `fullertonfamilyorthodontics`, `statesboro-oralsurgeon-dentist` and 31 more. All pointed at `/portfolio/`. |
+| **Scanner probes** | **13** | `main`, `new`, `old`, `bk`, `bc`, `backup`, `wordpress`, `temp`, `test`, `home2`, `demo`, `swagger-ui` — bots hunting for a staging install or API docs. All were 301-ing to the homepage or `/web-design/`, which rewards the probe; they now 404. |
+| **Junk** | **1** | `ads.txt` -> `/marketing/` (3,638 hits). An ad crawler asking for ads.txt should get a 404 or a real file, never a marketing page. |
+
+10 rules were deleted outright (every pattern removed); 3 were trimmed and kept.
+
+### Deliberately kept — not client paths
+
+These share the `/portfolio/` destination but are real site sections, and were
+excluded from the sweep: `gallery` (8,243 hits), `design-gallery` (2,983),
+`case-studies` (80), `designed-websites` (320), `gallery-dental-websites` (94).
+
+Also left alone as ambiguous rather than assumed: `color`, `feminine`,
+`optizign`, `project-rheumatologist`, `products-content-and-colors`,
+`four-module-website-example-2`, `under-development`, `kidney-stones-2`.
+
+### Result
+
+| Metric | Before | After |
+|---|---|---|
+| Total rules | 1,214 | **1,204** |
+| Active rules | 1,010 | **1,001** |
+| Active source patterns | 1,376 | **1,322** |
+
+Against the original baseline: **1,943 -> 1,204 rules**, **2,585 -> 1,322 active
+patterns (a 49% reduction)**.
+
+### Verified live
+
+Now 404: `/ladddental/`, `/brooklynuro/`, `/torontoimplants-2/`, `/wordpress/`,
+`/backup/`, `/test/`, `/demo/`, `/swagger-ui/`, `/ads.txt`.
+
+Still redirecting correctly: `/gallery/` and `/design-gallery/` and
+`/case-studies/` and `/designed-websites/` -> `/portfolio/`, `/dentist-websites/`
+-> `/websites/dental/`, `/contact/` -> `/contact-us/`, `/blog/` -> `/blogs/`,
+`/about/` -> `/about-us/`.
+
+### Not touched — campaign artifacts, flagged instead
+
+Item 4 of the earlier categorisation ("campaign/internal artifacts") was
+acknowledged but no specific action had been proposed for the artifacts
+themselves, so only the `ads.txt` element of it was acted on. These 9 remain and
+need a decision:
+
+`footer-assoc-seo-2`, `seo-logos`, `impact-marketing-seo` (rule 1599),
+`impact-marketing-package-ppc` (1600), `review-1` (1588), `review-3`,
+`reviews-google` (1603), `animations-and-videos-24` (1618), and
+**`dental-marketing-ad` (rule 2043)**.
+
+`dental-marketing-ad` is the one to be careful with — the name suggests a live
+Google Ads landing destination. Deleting it could break a running campaign, so it
+was left in place pending confirmation.
