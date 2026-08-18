@@ -5652,3 +5652,74 @@ pages still render wrongly after a hard refresh, the cause is structural in the
 08:54 edit to 86918 rather than missing CSS, and **87919 holds the pre-edit
 state** for a restore. That restore was **not** performed: it would discard the
 two sections added this morning, which is the owner's call.
+
+---
+
+## Batch 108 — 2026-08-18 — Review photos re-pointed to the re-uploaded files
+
+### What was actually wrong
+
+Not missing images — **the owner had already re-uploaded all eight** on 2026-08-14
+into `wp-content/uploads/2026/08/`. Every file was on disk. Template **86918
+"Landing for Websites"** was still pointing at the old, deleted `2024/11/` and
+`2024/12/` paths, which soft-404. Because the `<img>` tags carried no `wp-image`
+class, they were rendering the `alt` text instead of a photo — which is why the
+reviewer names appeared as blue text where the avatars should be.
+
+**Backup:** option `o360_backup_reviewimgs_20260818` — `_elementor_data` for
+86918 and 12599 before the change.
+
+### Re-pointed — 8 images in template 86918
+
+| Old path (404) | New attachment |
+|---|---|
+| 2024/11/sanderscoley.png | **#87897** 2026/08/Sanders-Coley.jpg |
+| 2024/11/aliciamacgowan.png | **#87896** 2026/08/Alicia-MacGowan-3.jpg |
+| 2024/11/jessewelsh.png | **#87905** 2026/08/jessewelsh.png |
+| 2024/11/nelsonleach.png | **#87899** 2026/08/nelsonleach.png |
+| 2024/11/kameronjackson.png | **#87902** 2026/08/kameronjackson.png |
+| 2024/12/maryphilp.png | **#87903** 2026/08/maryphilp.png |
+| 2024/12/Elizabeth-Ciesielski.png | **#87901** 2026/08/Elizabeth-Ciesielski.png |
+| 2024/12/fivers.jpg | **#87904** 2026/08/fivers.jpg |
+
+Both the `url` and the `id` were set on each image setting, so Elementor now
+resolves them from a live attachment rather than a dead URL. The replacement was
+guarded to only touch URLs still pointing at the old `2024/` locations.
+
+**Page 12599 "About Us" needed no changes** — it was already pointing at the
+`2026/08/` files.
+
+**Template 87919 "Landing Page Backup – 8/18" was deliberately left untouched** —
+it is a backup and should keep its original state.
+
+### Cache
+
+48 pages purged (`rocket_clean_post`) — all `/websites/*`, the `/websites/` hub
+and About Us — plus 13 stale WP Rocket rows. `_elementor_element_cache` and
+`_elementor_css` cleared on 86918 and CSS regenerated.
+
+### Verified live
+
+All 10 review photos return HTTP 200 on `/websites/dental/`,
+`/websites/optometry/` and `/about-us/`: abednamavari, celestenagy,
+Alicia-MacGowan-3, Elizabeth-Ciesielski, Sanders-Coley, fivers, jessewelsh,
+kameronjackson, maryphilp, nelsonleach. No `2024/1x/` review-photo paths remain
+in the rendered output.
+
+### Now redundant
+
+`backups/recovered-images-2026-08-12/` (sanderscoley.png, nelsonleach.png,
+kameronjackson.png, recovered from Cloudflare's edge cache) is no longer needed —
+the owner re-sourced all eight, including the five that had been marked
+unrecoverable. Kept in the repo as a historical record.
+
+### Flagged, not changed
+
+`Sanders-Coley.jpg` is **portrait (768x1157)** while every other reviewer photo is
+square (768x768). On `/websites/*` it renders the `768x1157` crop inside a
+circular avatar, so the framing may sit differently from the others. A square
+crop would make the row consistent.
+
+Also noted: two attachments exist for the same reviewer — **#87905 `jessewelsh`**
+(used) and **#87898 `Dr Jessika Welsh`**. The filename match was used; worth
+confirming which is the intended photo.
