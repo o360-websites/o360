@@ -5566,3 +5566,89 @@ Active rules are now **below 1,000**. Active source patterns — the figure that
 maps one-to-one onto Netlify `_redirects` lines — are at 1,313, roughly **313
 over** the ~1,000 guideline. The `/blogs/*` block (766 patterns across 64
 destinations) remains the only group large enough to close that gap.
+
+---
+
+## Batch 107 — 2026-08-18 — /websites/ pages reported unstyled: investigation + CSS regeneration
+
+**Date correction:** batches 90–106 were logged as "2026-08-14". The actual date
+is **2026-08-18** — confirmed against file timestamps on the server. The option
+names (`..._20260814`) are unchanged so they still resolve; only the dates in
+those entries were wrong.
+
+### Reported
+
+All `/websites/<specialty>/` pages rendering "as if no CSS — all content in a row".
+
+### What was actually found
+
+**Not caused by the redirect or taxonomy work.** Template **86918 "Landing for
+Websites"** — the theme-builder template that renders every `/websites/`
+specialty page — **was edited today at 08:54**. Two related templates were
+created just before it: **87876 "Website Landing Sections"** (08:30) and
+**87919 "Landing Page Backup - 8/18"** (08:31).
+
+| Template | Sections | Elements | Bytes |
+|---|---|---|---|
+| 86918 Landing for Websites (live) | **25** | 379 | 296,404 |
+| 87919 Landing Page Backup - 8/18 | **23** | 350 | 270,360 |
+| 87876 Website Landing Sections | 3 | 41 | 57,999 |
+
+The live template has 2 more sections and ~29 more elements than the backup —
+consistent with new sections being built in 87876 and added to 86918 this
+morning. `wp_get_post_revisions(86918)` returns none, so 87919 is the only
+pre-edit copy.
+
+### Fixed — 9 missing Elementor CSS files
+
+Every file in `wp-content/uploads/elementor/css/` had a timestamp from today
+between 18:58 and 20:42, i.e. the directory had been purged and regenerated. Nine
+`elementor_library` templates did not come back — all of them templates rendered
+*indirectly* (loop items, section libraries) rather than as standalone pages,
+which Elementor does not regenerate lazily:
+
+87919 Landing Page Backup, 87876 Website Landing Sections, 86911 Portfolio Light,
+86750 Blog Card, 86571 Videos Support, 85588 Sections BU 2024, 84663 Buttons
+Orange Pricing, 83649 Portfolio Dark, 81333 Buttons Blue Pricing.
+
+All nine regenerated via `Elementor\Core\Files\CSS\Post::update()` and confirmed
+serving HTTP 200 with real content (86911: 3,119 bytes; 87876: 31,678; 87919:
+244,544; 85588: 85,014).
+
+### Cache purge
+
+47 pages (all `/websites/*` plus the `/websites/` hub) had `rocket_clean_post()`
+run and **276 stale rows** removed from the WP Rocket used-CSS / above-the-fold /
+lazy-render tables. `_elementor_element_cache` cleared on 86918, 86911, 83649,
+87876, 87919. `rocket_clean_domain()` was **not** called.
+
+### Verification after the fix
+
+| Check | Result |
+|---|---|
+| Stylesheets loading on `/websites/dental/` | 34, all HTTP 200 with content |
+| Elementor container CSS (`custom-frontend.min.css`) | 200, 54,819 bytes, 74 `.e-con` rules |
+| Template 86918 elements with CSS rules | **367 of 379** |
+| Loop-area elements with CSS rules | **306 of 314** |
+| Page response | 200, 464 elements |
+
+By every measurable signal the CSS is now complete and loading.
+
+### Two wrong hypotheses, corrected during the investigation
+
+1. First check reported "0 stylesheets" — that was a **faulty regex** (it required
+   `rel` before `href`; the markup has them the other way round). The page had 34
+   stylesheets all along.
+2. Then concluded the missing `post-86911.css` was the cause. It was genuinely
+   missing and worth fixing, but measuring coverage across *all* CSS sources
+   showed 306/314 loop elements were already styled from the template CSS. Not
+   the cause.
+
+### Outstanding
+
+Whether the reported breakage is now resolved cannot be confirmed from this
+environment — there is no browser here, so rendering cannot be observed. If the
+pages still render wrongly after a hard refresh, the cause is structural in the
+08:54 edit to 86918 rather than missing CSS, and **87919 holds the pre-edit
+state** for a restore. That restore was **not** performed: it would discard the
+two sections added this morning, which is the owner's call.
