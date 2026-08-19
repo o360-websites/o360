@@ -5723,3 +5723,80 @@ crop would make the row consistent.
 Also noted: two attachments exist for the same reviewer — **#87905 `jessewelsh`**
 (used) and **#87898 `Dr Jessika Welsh`**. The filename match was used; worth
 confirming which is the intended photo.
+
+---
+
+## Batch 109 — 2026-08-18 — Video examples toggle set per specialty
+
+### Reported
+
+The Podiatry page offered "Dental" video examples; it should offer Medical.
+
+### Cause
+
+The ACF radio field **`videos_examples`** (`field_wl_videos_examples`, choices
+`dental` | `medical`, **default `dental`**) drives which link renders in the
+"See Examples:" icon-list (widget `b388dce`) on template 86918.
+
+The mechanism is active code snippet **22** ("Websites landing: examples toggle,
+overlay colors, ACF field badges"), which filters that widget's rendered output
+and **removes the opposite list item** — if the field says `medical` it strips
+the "Dental" `<li>`, otherwise it strips "Medical". Both popups (86251 Videos -
+Dental, 86252 Videos - Medical) are registered on every page regardless, which is
+why both template IDs appear in the HTML either way.
+
+**It was not just Podiatry.** Across the 46 specialty pages the field was:
+31 × `dental`, 14 × empty (falling through to the `dental` default), 1 × `medical`
+(Dermatology). So **45 of 46 pages were offering dental video examples**,
+including Medical, Optometry, Veterinary, Cardiology, Urology, OBGYN and the rest.
+
+**Backup:** option `o360_backup_videos_examples_20260818` — page ID, slug, prior
+value and field key for all 46.
+
+### Changed — 37 pages set to `medical`
+
+Every non-dental specialty, whether it previously read `dental` or was empty:
+anti-aging, ent, radiology, bariatrics, gastroenterology, allergy, hospital,
+sports-medicine, physical-therapy, internal-medicine, general-surgery,
+pulmonology, oncology, cardiology, rheumatology, anesthesiology, home-care,
+telemedicine, pediatric, funeral-home, family-physician,
+neurology-and-neurosurgery, holistic-medicine, urgent-care, pharmacy, obgyn,
+orthopedic, cosmetic-surgery, pain-management, medical-spa, mental-health,
+chiropractic, podiatry, urology, optometry, medical, veterinary.
+
+Written with `update_field()` so both the value and the ACF field-key reference
+are stored — 14 of these had no `_videos_examples` key at all previously.
+
+### Left as `dental` — 8 dental-family specialties
+
+dental, dental-lab, endodontic, oral-surgery, orthodontic, pediatric-dentistry,
+periodontic, prosthodontic.
+
+Dermatology was already `medical` and was not touched.
+
+Final distribution: **38 medical / 8 dental**.
+
+### Cache
+
+47 pages purged (`rocket_clean_post` + `_elementor_element_cache`) and 200 stale
+WP Rocket rows cleared. `_elementor_element_cache` also cleared on template 86918.
+
+### Verified live
+
+| Page | Renders |
+|---|---|
+| podiatry, optometry, veterinary, cardiology, medical, dermatology, mental-health, urgent-care, funeral-home | **Medical** |
+| dental, orthodontic, endodontic, dental-lab, pediatric-dentistry | **Dental** |
+
+### Note on method
+
+Two verification attempts gave false readings before the correct one: grepping for
+the template IDs `86251`/`86252` shows both on every page (both popups are always
+registered), and matching `elementor-icon-list-text">Medical` missed because the
+element carries additional repeater classes. The reliable check is to extract the
+`b388dce` icon-list items and look for the literal "Dental" / "Medical" entry.
+
+### Flagged
+
+**funeral-home** was set to `medical` as the closer of the two available options,
+but neither really fits a funeral home. Worth a look if that page matters.
