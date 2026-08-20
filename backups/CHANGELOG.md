@@ -5867,3 +5867,84 @@ robots value is moot and making it indexable would be wrong.
   `?Bing=page.aspx`, `?Bing=form.asp`, `?Bing=data.tgz` all 301 to themselves
   (curl gave up after 8 hops). `?Bing=Websites` and `?Bing=dental-2026` are fine.
   Not fixed pending a decision on approach.
+
+---
+
+## Batch 111 — 2026-08-18 — Redirect rule 1794 deleted (query-string loop fixed)
+
+**Backup:** option `o360_backup_rule1794_20260818` — the complete row before deletion.
+
+### Removed
+
+Rule 1794 held six `contains` patterns — `.htm`, `.html`, `.jira`, `.asp`,
+`.aspx`, `.tgz` — all redirecting to the homepage. Removing all six left the rule
+with no patterns, so the row was deleted.
+
+**Why:** `contains` matches anywhere in the URL *including the query string*, and
+the redirect preserved the query string, so the destination re-matched its own
+rule. Confirmed infinite loop before the fix — `?Bing=spring.html`,
+`?Bing=landing.htm`, `?Bing=page.aspx`, `?Bing=form.asp` and `?Bing=data.tgz` all
+301'd to themselves until curl gave up at 8 hops. That would have silently killed
+any ad campaign whose tracking value contained one of those strings.
+
+The rule existed only to bounce bot probes to the homepage, which is an
+anti-pattern: it burns bandwidth, injects fake homepage sessions into analytics,
+and produces soft-404 signals. A plain 404 is the correct response.
+
+### Verified live
+
+| URL | Before | After |
+|---|---|---|
+| `/?Bing=spring.html` | infinite 301 loop | **200**, 0 redirects |
+| `/?Bing=landing.htm` | infinite loop | **200** |
+| `/?Bing=page.aspx` | infinite loop | **200** |
+| `/?Bing=form.asp` | infinite loop | **200** |
+| `/?Bing=data.tgz` | infinite loop | **200** |
+| `/login.asp`, `/old-page.htm`, `/backup.tgz` | 301 to homepage | **404** |
+
+`/index.html` still 301s to `/` — that is rule 1429, a deliberate **exact** match
+with 316 hits, plus exact rules for `contact-us/index.html` (1395) and
+`websites/pediatric-dentistry/index.html` (1340). All legitimate and left alone.
+
+### Redirect totals
+
+| Metric | Original baseline | Now |
+|---|---|---|
+| Active rules | 1,835 | **997** |
+| Active source patterns | 2,585 | **1,307** |
+
+Active rules are now below 1,000; patterns are ~307 over the Netlify guideline.
+
+---
+
+## Batch 111b — Audit: is there a full products/services list page?
+
+**Finding: no, and five of the six product pages have a single internal link each.**
+
+Six live, published, indexed product pages:
+
+| URL | Title |
+|---|---|
+| /products/adapt/ | Website Accessibility For Healthcare Practices |
+| /products/hipaa/ | HIPAA-Compliant Website Design, Builder & Hosting |
+| /products/hosting/ | Healthcare Website Hosting, SSL & Security |
+| /products/logo/ | Custom Logo Design For Medical & Dental Specialties |
+| /products/mobile/ | Mobile Websites & Apps For Healthcare Practices |
+| /products/patient-education-videos/ | Patient Education Videos For Dental & Medical Practices |
+
+All six are in the page sitemap and carry good, specific SEO titles.
+
+**Internal linking, measured across `/web-design/`, `/packages/`, `/pricing/`,
+the homepage and `/about-us/`:**
+
+- **`/web-design/` is the only page that links to all six** — one link each.
+- **`/products/hipaa/` is the only one linked from anywhere else**, and only
+  because "HIPAA" sits in the main nav, so it appears site-wide.
+- The other five have **exactly one inbound internal link on the entire site**.
+- The footer does not list them.
+- `/products/` — the natural URL for such a list — is `noindex` **and** 301s to
+  `/web-design/` (hub retired 2026-08-10).
+
+So `/web-design/` is functionally the product list, but it is framed and titled as
+a web-design page rather than an overview of everything O360 sells. Nothing was
+changed; raised with the owner.
