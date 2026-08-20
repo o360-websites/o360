@@ -5948,3 +5948,158 @@ the homepage and `/about-us/`:**
 So `/web-design/` is functionally the product list, but it is framed and titled as
 a web-design page rather than an overview of everything O360 sells. Nothing was
 changed; raised with the owner.
+
+---
+
+## Batch 112 — 2026-08-20 — Dropdown indicator, Company menu, /products/ rebuilt as the catalogue
+
+Full record: `backups/2026-08-20-menu-company-products.json`.
+
+### 112a. Header nav: the missing dropdown indicator
+
+Template 86551, nav-menu widget `e7c97ea`. **Backup:** option
+`o360_bu_86551_20260820`.
+
+The widget carried **both** `indicator: "none"` and
+`submenu_icon: {"value":"","library":""}`. In Elementor Pro 4.2.1 the
+`indicator` select control **no longer exists in `nav-menu.php` at all** — it is
+dead legacy data. What renders is `submenu_icon`, whose default is
+`fas fa-caret-down`; the explicit empty value was overriding that default. So
+Web Design, Marketing, SEO/PPC and About O360 had **no caret, chevron or any
+other affordance** that a submenu existed.
+
+| Setting | From | To |
+|---|---|---|
+| `submenu_icon` | `{"value":"","library":""}` | `{"value":"fas fa-chevron-down","library":"fa-solid"}` |
+| `custom_css` | (unset) | `selector .elementor-nav-menu--main .sub-arrow{padding-inline-start:4px;}` |
+
+`chevron-down` was chosen because Elementor's own stylesheet down-sizes only that
+icon automatically (`.sub-arrow .fas.fa-chevron-down{font-size:.7em}`), so it
+costs the least width in a 0.7em uppercase menu. The stock
+`.sub-arrow{padding:10px}` lead-in was cut to **4px** so the bar does not grow;
+scoped to `--main` so the mobile dropdown keeps the roomier default. Spacing
+only — no colour, no font — so the global-styles rule is untouched. The dead
+`indicator` key was left in place; removing it changes nothing.
+
+**Verified.** `post-86551.css` regenerated (19,373 bytes) and contains the rule.
+Server-side render of 86551 emits `<span class="sub-arrow">` on exactly the four
+parents that have children, as inline SVG.
+
+### 112b. HIPAA click data — could not be measured, nothing moved
+
+`wp_rank_math_analytics_gsc` and `wp_rank_math_analytics_ga` both exist but hold
+**0 rows** — Rank Math Analytics is not collecting. The Adspirer connector (GA /
+Search Console) is not available in this session, and Microsoft Clarity stores
+nothing server-side. **HIPAA is still a top-level menu item.** The numbers live
+in the Clarity click map or in GA4 / Search Console for `/products/hipaa/`.
+
+### 112c. Main Header: About O360 -> Company, with children
+
+Menu 2491. **Backup:** option `o360_bu_menu2491_20260820`.
+
+| Item | Change |
+|---|---|
+| 82298 | **renamed** "About O360" -> "Company" (post_title only; all `_menu_item_*` meta untouched, still -> /about-us/) |
+| 87923 | **created** "About O360" -> /about-us/ (12599), child of 82298 |
+| 87924 | **created** "Products" -> /products/ (83110), child of 82298 |
+| 31886 | reordered 32 -> 34 |
+| 31891 | reordered 33 -> 35 |
+
+Resulting branch: **Company** | About O360 | Products | Contact Us | Support.
+
+Company and its first child both point at `/about-us/`. In Batch 91 the user
+deleted exactly this shape from the SEO/PPC dropdown. It is **deliberate** here:
+the point of this batch is that a parent's own destination is invisible to
+anyone who opens the submenu, so it is now listed explicitly.
+
+### 112d. /products/ un-retired and rebuilt as the products-and-services catalogue
+
+Page 83110. **Backups:** `o360_bu_83110_20260820` (_elementor_data),
+`o360_bu_83110_robots_20260820`, `o360_bu_redirect1783_20260820`,
+`o360_bu_86671_20260820` (the /websites/ hub it was copied from).
+
+**Un-retired** (the hub was retired 2026-08-10, batch 53):
+
+| | Before | After |
+|---|---|---|
+| `rank_math_robots` | `["noindex"]` | `["index","follow"]` |
+| Rank Math rule 1783 `exact:products/` -> /web-design/ 301 | active | **inactive** (row and its 523 hits preserved, not deleted) |
+
+**Added** — four sections spliced in at index 3, after the hero and stats band,
+before the existing pricing content. Nothing removed or reordered; 10 sections
+became 14.
+
+| ID | Section |
+|---|---|
+| `fd6a2ff` | h2 "Our Products and Services" + Pre-Titles span |
+| `c4c6075` | h3 **WEB DESIGN** -> /web-design/, intro, then the DENTAL / HEALTH / MEDICAL grid **cloned from /websites/** — 47 linked items |
+| `f5f11d2` | h3 **MARKETING** -> /marketing/, intro, then BY SPECIALTY (8) and BY CHANNEL (8) |
+| `2c55bc4` | h3 **WEBSITE PRODUCTS**, intro, then the 6 product pages in two columns |
+
+**Layout** was taken from `/websites/` (86671) literally: the container
+(`b377238`), 50% column (`33d151a`), inner row (`b9b1f01`), sub-column
+(`82ca4e1`), group heading (`4087061`), icon-list (`c5a6c28`) and header section
+(`d72ff19`) were cloned, so the background, the pattern-organic overlay at 0.54
+opacity with multiply blend, the 1400px boxed width, icon size 19, text indent 18
+and 12px item spacing all carry across exactly. The whole DENTAL+HEALTH and
+MEDICAL subtrees were cloned rather than rebuilt, so all 47 specialty links keep
+their original labels, icons and order.
+
+Every cloned node was re-IDed against the union of both pages' element IDs and
+checked for collisions before saving: **143 unique IDs, zero duplicates.**
+
+**Globals.** No global was added or changed. Colours: White `280a08c5`, Light 1
+`79960d2b`, Blue 2 `3e77f8c3`, Dark Blue 2 `8e577f1`, `primary`, `secondary`.
+Typography: Section Title (h2) Bold `9b77dcee`, Pre-Titles `b1592aad`, Paragraph
+Title (h3) `78b2240a`, Widget Title (h3) `a8a7c637`, Intro Text `a1introtx`.
+
+**One deliberate deviation from the source:** on `/websites/` the DENTAL /
+HEALTH / MEDICAL headings are `h2`; here they are `h4`, because they sit under an
+`h3` product heading under the `h2` catalogue header. Their global typography is
+unchanged — only the tag differs, which rule 6 explicitly allows (choose the
+style by its name, not its tag). Outline: h1 -> h2 -> h3 -> h4.
+
+**Icons.** FA Pro is loaded as a kit (`elementor_font_awesome_pro_kit_id`).
+Elementor's `e_font_icon_svg` experiment is active but its SVG map covers Free
+only, so `fal` icons fall through to `<i class="fal fa-x">` and are swapped in
+the browser — verified identical markup on `/websites/` and on the new sections.
+Thirteen icons were reused from the site; **nine are new to it**
+(`fa-search`, `fa-ad`, `fa-thumbs-up`, `fa-star`, `fa-robot`, `fa-server`,
+`fa-universal-access`, `fa-mobile`, `fa-pen-fancy`). They are standard FA Pro
+Light names, but the kit resolves in the browser so this could not be confirmed
+server-side — **worth one look at the live page.**
+
+**Verified by server-side render:** the h2/h3/h4 outline is correct; 69 linked
+icon-list items (47 `/websites/*`, 16 `/marketing/*`, 6 `/products/*`); 88
+internal links on the page; heading links resolve as intended.
+
+**Caches.** Element cache and CSS meta deleted, CSS regenerated (129,656 bytes),
+`rocket_clean_post(83110)`, `/products/` rows removed from
+`wp_wpr_rucss_used_css` / `wp_wpr_above_the_fold` / `wp_wpr_lazy_render_content`,
+Rank Math redirection cache emptied (7 rows) so 1783 stops firing immediately.
+`rocket_clean_domain()` was **not** called.
+
+### 112e. Page caching is Pagely's, not WP Rocket's
+
+Code snippet **#13 "Pagely Compatibility - Disable WP Rocket Page Caching"** is
+active and returns false for `do_rocket_generate_caching_files`. WP Rocket is
+therefore **not** the page-HTML cache on this site — Pagely's edge cache is.
+
+The header change touches every page, and nothing reachable from this connector
+purges Pagely. Pages pick up the new header as the edge cache expires, or
+immediately after a purge from the host panel. The `rocket_clean_post()` calls in
+this and earlier batches still do useful work on the used-CSS / above-the-fold /
+lazy-render tables, but they were never what served cached HTML.
+
+### Not done — flagged
+
+- **HIPAA menu item** untouched; the move was conditional on click data.
+- **`/products/` SEO title and h1** still read as a "what's bundled with a
+  website" page ("What Comes With an O360 Healthcare Website | O360" /
+  "Everything That Comes With Your Website"). The page is now the catalogue, is
+  indexable and is in the nav, so both probably want rewording. Not changed
+  without approval.
+- **`/marketing/` still links none of its specialty children in the body**, and
+  `/web-design/` still keeps its specialty grid in section 23 of 24. The owner is
+  handling product detail on those two pages plus About Us.
+- **Footer** still lists no product pages.

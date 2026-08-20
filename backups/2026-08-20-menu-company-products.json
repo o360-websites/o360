@@ -1,0 +1,131 @@
+{
+  "date": "2026-08-20",
+  "batch": 112,
+  "summary": "Added the missing dropdown indicator to the header nav, renamed the About O360 top-level item to Company, gave it About O360 and Products children, and rebuilt /products/ as the full products-and-services catalogue (un-retired: republished to the index and its blanket redirect switched off).",
+
+  "1_header_nav_dropdown_indicator": {
+    "template": 86551,
+    "widget": "e7c97ea",
+    "widget_type": "nav-menu",
+    "backup_option": "o360_bu_86551_20260820",
+    "finding": "The widget carried indicator:\"none\" AND submenu_icon:{\"value\":\"\",\"library\":\"\"}. In Elementor Pro 4.2.1 the 'indicator' select control no longer exists in nav-menu.php at all — it is dead legacy data. The control that actually renders is submenu_icon (an ICONS control) whose default is fas fa-caret-down. The explicit empty value was overriding that default, so the four dropdown parents had no caret, chevron or any other affordance that a submenu existed.",
+    "changed": [
+      {
+        "setting": "submenu_icon",
+        "from": "{\"value\":\"\",\"library\":\"\"}",
+        "to": "{\"value\":\"fas fa-chevron-down\",\"library\":\"fa-solid\"}",
+        "why": "chevron-down is the only indicator Elementor's own stylesheet down-sizes automatically (.sub-arrow .fas.fa-chevron-down{font-size:.7em}), so it costs the least width in a 0.7em uppercase menu."
+      },
+      {
+        "setting": "custom_css",
+        "from": "(unset)",
+        "to": "selector .elementor-nav-menu--main .sub-arrow{padding-inline-start:4px;}",
+        "why": "Elementor Pro ships .elementor-nav-menu .sub-arrow{padding:10px;padding-inline-end:0}. 10px of lead-in per parent item is too much for this menu. 4px keeps the bar from growing. Scoped to --main so the mobile dropdown keeps the roomier default. Spacing only — no colour, no font — so the global-styles rule is not touched."
+      }
+    ],
+    "indicator_key_left_in_place": "The legacy indicator:\"none\" key was NOT removed. It is not read by Elementor Pro 4.2.1, and deleting it is churn with no effect.",
+    "verified": "post-86551.css regenerated (19,373 bytes) and contains the custom rule. Rendering template 86551 server-side produces <span class=\"sub-arrow\"> on exactly the 4 parents with children — Web Design, Marketing, SEO/PPC, Company — as inline SVG (the e_font_icon_svg experiment is active and fas/chevron-down resolves from solid.json).",
+    "restore": "Read option o360_bu_86551_20260820 and write it back to _elementor_data on 86551 (wp_slash), then delete _elementor_css / _elementor_element_cache and regenerate."
+  },
+
+  "2_hipaa_click_data": {
+    "asked": "How many clicks does the HIPAA menu item get.",
+    "answer": "Could not be measured from here. No change made — HIPAA is still a top-level menu item.",
+    "why": "wp_rank_math_analytics_gsc and wp_rank_math_analytics_ga both exist but hold 0 rows, so Rank Math Analytics is not connected or not collecting. The Adspirer connector (Google Analytics / Search Console) is not available in this session. Microsoft Clarity is installed and active but stores nothing server-side.",
+    "where_the_data_is": "Clarity click map on the header element, or GA4 / Search Console for /products/hipaa/ page traffic."
+  },
+
+  "3_4_5_main_header_menu": {
+    "menu": "Main Header (term 2491)",
+    "backup_option": "o360_bu_menu2491_20260820",
+    "changes": [
+      { "item": 82298, "change": "renamed", "from": "About O360", "to": "Company", "method": "wp_update_post post_title only — every _menu_item_* meta row untouched, so the target (/about-us/, page 12599) is unchanged" },
+      { "item": 87923, "change": "created", "title": "About O360", "target": "/about-us/ (page 12599)", "parent": 82298, "order": 32, "type": "post_type/page" },
+      { "item": 87924, "change": "created", "title": "Products", "target": "/products/ (page 83110)", "parent": 82298, "order": 33, "type": "post_type/page" },
+      { "item": 31886, "change": "reordered", "from": 32, "to": 34 },
+      { "item": 31891, "change": "reordered", "from": 33, "to": 35 }
+    ],
+    "resulting_company_branch": ["Company -> /about-us/", "About O360 -> /about-us/", "Products -> /products/", "Contact Us -> /contact-us/", "Support -> /support/"],
+    "deliberate_duplicate": "Company and its first child both point at /about-us/. In Batch 91 the user deleted exactly this shape from the SEO/PPC dropdown (the 'Healthcare SEO' child duplicating its parent). It is intentional here: the whole point of this batch is that a dropdown parent's own destination is invisible to anyone who opens the submenu, so the destination is listed explicitly.",
+    "verified": "All 35 items resolve to a published post. Header template renders 'Company' with the chevron and the 4-item submenu.",
+    "restore": "Read o360_bu_menu2491_20260820; wp_delete_post(87923,true) and wp_delete_post(87924,true); set 82298 post_title back to 'About O360'; write the saved menu_order back to wp_posts for 31886 and 31891."
+  },
+
+  "6_products_page_rebuilt": {
+    "page": 83110,
+    "url": "https://o360.com/products/",
+    "backup_options": {
+      "_elementor_data": "o360_bu_83110_20260820 (68,070 bytes)",
+      "rank_math_robots": "o360_bu_83110_robots_20260820",
+      "redirect_row": "o360_bu_redirect1783_20260820",
+      "source_page_copied_from": "o360_bu_86671_20260820 (/websites/ hub, 25,561 bytes)"
+    },
+    "state_before": {
+      "post_status": "publish",
+      "rank_math_robots": ["noindex"],
+      "redirect": "Rank Math rule 1783, exact:products/ -> https://o360.com/web-design/ 301, active, 523 hits",
+      "effect": "The complete product list existed at no crawlable URL. Five of the six product pages had exactly one inbound internal link each, all from /web-design/."
+    },
+    "state_after": {
+      "rank_math_robots": ["index", "follow"],
+      "redirect": "rule 1783 set to status=inactive — the row and its 523 hits are preserved, not deleted",
+      "internal_links_on_page": 88
+    },
+    "sections_added": {
+      "where": "spliced in at index 3, after the hero and the stats band, before the existing pricing/inclusions content. Nothing was removed or reordered: 10 sections became 14.",
+      "list": [
+        { "id": "fd6a2ff", "title": "Products catalogue header", "content": "h2 'Our Products and Services' + Pre-Titles span 'Two Core Products, and Everything That Runs on Them'" },
+        { "id": "c4c6075", "title": "Web Design", "content": "h3 WEB DESIGN linking /web-design/, intro line, then the DENTAL / HEALTH / MEDICAL specialty grid cloned from /websites/ — 47 linked items" },
+        { "id": "f5f11d2", "title": "Marketing", "content": "h3 MARKETING linking /marketing/, intro line, then BY SPECIALTY (8) and BY CHANNEL (8) as two h4 sub-groups, 4+4 per column" },
+        { "id": "2c55bc4", "title": "Website Products", "content": "h3 WEBSITE PRODUCTS (no link — there is no hub), intro line, then the 6 product pages in two columns" }
+      ]
+    },
+    "layout_method": "The /websites/ hub (86671) was used as the literal source. Its container settings (b377238), 50% column (33d151a), inner row (b9b1f01), sub-column (82ca4e1), group heading (4087061), icon-list (c5a6c28) and header section (d72ff19 / 6155b4a / d66207e / 940fcaa) were cloned, so background colour, the pattern-organic overlay at 0.54 opacity with multiply blend, the 1400px boxed width, icon size 19, text indent 18 and 12px item spacing all carry across exactly. For the Web Design group the entire DENTAL+HEALTH and MEDICAL column subtrees were cloned rather than rebuilt, so all 47 specialty links keep their original labels, icons and order.",
+    "id_safety": "Every cloned node was re-IDed against the union of all element IDs on both pages. The result was checked for duplicates before saving — 143 unique IDs, zero collisions.",
+    "globals_used": {
+      "note": "No new Global Color or Global Font was created and none was modified. Every value references an existing custom global.",
+      "colors": {
+        "280a08c5": "White — all heading text",
+        "79960d2b": "Light 1 — icon-list text and intro text",
+        "3e77f8c3": "Blue 2 — icon-list icons",
+        "8e577f1": "Dark Blue 2 — section background",
+        "primary": "Dark Blue — product heading background",
+        "secondary": "Blue — icon-list text hover"
+      },
+      "typography": {
+        "9b77dcee": "Section Title (h2) Bold — catalogue header",
+        "b1592aad": "Pre-Titles — catalogue sub-line",
+        "78b2240a": "Paragraph Title (h3) — WEB DESIGN / MARKETING / WEBSITE PRODUCTS",
+        "a8a7c637": "Widget Title (h3) — DENTAL / HEALTH / MEDICAL / BY SPECIALTY / BY CHANNEL",
+        "a1introtx": "Intro Text — the one-line description under each product heading"
+      }
+    },
+    "one_deliberate_deviation_from_the_source": "On /websites/ the DENTAL / HEALTH / MEDICAL headings are h2. Here they are h4, because on this page they sit underneath an h3 product heading which sits underneath the h2 catalogue header. The global typography on them is unchanged (still 'Widget Title (h3)') — only the HTML tag differs, which CLAUDE.md rule 6 explicitly allows: choose the global style by its name, not by its tag. Final outline: h1 hero -> h2 catalogue header -> h3 product -> h4 sub-group.",
+    "icons": {
+      "mechanism": "Font Awesome Pro is loaded as a kit (option elementor_font_awesome_pro_kit_id). Elementor's e_font_icon_svg experiment is active, but its SVG map only covers Free (solid/regular/brands json), so 'fal' icons fall through to <i class=\"fal fa-x\"> and are swapped client-side by the kit. Verified identical markup on /websites/ and on the new sections.",
+      "reused_from_the_site": ["fal fa-tooth", "fal fa-stethoscope", "fal fa-spa", "fal fa-teeth-open", "fal fa-head-side-brain", "fal fa-bone", "fal fa-glasses", "fal fa-dog", "fal fa-search-location", "fal fa-search-plus", "fal fa-pencil-paintbrush", "fal fa-lock-alt", "fal fa-video-plus"],
+      "new_to_the_site": ["fal fa-search", "fal fa-ad", "fal fa-thumbs-up", "fal fa-star", "fal fa-robot", "fal fa-server", "fal fa-universal-access", "fal fa-mobile", "fal fa-pen-fancy"],
+      "caveat": "The nine new names are standard Font Awesome Pro Light icons, but the kit is resolved in the browser so this could not be confirmed server-side. Worth one look at the live page."
+    },
+    "verified_by_server_side_render": {
+      "heading_outline": "h2 Our Products and Services -> h3 WEB DESIGN -> h4 DENTAL / HEALTH / MEDICAL -> h3 MARKETING -> h4 BY SPECIALTY / BY CHANNEL -> h3 WEBSITE PRODUCTS",
+      "linked_icon_list_items": "69 total — 47 to /websites/*, 16 to /marketing/*, 6 to /products/*",
+      "heading_links": "WEB DESIGN -> /web-design/, MARKETING -> /marketing/, BY SPECIALTY -> /marketing/, BY CHANNEL -> /marketing/seo/, DENTAL -> /websites/dental/, MEDICAL -> /websites/medical/. HEALTH and WEBSITE PRODUCTS carry no link — HEALTH matches the source, WEBSITE PRODUCTS has no hub to point at."
+    },
+    "caches": "_elementor_element_cache and _elementor_css deleted, CSS regenerated via Elementor\\Core\\Files\\CSS\\Post::update() (129,656 bytes), rocket_clean_post(83110), and the /products/ rows removed from wp_wpr_rucss_used_css, wp_wpr_above_the_fold and wp_wpr_lazy_render_content. Rank Math's redirection cache table was emptied (7 rows) so rule 1783 stops firing immediately. rocket_clean_domain() was NOT called.",
+    "restore": "Write o360_bu_83110_20260820 back to _elementor_data on 83110 (wp_slash); set rank_math_robots back to [\"noindex\"]; UPDATE wp_rank_math_redirections SET status='active' WHERE id=1783; delete menu item 87924."
+  },
+
+  "note_on_page_caching": {
+    "finding": "Code snippet #13 'Pagely Compatibility - Disable WP Rocket Page Caching' is active and returns false for do_rocket_generate_caching_files. WP Rocket is therefore NOT the page-HTML cache on this site — Pagely's edge cache is.",
+    "consequence": "The header change (chevron + Company rename) affects every page on the site, and nothing that can be done from this connector purges Pagely. Pages will show the new header as their edge cache expires, or immediately after a Pagely purge from the host panel.",
+    "why_it_matters": "rocket_clean_post() calls in this and previous batches still do useful work on the used-CSS / above-the-fold / lazy-render tables, but they were never the thing serving cached HTML."
+  },
+
+  "not_done_flagged_for_user": {
+    "hipaa_menu_item": "Left exactly as it was. The move was conditional on click data that is not reachable from here.",
+    "products_page_seo_title": "Still 'What Comes With an O360 Healthcare Website | O360', and the h1 is still 'Everything That Comes With Your Website'. Both were written for a page about what is bundled into a website. The page is now the products-and-services catalogue and is indexable and in the nav, so both probably want rewording — not changed without approval.",
+    "web_design_and_marketing_hubs": "Unchanged. /marketing/ still links none of its specialty children in the page body and /web-design/ still keeps its specialty grid in section 23 of 24. The user is handling the product detail on those two pages plus About Us.",
+    "footer": "Still lists no product pages. A footer products column would give all six a site-wide internal link independently of the nav."
+  }
+}
