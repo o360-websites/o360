@@ -5800,3 +5800,70 @@ element carries additional repeater classes. The reliable check is to extract th
 
 **funeral-home** was set to `medical` as the closer of the two available options,
 but neither really fits a funeral home. Worth a look if that page matters.
+
+---
+
+## Batch 110 — 2026-08-18 — /websites/ hub made indexable; indexing audit
+
+**Backup:** option `o360_backup_noindex_20260818` — prior `rank_math_robots` and
+`rank_math_advanced_robots` for 86671 and 83110.
+
+### Changed
+
+**86671 "Websites by Specialty" (`/websites/`)** — `rank_math_robots` was
+`["noindex"]`, now `["index","follow"]`.
+
+This is the parent of all 46 specialty pages and is linked site-wide from the main
+nav as "Other Specialties", so being noindex meant it could neither rank nor pass
+signal down to its children. It was also absent from the sitemap as a result.
+
+Rank Math sitemap caches flushed (`Cache::invalidate_storage()`,
+`Cache_Watcher::invalidate_post()`), Rocket page cache purged.
+
+**Verified:** `/websites/` now serves
+`index, follow, max-snippet:-1, max-video-preview:-1, max-image-preview:large`,
+and the page sitemap went from **77 to 78 URLs** with `/websites/` present.
+
+### Deliberately not changed
+
+**83110 "Products"** — carries `noindex`, but `/products/` **301s to
+`/web-design/`**; the hub was retired (see
+`backups/2026-08-10-products-hub-retired.json`). The page never renders, so its
+robots value is moot and making it indexable would be wrong.
+
+### Indexing audit — current state
+
+| Page | Robots |
+|---|---|
+| `/pricing/` | **index, follow** — already correct, in sitemap |
+| `/packages/` | **index, follow** — already correct, in sitemap |
+| `/websites/` | fixed this batch |
+| `/products/` | 301 to `/web-design/` (retired) |
+| `/thank-you/` | nofollow, noindex — correct for a form confirmation page |
+| `/schedule/` | nofollow, noindex — correct |
+| `/dq/` | nofollow, noindex — internal |
+
+`/pricing/` was already indexable, so no change was needed there.
+
+### Related findings from the same audit (no changes made)
+
+- **robots.txt blocks no AI crawler** — no GPTBot, ClaudeBot, CCBot,
+  Google-Extended, PerplexityBot or anthropic-ai entries. The ban list is
+  scrapers and SEO tools only.
+- **Cloudflare bot settings could not be verified from this environment.** A
+  user-agent test was invalid: all eight agents returned 403 *including plain
+  Chrome and Googlebot*, which shows the session's egress IP is WAF-blocked
+  regardless of user-agent. The "Block AI Scrapers and Crawlers" toggle in the
+  Cloudflare Bots panel needs checking in the dashboard.
+- **Nothing strips query parameters.** `?Bing=`, `?utm_*`, `?gclid=`, `?src=`,
+  `?trk=` all returned 200 with the parameter intact across four page types.
+  Canonicals correctly point at the clean URL, which does not affect tracking.
+- **Conversion tags fire on `/thank-you/?Bing=Websites`** — `gtag(` x5,
+  `dataLayer` x3, Google Tag Manager, Clarity x2. `noindex` does not affect them.
+- **Open bug — redirect rule 1794.** Its `contains` patterns `.htm`, `.html`,
+  `.asp`, `.aspx`, `.jira`, `.tgz` match anywhere in the URL **including the
+  query string**, and the redirect preserves the query string, so the target
+  re-matches. Confirmed infinite loop: `?Bing=spring.html`, `?Bing=landing.htm`,
+  `?Bing=page.aspx`, `?Bing=form.asp`, `?Bing=data.tgz` all 301 to themselves
+  (curl gave up after 8 hops). `?Bing=Websites` and `?Bing=dental-2026` are fine.
+  Not fixed pending a decision on approach.
